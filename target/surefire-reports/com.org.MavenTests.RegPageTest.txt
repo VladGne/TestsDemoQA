@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: com.org.MavenTests.RegPageTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 25.845 sec <<< FAILURE! - in com.org.MavenTests.RegPageTest
+doCheckValidationTest(com.org.MavenTests.RegPageTest)  Time elapsed: 1.4 sec  <<< FAILURE!
+java.lang.AssertionError: 
+The following asserts failed:
+	Error: Date Fields Validation Failure!
+	at com.org.MavenTests.RegPageTest.doCheckValidationTest(RegPageTest.java:165)
+
