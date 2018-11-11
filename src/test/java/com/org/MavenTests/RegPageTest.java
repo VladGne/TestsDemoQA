@@ -1,167 +1,145 @@
 package com.org.MavenTests;
 
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.beans.Customizer;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
+import Models.User;
+import POM.LoginPage;
+
 public class RegPageTest {
 
 	public WebDriver driver;
-		
-		@BeforeSuite
+				
+		@BeforeTest
 		public void initionalBrowser() {
 			System.setProperty("webdriver.gecko.driver", "D:\\_Programs\\geckodriver.exe");
-			driver = new FirefoxDriver();	
-			driver.get("http://demoqa.com/registration/");			
+			driver = new FirefoxDriver();				
 		}
 					
-		@AfterSuite
+		@AfterTest
 		public void closeBrowser() {
-			driver.close();
+			//driver.close();
+			//driver.quit();
 		}
 		
-		@BeforeMethod
-		public void goToRegisterpage() {			
-			driver.navigate().refresh();
-		}				
-		
-		@DataProvider
-		/*Contain user data
-		 * [0] - Fist Name
-		 * [1] - Last Name
-		 * [2] - Phone Number
-		 * [3] - User Name
-		 * [4] - Email		
-		 * [5] - Description
-		 * [6] - Password
-		 * [7] - Confirm password
-		 * [8] - Country
-		 * [9] - Month
-		 * [10] - Day
-		 * [11] - Year
-		 * [12] - Marital Status
-		 * [13] - Hobby	 */
-		public Object[][] getUserData(){			
-			Object[][] userData = new Object[1][14];
+		// Create valid user
+		@DataProvider (name = "validUserData")
+		public Object[] getValidUserData(){
+			final String email = "test1@test.com1";
+			final String gender = "Male";
+			final String fistName = "TestFistName";
+			final String lastName = "TestLastName";
+			final String company = "TestCompany";
+			final String address = "TestAddress";
+			final String address2 = "TestAddress2"; 							// Additional address information
+			final String city = "Fortuna";
+			final String state = "5"; 											// Dropdown List have only values, so it is should be California 
+			final String country = "21";										// Dropdown List have only values, so it is should be USA
+			final String zipCode = "95540";
+			final String additionInformation = "TestAdditionalInformation";
+			final String homePhone = "7077259990";
+			final String mobilePhone = "9610000000";
+			final String addressAlias = "TestAddressAlias";	
+			final String password = "TestPassword1";
+			final String dayBirth = "11";
+			final String monthBirth = "11";
+			final String yearBirth = "1991";
 			
-			// Correct data set for registration
-			userData[0][0]="TestFistName";
-			userData[0][1]="TestLastName";			
-			userData[0][2]="89609685555";
-			userData[0][3]="TestUserName";
-			userData[0][4]="test@gmail.com";
-			userData[0][5]="TestDescriptionText";
-			userData[0][6]="TestPassword123";
-			userData[0][7]= userData[0][6];			
-			userData[0][8]="Germany";
-			userData[0][9]="2";
-			userData[0][10]="15";
-			userData[0][11]="1990";		
-			userData[0][12]="single";
-			userData[0][13]="dance";
-			
-			return userData;
+			User[] validUserData = new User[1]; 
+			validUserData[0] = new User();
+			validUserData[0].setEmail(email);
+			validUserData[0].setGender(gender);
+			validUserData[0].setFistName(fistName);
+			validUserData[0].setLastName(lastName);
+			validUserData[0].setAddress(address);
+			validUserData[0].setAddress2(address2);
+			validUserData[0].setAdditionInformation(additionInformation);
+			validUserData[0].setCountry(country);
+			validUserData[0].setCity(city);
+			validUserData[0].setState(state);
+			validUserData[0].setZipCode(zipCode);
+			validUserData[0].setCompany(company);
+			validUserData[0].setHomePhone(homePhone);
+			validUserData[0].setMobilePhone(mobilePhone);
+			validUserData[0].setAddressAlias(addressAlias);
+			validUserData[0].setPassword(password);
+			validUserData[0].setDayBirth(dayBirth);
+			validUserData[0].setMonthBirth(monthBirth);
+			validUserData[0].setYearBirth(yearBirth);
+			return validUserData;
 		}
-				
-		@DataProvider
-		/*Contain user contact data
-		 * [0] - Month
-		 * [1] - Day
-		 * [2] - Year
-		 * [3] - Phone number
-		 * [4] - Email		 * */
-		public Object[][] getContactData(){
-			Object[][] contactData = new Object[1][5];
+		
+		// Test case 1 - User registration with valid data
+		@Test (priority = 1, dataProvider="validUserData")
+		public void checkRegistration(Object userData){
+									
+			User user = (User) userData;
 			
-			// Incorrect data set
-			contactData[0][0]="2";
-			contactData[0][1]="31";
-			contactData[0][2]="1990";
-			contactData[0][3]="invalidtelnum";
-			contactData[0][4]="invalidmail";
+			LoginPage loginPage = LoginPage.open(driver);
+			
+			try {			
+				// Enter email to get access to registration page
+				loginPage.writeText(By.id(LoginPage.EMAIL_CREATION_TEXTBOX_LOCATOR), (user.getEmail()));			
+				loginPage.click(By.id(LoginPage.SUBMIT_BUTTON_LOCATOR));
+			}
+			
+			catch(Exception e) {
+				Assert.fail(e.toString());
+			}
 						
-			return contactData;
-		}
-		
-		// TestCase 1 - Registration main functional test		
-		@Test (priority = 1, dataProvider="getUserData")	
-		public void doRegistrationTest(String... userData) {
-			
-			String elementsId[] = {
-					"name_3_firstname","name_3_lastname","phone_9", "username", 
-					"email_1", "description", "password_2", "confirm_password_password_2", 
-					"dropdown_7", "mm_date_8", "dd_date_8", "yy_date_8"};
-			
+			// Wait for registration form
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			WebElement element = wait.until((WebDriver d) -> d.findElement(By.id(LoginPage.MALE_BUTTON_LOCATOR)));
+						
+			// Enter user data into registration form
 			try {
-				// Set data
-				for (int i=0; i<userData.length; i++) {//Textboxes			
-					if (i<8){
-						driver.findElement(By.id(elementsId[i])).sendKeys(userData[i]);
-						continue;
-					}							
-					
-					if(i>=8 && i<12) { //Dropdown lists
-						new Select(driver.findElement(By.id(elementsId[i]))).selectByVisibleText(userData[i]);
-						continue;
-					}						
-					
-					if(i>=12)	//Radio and check buttons
-						driver.findElement(By.cssSelector(String.format("input[value='%s']", userData[i]))).click();				
-				}
+				loginPage.click(By.id(LoginPage.MALE_BUTTON_LOCATOR));
+				loginPage.writeText(By.id(LoginPage.CUSTOMER_FISTNAME_TEXTBOX_LOCATOR), (user.getFistName()));
+				loginPage.writeText(By.id(LoginPage.CUSTOMER_LASTNAME_TEXTBOX_LOCATOR), (user.getLastName()));
+				//loginPage.writeText(By.id(LoginPage.EMAIL_TEXTBOX_LOCATOR), (user.getEmail()));
+				loginPage.writeText(By.id(LoginPage.PASSWORD_TEXTBOX_LOCATOR), (user.getPassword()));
+							
+				loginPage.selectItem(By.id(LoginPage.DAY_LOCATOR), user.getDayBirth());
+				loginPage.selectItem(By.id(LoginPage.MONTH_LOCATOR), user.getMonthBirth());
+				loginPage.selectItem(By.id(LoginPage.YEAR_LOCATOR), user.getYearBirth());
 				
-				//driver.findElement(By.cssSelector("input[value='Submit']")).click();			
-			}		
+				loginPage.click(By.id(LoginPage.NEWSLETTER_LOCATOR));
+				loginPage.click(By.id(LoginPage.OFFERS_LOCATOR));
+				
+				loginPage.writeText(By.id(LoginPage.COMPANY_TEXTBOX_LOCATOR), (user.getCompany()));
+				loginPage.writeText(By.id(LoginPage.ADDRESS_TEXTBOX_LOCATOR), (user.getAddress()));
+				loginPage.writeText(By.id(LoginPage.ADDRESS2_TEXTBOX_LOCATOR), (user.getAddress2()));
+				loginPage.writeText(By.id(LoginPage.CITY_TEXTBOX_LOCATOR), (user.getCity()));
+				
+				loginPage.selectItem(By.id(LoginPage.STATE_TEXTBOX_LOCATOR), user.getState());
+				loginPage.selectItem(By.id(LoginPage.COUNTRY_TEXTBOX_LOCATOR), user.getCountry());
+				
+				loginPage.writeText(By.id(LoginPage.ZIPCODE_TEXTBOX_LOCATOR), (user.getZipCode()));
+				loginPage.writeText(By.id(LoginPage.ADDITIONAL_INFORMATION_TEXTBOX_LOCATOR), (user.getAdditionInformation()));
+				loginPage.writeText(By.id(LoginPage.HOME_PHONE_TEXTBOX_LOCATOR), (user.getHomePhone()));
+				loginPage.writeText(By.id(LoginPage.MOBILE_PHONE_TEXTBOX_LOCATOR), (user.getMobilePhone()));
+				loginPage.writeText(By.id(LoginPage.ALIAS_TEXTBOX_LOCATOR), (user.getAddressAlias()));
+								
+				//loginPage.click(By.id(LoginPage.REGISTER_BUTTON_LOCATOR));
+			}
 			catch(Exception e){
 				Assert.fail(e.toString());
-			}	
-		}
-		
-		// TestCase 3 - Date, phone, email field validation test
-		@Test	(priority = 2, dataProvider="getContactData") 
-		public void doCheckValidationTest(String mounth, String day, String year, String phone, String email) {	
-		
-			SoftAssert softAssert = new SoftAssert();
-			
-			//Set date
-			new Select(driver.findElement(By.id("mm_date_8"))).selectByVisibleText(mounth);
-			new Select(driver.findElement(By.id("dd_date_8"))).selectByVisibleText(day);
-			new Select(driver.findElement(By.id("yy_date_8"))).selectByVisibleText(year);		
-												
-			try{				
-				softAssert.assertTrue(driver.findElement(By.className("legend_txt")).isDisplayed());
-			}
-			catch(Exception e) {			
-				softAssert.fail("Error: Date Fields Validation Failure!");
-			}	
-			
-			driver.findElement(By.id("phone_9")).sendKeys(phone);	// Set phone number 
-			driver.findElement(By.id("breadcrumbs")).click();	// Click on page header to see field validation
-			
-			try{				
-				softAssert.assertTrue(driver.findElement(By.className("legend_txt")).isDisplayed());
-			}
-			catch(Exception e) {				
-				softAssert.fail("Error: Phone Number Field Validation Failure!");
-			}		
-			
-			driver.findElement(By.id("email_1")).sendKeys(email);	// Set email
-			driver.findElement(By.id("breadcrumbs")).click();	// Click on page header to see field validation
-			
-			try{			
-				softAssert.assertTrue(driver.findElement(By.className("legend_txt")).isDisplayed());
-			}
-			catch(Exception e) {			
-				softAssert.fail("Error: Email Field Validation Failure!");
-			}
-			
-			softAssert.assertAll();
-		}	
+			}			
+		}				
 }

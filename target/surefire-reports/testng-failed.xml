@@ -5,8 +5,9 @@
     <classes>
       <class name="com.org.MavenTests.RegPageTest">
         <methods>
-          <include name="doCheckValidationTest" invocation-numbers="0"/>
+          <include name="doCheckValidationTest"/>
           <include name="initionalBrowser"/>
+          <include name="doRegistrationTest"/>
           <include name="closeBrowser"/>
           <include name="goToRegisterpage"/>
         </methods>
