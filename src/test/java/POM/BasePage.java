@@ -4,6 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class BasePage {
+	
+	//Classes
+	public static final String LOGOUT_BUTTON_LOCATOR = "logout"; 
+	public static final String LOGIN_BUTTON_LOCATOR = "login"; 
+	
 	public WebDriver driver;
 	
 	//Constructor

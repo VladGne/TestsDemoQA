@@ -1,0 +1,7 @@
+<suite name="TestSuite">
+	<test name="Registration page tests">
+		<classes>
+			<class name="com.org.MavenTests.RegPageTest" />
+		</classes>
+	</test>
+</suite>

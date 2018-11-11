@@ -3,13 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.org.MavenTests.RegPageTest">
+      <class name="com.org.MavenTests.UserProfileTests">
         <methods>
-          <include name="initionalBrowser"/>
-          <include name="checkRegistration" invocation-numbers="0"/>
           <include name="closeBrowser"/>
+          <include name="checkAddresses" invocation-numbers="0"/>
+          <include name="checkPrsonalInfo" invocation-numbers="0"/>
+          <include name="initionalBrowser"/>
         </methods>
-      </class> <!-- com.org.MavenTests.RegPageTest -->
+      </class> <!-- com.org.MavenTests.UserProfileTests -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

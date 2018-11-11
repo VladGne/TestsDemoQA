@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 public class LoginPage extends BasePage{
 	
 	// id
+	public static final String LOGIN_BUTTON_LOCATOR = "SubmitLogin"; 
 	public static final String SUBMIT_BUTTON_LOCATOR = "SubmitCreate"; 
 	public static final String EMAIL_CREATION_TEXTBOX_LOCATOR = "email_create";
 	public static final String REGISTRATION_FORM_LOCATOR = "email_create";
@@ -22,7 +23,7 @@ public class LoginPage extends BasePage{
 	public static final String NEWSLETTER_LOCATOR = "newsletter";
 	public static final String OFFERS_LOCATOR = "optin";
 	
-	public static final String FISTNAME_TEXTBOX_LOCATOR = "fistname";
+	public static final String FISTNAME_TEXTBOX_LOCATOR = "firstname";
 	public static final String LASTNAME_TEXTBOX_LOCATOR = "lastname";
 	public static final String COMPANY_TEXTBOX_LOCATOR = "company";
 	public static final String ADDRESS_TEXTBOX_LOCATOR = "address1";
