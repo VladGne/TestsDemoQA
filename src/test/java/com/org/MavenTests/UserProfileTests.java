@@ -85,7 +85,7 @@ public class UserProfileTests {
 			return validUserData;
 		}
 		
-		@Test (priority = 2, dataProvider="validUserData")
+		@Test (priority = 1, dataProvider="validUserData")
 		public void checkAddresses(Object userData) throws Exception{
 			User user = (User) userData;
 					
@@ -103,11 +103,18 @@ public class UserProfileTests {
 				logger.error("Can't login: " + e.toString());
 			}
 			
-			// Wait for profile form
-			WebDriverWait wait = new WebDriverWait(driver, 10);
-			WebElement element = wait.until((WebDriver d) -> d.findElement(By.className(ProfilePage.ADDRESSES_BUTTON_LOCATOR)));
+			try {
+				// Wait for profile form
+				WebDriverWait wait = new WebDriverWait(driver, 10);
+				WebElement element = wait.until((WebDriver d) -> d.findElement(By.className(ProfilePage.ADDRESSES_BUTTON_LOCATOR)));
+				
+				profilePage.click(By.className(ProfilePage.ADDRESSES_BUTTON_LOCATOR));
+			}
+			catch(Exception e) {
+				Assert.fail(e.toString());
+				logger.error("Profile form load error: " + e.toString());
+			}
 			
-			profilePage.click(By.className(ProfilePage.ADDRESSES_BUTTON_LOCATOR));
 			
 			if(!profilePage.readText(By.className(ProfilePage.NAME_LOCATOR)).equals(user.getFistName())) {
 				logger.error("names do not match");
@@ -147,10 +154,10 @@ public class UserProfileTests {
 				throw new Exception("mobile phone do not match");				
 			}
 			
-			//profilePage.click(By.className(BasePage.LOGIN_BUTTON_LOCATOR));
+			//profilePage.click(By.className(BasePage.LOGOUT_BUTTON_LOCATOR));
 		}
 		
-		@Test (priority = 1, dataProvider="validUserData")
+		@Test (priority = 2, dataProvider="validUserData")
 		public void checkPrsonalInfo(Object userData) throws Exception{
 			User user = (User) userData;
 					
