@@ -21,6 +21,30 @@ public class User {
 	private String monthBirth;
 	private String yearBirth;
 	
+	public static enum state{
+		Alabama,
+		Alaska,
+		Arizona,
+		Arkansas,
+		California,
+		Colorado,
+		Connecticut;
+	}
+	
+	public static enum monthBirth{
+		January,
+		February,
+		March,
+		April,
+		May,
+		June,
+		July,
+		August,
+		September,
+		October,
+		November,
+		December;
+	}
 	
 	public String getDayBirth() {
 		return dayBirth;
