@@ -2,6 +2,8 @@ package com.org.MavenTests;
 
 import static org.testng.Assert.expectThrows;
 
+import java.util.ArrayList;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +12,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -25,17 +29,17 @@ public class UserProfileTests {
 	private static final Logger logger = LoggerFactory.getLogger(RegPageTest.class); 	
 	public WebDriver driver;
 				
-		@BeforeTest
+		@BeforeSuite
 		public void initionalBrowser() {
 			System.setProperty("webdriver.gecko.driver", "D:\\_Programs\\geckodriver.exe");
 			driver = new FirefoxDriver();
 			logger.info("Test start!");
-		}
+		}	
 					
-		@AfterTest
+		@AfterSuite
 		public void closeBrowser() {
 			//driver.close();
-			//driver.quit();
+			driver.quit();
 			logger.info("Test end!");
 		}
 		
@@ -49,7 +53,7 @@ public class UserProfileTests {
 			final String address = "TestAddress";
 			final String address2 = "TestAddress2"; 							// Additional address information
 			final String city = "Fortuna";
-			final String state = "5"; 											// Dropdown List have only values, so it is should be California 
+			final String state = User.state.California.toString(); 			    // Dropdown List have only values, so it is should be California 
 			final String country = "21";										// Dropdown List have only values, so it is should be USA
 			final String zipCode = "95540";
 			final String additionInformation = "TestAdditionalInformation";
@@ -58,7 +62,7 @@ public class UserProfileTests {
 			final String addressAlias = "TestAddressAlias";	
 			final String password = "TestPassword1";
 			final String dayBirth = "11";
-			final String monthBirth = "11";
+			final String monthBirth = User.monthBirth.November.toString();
 			final String yearBirth = "1991";
 			
 			User[] validUserData = new User[1]; 
@@ -88,7 +92,7 @@ public class UserProfileTests {
 		@Test (priority = 1, dataProvider="validUserData")
 		public void checkAddresses(Object userData) throws Exception{
 			User user = (User) userData;
-					
+			
 			ProfilePage profilePage = ProfilePage.open(driver); // open login page
 			
 			try {			
@@ -114,8 +118,7 @@ public class UserProfileTests {
 				Assert.fail(e.toString());
 				logger.error("Profile form load error: " + e.toString());
 			}
-			
-			
+					
 			if(!profilePage.readText(By.className(ProfilePage.NAME_LOCATOR)).equals(user.getFistName())) {
 				logger.error("names do not match");
 				Assert.fail("names do not match");
@@ -123,6 +126,11 @@ public class UserProfileTests {
 			}
 			
 			// TODO: Check last name
+			//WebElement elem = driver.findElement(By.xpath("//li[@class='address_name']/li"));
+			//driver.findElements(By.className("address_name"));
+			//ArrayList<WebElement> elements =  new ArrayList<WebElement>();
+			
+			
 			
 			if(!profilePage.readText(By.className(ProfilePage.COMPANY_LOCATOR)).equals(user.getCompany())) {
 				logger.error("company do not match");
@@ -154,7 +162,18 @@ public class UserProfileTests {
 				throw new Exception("mobile phone do not match");				
 			}
 			
-			//profilePage.click(By.className(BasePage.LOGOUT_BUTTON_LOCATOR));
+			profilePage.click(By.className(BasePage.LOGOUT_BUTTON_LOCATOR));
+			
+			try {
+				// Wait for profile form
+				WebDriverWait wait = new WebDriverWait(driver, 10);
+				WebElement element = wait.until((WebDriver d) -> d.findElement(By.id(LoginPage.EMAIL_TEXTBOX_LOCATOR)));
+			}
+			catch(Exception e) {
+				Assert.fail(e.toString());
+				logger.error("Lpgin form load error: " + e.toString());
+			}
+			
 		}
 		
 		@Test (priority = 2, dataProvider="validUserData")
@@ -175,18 +194,25 @@ public class UserProfileTests {
 				logger.error("Can't login: " + e.toString());
 			}
 			
-			// Wait for profile form
-			WebDriverWait wait = new WebDriverWait(driver, 10);
-			WebElement element = wait.until((WebDriver d) -> d.findElement(By.className(ProfilePage.ADDRESSES_BUTTON_LOCATOR)));
-			
-			profilePage.click(By.className(ProfilePage.USER_BUTTON_LOCATOR));
+			try {
+				// Wait for profile form
+				WebDriverWait wait = new WebDriverWait(driver, 10);
+				WebElement element = wait.until((WebDriver d) -> d.findElement(By.className(ProfilePage.ADDRESSES_BUTTON_LOCATOR)));
+				
+				profilePage.click(By.className(ProfilePage.USER_BUTTON_LOCATOR));
+			}
+			catch(Exception e) {
+				Assert.fail(e.toString());
+				logger.error("Login form load error: " + e.toString());
+			}
 			
 			if(!profilePage.checkSelection(By.id(ProfilePage.MALE_BUTTON_LOCATOR))) {
 				logger.error("gender do not match");
 				Assert.fail("gender do not match");
 				throw new Exception("gender do not match");				
 			}
-			String txt = profilePage.readText(By.id(ProfilePage.FISTNAME_TEXTBOX_LOCATOR));
+			
+			//String txt = profilePage.readText(By.id(ProfilePage.FISTNAME_TEXTBOX_LOCATOR));
 			if(!profilePage.readText(By.id(ProfilePage.FISTNAME_TEXTBOX_LOCATOR)).equals(user.getFistName())) { // Doesn't read name
 				logger.error("fist name do not match");
 				Assert.fail("fist name do not match");
