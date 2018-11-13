@@ -38,6 +38,11 @@ public class LoginPage extends BasePage{
 	public static final String ALIAS_TEXTBOX_LOCATOR = "alias";
 	public static final String REGISTER_BUTTON_LOCATOR = "submitAccount";
 	
+	public static final String ERROR_MESSAGE_LOCATOR = "create_account_error";
+	
+	//Classes
+	public static final String ALERTS_LOCATOR = "alert-danger";
+	
 	public LoginPage(WebDriver driver) {
 		super(driver);
 	}
