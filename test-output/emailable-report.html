@@ -9,20 +9,17 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="7">Default suite</th></tr>
-<tr><td><a href="#t0">Default test</a></td><td class="num">0</td><td class="num">0</td><td class="num attn">2</td><td class="num">11 328</td><td></td><td></td></tr>
+<tr><td><a href="#t0">Default test</a></td><td class="num">4</td><td class="num">0</td><td class="num attn">1</td><td class="num">16 931</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="2">com.org.MavenTests.UserProfileTests</td><td><a href="#m0">checkAddresses</a></td><td rowspan="1">1541966772536</td><td rowspan="1">1184</td></tr><tr class="failedeven"><td><a href="#m1">checkPrsonalInfo</a></td><td rowspan="1">1541966766571</td><td rowspan="1">5962</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">com.org.MavenTests.RegPageTest</td><td><a href="#m0">checkRegistration</a></td><td rowspan="1">1542142848942</td><td rowspan="1">3209</td></tr><tr><th colspan="4">Default test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="4">com.org.MavenTests.RegPageTest</td><td><a href="#m1">checkEmailRepeat</a></td><td rowspan="1">1542142835246</td><td rowspan="1">3929</td></tr><tr class="passedeven"><td><a href="#m2">checkEmailValidations</a></td><td rowspan="1">1542142839177</td><td rowspan="1">1062</td></tr><tr class="passedeven"><td><a href="#m3">checkUpperLimits</a></td><td rowspan="1">1542142840243</td><td rowspan="1">4321</td></tr><tr class="passedeven"><td><a href="#m4">checkValidations</a></td><td rowspan="1">1542142844566</td><td rowspan="1">4375</td></tr></tbody>
 </table>
-<h2>Default test</h2><h3 id="m0">com.org.MavenTests.UserProfileTests#checkAddresses</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Models.User@2abc224d</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: org.openqa.selenium.NoSuchElementException: Unable to locate element: #email
+<h2>Default test</h2><h3 id="m0">com.org.MavenTests.RegPageTest#checkRegistration</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Models.User@da4cf09</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: org.openqa.selenium.NoSuchElementException: Cannot locate option with value: November
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
 Build info: version: &apos;3.12.0&apos;, revision: &apos;7c6e0b3&apos;, time: &apos;2018-05-08T15:15:03.216Z&apos;
 System info: host: &apos;LAGAN&apos;, ip: &apos;192.168.1.66&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;10.0.1&apos;
-Driver info: org.openqa.selenium.firefox.FirefoxDriver
-Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 62.0.3, javascriptEnabled: true, moz:accessibilityChecks: false, moz:headless: false, moz:processID: 2840, moz:profile: C:\Users\guin0\AppData\Loca..., moz:useNonSpecCompliantPointerOrigin: false, moz:webdriverClick: true, pageLoadStrategy: normal, platform: XP, platformName: XP, platformVersion: 10.0, rotatable: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}}
-Session ID: 1c420bca-9b49-4e92-bdbd-cacc731885d5
-*** Element info: {Using=id, value=email}
+Driver info: driver.version: unknown
 	at org.testng.Assert.fail(Assert.java:96)
-	at com.org.MavenTests.UserProfileTests.checkAddresses(UserProfileTests.java:102)
+	at com.org.MavenTests.RegPageTest.checkRegistration(RegPageTest.java:440)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -49,34 +46,9 @@ Session ID: 1c420bca-9b49-4e92-bdbd-cacc731885d5
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 </div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m1">com.org.MavenTests.UserProfileTests#checkPrsonalInfo</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Models.User@182b435b</td></tr><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: fist name do not match
-	at org.testng.Assert.fail(Assert.java:96)
-	at com.org.MavenTests.UserProfileTests.checkPrsonalInfo(UserProfileTests.java:186)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
-	at org.testng.internal.Invoker.invokeMethod(Invoker.java:580)
-	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:716)
-	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:988)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
-	at org.testng.TestRunner.privateRun(TestRunner.java:648)
-	at org.testng.TestRunner.run(TestRunner.java:505)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:364)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
-	at org.testng.TestNG.runSuites(TestNG.java:1049)
-	at org.testng.TestNG.run(TestNG.java:1017)
-	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
-</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m1">com.org.MavenTests.RegPageTest#checkEmailRepeat</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Models.User@6ebd78d1</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m2">com.org.MavenTests.RegPageTest#checkEmailValidations</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Models.User@15515c51</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m3">com.org.MavenTests.RegPageTest#checkUpperLimits</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Models.User@5b3f3ba0</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m4">com.org.MavenTests.RegPageTest#checkValidations</h3><table class="result"><tr class="param"><th>Parameter #1</th></tr><tr class="param stripe"><td>Models.User@59ed3e6c</td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>
