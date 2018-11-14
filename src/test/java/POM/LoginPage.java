@@ -58,4 +58,9 @@ public class LoginPage extends BasePage{
 		new Select(driver.findElement(elementLocator)).selectByValue(text);
 	}
 
+
+	public void selectItem(By elementLocator, int index) {
+		new Select(driver.findElement(elementLocator)).selectByIndex(index);
+	}
+
 }

@@ -30,7 +30,8 @@ public class RegPageTest {
 	
 	private static final Logger logger =  Logger.getLogger(RegPageTest.class);//LoggerFactory.getLogger(RegPageTest.class);
 	private WebDriver driver;
-				
+	SoftAssert softAssertion= new SoftAssert();
+
 		@BeforeSuite
 		public void initionalBrowser() {
 			System.setProperty("webdriver.gecko.driver", BasePage.DRIVER_PATH);
@@ -86,9 +87,9 @@ public class RegPageTest {
 				
 		// Test case 1 - User registration with valid data
 		@Test (priority = 3, dataProvider="validUserData")
-		public void checkUpperLimits(Object userData){
+		public void checkUpperLimits(User userData){
 											
-			User user = (User) userData;
+			User user = userData;
 					
 			LoginPage loginPage = LoginPage.open(driver);
 					
@@ -100,7 +101,7 @@ public class RegPageTest {
 					
 			catch(Exception e) {
 				logger.error("Can't get access to registration page: " + e.toString());
-				Assert.fail(e.toString());
+				softAssertion.fail("Can't get access to registration page: " + e.toString());
 			}
 								
 			try {
@@ -110,7 +111,7 @@ public class RegPageTest {
 			}
 			catch (Exception e) {
 				logger.error("Registration form loading error: " + e.toString());
-				Assert.fail(e.toString());
+				softAssertion.fail("Registration form loading error: " + e.toString());
 			}
 					
 								
@@ -137,10 +138,11 @@ public class RegPageTest {
 				loginPage.readText(By.className(LoginPage.ALERTS_LOCATOR));
 			}
 			catch(Exception e){			
-				logger.error("User's data input error:" + e.toString());
-				Assert.fail(e.toString());
+				logger.error("User's data input error: " + e.toString());
+				softAssertion.fail("User's data input error: " + e.toString());
 			}	
-					
+
+			softAssertion.assertAll();
 			//loginPage.click(By.className(BasePage.LOGIN_BUTTON_LOCATOR));
 		}					
 		
@@ -157,8 +159,8 @@ public class RegPageTest {
 		}
 				
 		@Test (priority = 1, dataProvider="repeatedUserEmail")
-		public void checkEmailRepeat(Object userData){
-			User user = (User) userData;
+		public void checkEmailRepeat(User userData){
+			User user = userData;
 			
 			LoginPage loginPage = LoginPage.open(driver);
 					
@@ -171,8 +173,10 @@ public class RegPageTest {
 					
 			catch(Exception e) {
 				logger.error("Email validation fail: " + e.toString());
-				Assert.fail(e.toString());
+				softAssertion.fail("Email validation fail: " + e.toString());
 			}
+
+			softAssertion.assertAll();
 		}
 		
 		// Create invalid user
@@ -188,8 +192,8 @@ public class RegPageTest {
 		}
 		
 		@Test (priority = 2, dataProvider="invalidUserEmail")
-		public void checkEmailValidations(Object userData){
-			User user = (User) userData;
+		public void checkEmailValidations(User userData){
+			User user =  userData;
 			
 			LoginPage loginPage = LoginPage.open(driver);
 			
@@ -206,16 +210,17 @@ public class RegPageTest {
 				}
 				catch (Exception e) {
 					logger.error("Registration form loading error: " + e.toString());
-					Assert.fail(e.toString());
+					softAssertion.fail("Registration form loading error: " + e.toString());
 				}
 			}
 			
 			catch(Exception e) {
 				logger.error("Email validation fail: " + e.toString());
-				Assert.fail(e.toString());
+				softAssertion.fail("Email validation fail: " + e.toString());
 			}
+
+			softAssertion.assertAll();
 		}
-		
 		
 		// Create invalid user
 		@DataProvider (name = "invalidUserData")
@@ -233,7 +238,7 @@ public class RegPageTest {
 			final String addressAlias = "1";	
 			final String password = "1";
 			final String dayBirth = "31";
-			final String monthBirth = "2";
+			final User.MonthBirth monthBirth = User.MonthBirth.November;
 			final String yearBirth = "2018";
 					
 			User[] invalidUserData = new User[1];					
@@ -258,8 +263,8 @@ public class RegPageTest {
 				
 		//Check date and phone number validation
 		@Test (priority = 3, dataProvider="invalidUserData")
-		public void checkValidations(Object userData){
-			User user = (User) userData;
+		public void checkValidations(User userData){
+			User user = userData;
 			
 			LoginPage loginPage = LoginPage.open(driver);
 			
@@ -271,7 +276,7 @@ public class RegPageTest {
 			
 			catch(Exception e) {
 				logger.error("Can't get access to registration page: " + e.toString());
-				Assert.fail(e.toString());
+				softAssertion.fail("Can't get access to registration page: " + e.toString());
 			}
 			
 			try {
@@ -281,7 +286,7 @@ public class RegPageTest {
 			}
 			catch (Exception e) {
 				logger.error("Registration form loading error: " + e.toString());
-				Assert.fail(e.toString());
+				softAssertion.fail("Registration form loading error: " + e.toString());
 			}
 			
 			// Enter user data into registration form
@@ -295,7 +300,7 @@ public class RegPageTest {
 				
 				// Enter Date of birth							
 				loginPage.selectItem(By.id(LoginPage.DAY_LOCATOR), user.getDayBirth());										
-				loginPage.selectItem(By.id(LoginPage.MONTH_LOCATOR), user.getMonthBirth());														
+				loginPage.selectItem(By.id(LoginPage.MONTH_LOCATOR), user.getMonthBirth().getValue());
 				loginPage.selectItem(By.id(LoginPage.YEAR_LOCATOR), user.getYearBirth());
 				
 				loginPage.writeText(By.id(LoginPage.ADDRESS_TEXTBOX_LOCATOR), (user.getAddress()));						// Enter address							
@@ -313,63 +318,25 @@ public class RegPageTest {
 				}
 			
 				catch(Exception e){			
-					logger.error("User's data input error:" + e.toString());
-					Assert.fail(e.toString());
-				}					
+					logger.error("User's data input error: " + e.toString());
+					softAssertion.fail("User's data input error: " + e.toString());
+				}
+				softAssertion.assertAll();
 		}	
 		
 		// Create valid user
 		@DataProvider (name = "validUserData")
 		public Object[] getValidUserData(){
-			final String email = "test2@test.com2";								//test1@test.com1 - for login
-			final String gender = "Male";
-			final String fistName = "TestFistName";
-			final String lastName = "TestLastName";
-			final String company = "TestCompany";
-			final String address = "TestAddress";
-			final String address2 = "TestAddress2"; 							// Additional address information
-			final String city = "Fortuna";
-			final String state = User.State.California.toString();; 											// Dropdown List have only values, so it is should be California
-			final String country = "21";										// Dropdown List have only values, so it is should be USA
-			final String zipCode = "95540";
-			final String additionInformation = "TestAdditionalInformation";
-			final String homePhone = "7077259990";
-			final String mobilePhone = "9610000000";
-			final String addressAlias = "TestAddressAlias";	
-			final String password = "TestPassword1";
-			final String dayBirth = "11";
-			final String monthBirth = User.monthBirth.November.toString();
-			final String yearBirth = "1991";
-			
-			User[] validUserData = new User[1]; 
+			User[] validUserData = new User[1];
 			validUserData[0] = new User();
-			validUserData[0].setEmail(email);
-			validUserData[0].setGender(gender);
-			validUserData[0].setFistName(fistName);
-			validUserData[0].setLastName(lastName);
-			validUserData[0].setAddress(address);
-			validUserData[0].setAddress2(address2);
-			validUserData[0].setAdditionInformation(additionInformation);
-			validUserData[0].setCountry(country);
-			validUserData[0].setCity(city);
-			validUserData[0].setState(state);
-			validUserData[0].setZipCode(zipCode);
-			validUserData[0].setCompany(company);
-			validUserData[0].setHomePhone(homePhone);
-			validUserData[0].setMobilePhone(mobilePhone);
-			validUserData[0].setAddressAlias(addressAlias);
-			validUserData[0].setPassword(password);
-			validUserData[0].setDayBirth(dayBirth);
-			validUserData[0].setMonthBirth(monthBirth);
-			validUserData[0].setYearBirth(yearBirth);
 			return validUserData;
 		}
 		
 		// Test case 1 - User registration with valid data
 		@Test (priority = 4, dataProvider="validUserData")
-		public void checkRegistration(Object userData){
+		public void checkRegistration(User userData){
 											
-			User user = (User) userData;
+			User user = userData;
 			
 			LoginPage loginPage = LoginPage.open(driver);
 			
@@ -381,7 +348,7 @@ public class RegPageTest {
 			
 			catch(Exception e) {
 				logger.error("Can't get access to registration page: " + e.toString());
-				Assert.fail(e.toString());
+				softAssertion.fail("Can't get access to registration page: " + e.toString());
 			}
 						
 			try {
@@ -391,7 +358,7 @@ public class RegPageTest {
 			}
 			catch (Exception e) {
 				logger.error("Registration form loading error: " + e.toString());
-				Assert.fail(e.toString());
+				softAssertion.fail("Registration form loading error: " + e.toString());
 			}
 			
 						
@@ -405,7 +372,7 @@ public class RegPageTest {
 				
 				// Enter Date of birth
 				loginPage.selectItem(By.id(LoginPage.DAY_LOCATOR), user.getDayBirth());			
-				loginPage.selectItem(By.id(LoginPage.MONTH_LOCATOR), user.getMonthBirth().valueOf(User.monthBirth.November));
+				loginPage.selectItem(By.id(LoginPage.MONTH_LOCATOR), user.getMonthBirth().getValue());
 				loginPage.selectItem(By.id(LoginPage.YEAR_LOCATOR), user.getYearBirth());
 				
 				// Optional check-boxes
@@ -417,11 +384,14 @@ public class RegPageTest {
 				loginPage.writeText(By.id(LoginPage.ADDRESS2_TEXTBOX_LOCATOR), (user.getAddress2()));					// Enter address addition information
 				loginPage.writeText(By.id(LoginPage.CITY_TEXTBOX_LOCATOR), (user.getCity()));							// Enter city
 								
-				loginPage.selectItem(By.id(LoginPage.COUNTRY_TEXTBOX_LOCATOR), user.getCountry());						// Choice Country
-				
+				loginPage.selectItem(By.id(LoginPage.COUNTRY_TEXTBOX_LOCATOR), user.getCountry().getValue());						// Choice Country
+
+
+
 				if ("United states".equals(loginPage.readText(By.id(LoginPage.COUNTRY_TEXTBOX_LOCATOR))))
-					loginPage.selectItem(By.id(LoginPage.STATE_TEXTBOX_LOCATOR), user.getState());							// Choice State
-				
+					//loginPage.selectItem(By.id(LoginPage.STATE_TEXTBOX_LOCATOR), user.getState().getValue());							// Choice State
+					loginPage.selectItem(By.id(LoginPage.STATE_TEXTBOX_LOCATOR), user.getState().getValue());
+
 				loginPage.writeText(By.id(LoginPage.ZIPCODE_TEXTBOX_LOCATOR), (user.getZipCode()));									// Enter Post code
 				loginPage.writeText(By.id(LoginPage.ADDITIONAL_INFORMATION_TEXTBOX_LOCATOR), (user.getAdditionInformation()));		// Enter addition information
 				loginPage.writeText(By.id(LoginPage.HOME_PHONE_TEXTBOX_LOCATOR), (user.getHomePhone()));							// Enter home phone
@@ -431,10 +401,11 @@ public class RegPageTest {
 				//loginPage.click(By.id(LoginPage.REGISTER_BUTTON_LOCATOR));
 			}
 			catch(Exception e){			
-				logger.error("User's data input error:" + e.toString());
-				Assert.fail(e.toString());
+				logger.error("User's data input error: " + e.toString());
+				softAssertion.fail("User's data input error: " + e.toString());
 			}	
-			
+
+			softAssertion.assertAll();
 			//loginPage.click(By.className(BasePage.LOGIN_BUTTON_LOCATOR));
 		}			
 		

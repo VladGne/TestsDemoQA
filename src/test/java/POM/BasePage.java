@@ -38,6 +38,10 @@ public class BasePage {
 	public String readText(By elementLocator) {
 		return driver.findElement(elementLocator).getText();
 	}
+
+	public String getValue(By elementLocator) {
+		return driver.findElement(elementLocator).getAttribute("value");
+	}
 }
 
 

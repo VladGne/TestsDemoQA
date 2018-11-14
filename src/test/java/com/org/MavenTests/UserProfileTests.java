@@ -1,5 +1,6 @@
 package com.org.MavenTests;
 
+import static POM.ProfilePage.DAY_LOCATOR;
 import static org.testng.Assert.expectThrows;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
@@ -22,12 +24,20 @@ import Models.User;
 import POM.BasePage;
 import POM.LoginPage;
 import POM.ProfilePage;
+import org.testng.asserts.SoftAssert;
 import org.testng.log4testng.Logger;
 
 public class UserProfileTests {
 	
 	private static final Logger logger = Logger.getLogger(RegPageTest.class); //LoggerFactory.getLogger(RegPageTest.class);
 	public WebDriver driver;
+
+	String fistName;
+	String lastName;
+	WebElement chosenMonth;
+	WebElement chosenDay;
+	WebElement chosenYear;
+	SoftAssert softAssertion= new SoftAssert();
 				
 		@BeforeSuite
 		public void initionalBrowser() {
@@ -46,46 +56,9 @@ public class UserProfileTests {
 		@DataProvider (name = "validUserData")
 		public Object[] getValidUserData(){
 			final String email = "test1@test.com1";								//test1@test.com1 - for login
-			final String gender = "Male";
-			final String fistName = "TestFistName";
-			final String lastName = "TestLastName";
-			final String company = "TestCompany";
-			final String address = "TestAddress";
-			final String address2 = "TestAddress2"; 							// Additional address information
-			final String city = "Fortuna";
-			final String state = User.State.California.toString(); 			    // Dropdown List have only values, so it is should be California
-			final String country = "21";										// Dropdown List have only values, so it is should be USA
-			final String zipCode = "95540";
-			final String additionInformation = "TestAdditionalInformation";
-			final String homePhone = "7077259990";
-			final String mobilePhone = "9610000000";
-			final String addressAlias = "TestAddressAlias";	
-			final String password = "TestPassword1";
-			final String dayBirth = "11";
-			final String monthBirth = User.monthBirth.November.toString();
-			final String yearBirth = "1991";
-			
 			User[] validUserData = new User[1]; 
 			validUserData[0] = new User();
 			validUserData[0].setEmail(email);
-			validUserData[0].setGender(gender);
-			validUserData[0].setFistName(fistName);
-			validUserData[0].setLastName(lastName);
-			validUserData[0].setAddress(address);
-			validUserData[0].setAddress2(address2);
-			validUserData[0].setAdditionInformation(additionInformation);
-			validUserData[0].setCountry(country);
-			validUserData[0].setCity(city);
-			validUserData[0].setState(state);
-			validUserData[0].setZipCode(zipCode);
-			validUserData[0].setCompany(company);
-			validUserData[0].setHomePhone(homePhone);
-			validUserData[0].setMobilePhone(mobilePhone);
-			validUserData[0].setAddressAlias(addressAlias);
-			validUserData[0].setPassword(password);
-			validUserData[0].setDayBirth(dayBirth);
-			validUserData[0].setMonthBirth(monthBirth);
-			validUserData[0].setYearBirth(yearBirth);
 			return validUserData;
 		}
 		
@@ -103,7 +76,7 @@ public class UserProfileTests {
 			}
 			
 			catch(Exception e) {
-				Assert.fail(e.toString());
+				softAssertion.fail("Login error: " + e.toString());
 				logger.error("Can't login: " + e.toString());
 			}
 
@@ -115,59 +88,54 @@ public class UserProfileTests {
 				profilePage.click(By.className(ProfilePage.ADDRESSES_BUTTON_LOCATOR));
 			}
 			catch(Exception e) {
-				Assert.fail(e.toString());
+				softAssertion.fail("Load form error: " + e.toString());
 				logger.error("Profile form load error: " + e.toString());
 			}
-					
-			if(!profilePage.readText(By.className(ProfilePage.NAME_LOCATOR)).equals(user.getFistName())) {
-				logger.error("names do not match");
-				Assert.fail("names do not match");
-				throw new Exception("names do not match");				
-			}
-			
-			// TODO: Check last name
+
+			// Check names
 			try{
 				List<WebElement> names = driver.findElements(By.xpath("//span[@class='address_name']"));
-				names.get(0);
-				for (WebElement name: names) {
-					System.out.println(name.getText());
-				}
+				fistName = names.get(0).getText();
+				lastName = names.get(1).getText();
 			}
 			catch(Exception e) {
-				Assert.fail(e.toString());
+				softAssertion.fail("Names list load error: " + e.toString());
 				logger.error("Names list load error: " + e.toString());
 			}
 
-			
+			if(!fistName.equals(user.getFistName())) {
+				logger.error("first name do not match");
+				softAssertion.fail("first name do not match");
+			}
+
+			if(!lastName.equals(user.getLastName())) {
+				logger.error("last name do not match");
+				softAssertion.fail("last name do not match");
+			}
 			
 			if(!profilePage.readText(By.className(ProfilePage.COMPANY_LOCATOR)).equals(user.getCompany())) {
 				logger.error("company do not match");
-				Assert.fail("company do not match");
-				throw new Exception("company do not match");				
+				softAssertion.fail("company do not match");
 			}
 			
 			if(!profilePage.readText(By.className(ProfilePage.ADDRESS1_LOCATOR)).equals(user.getAddress())) {
 				logger.error("address1 do not match");
-				Assert.fail("address1 do not match");
-				throw new Exception("address1 do not match");				
+				softAssertion.fail("address1 do not match");
 			}
 			
 			if(!profilePage.readText(By.className(ProfilePage.ADDRESS2_LOCATOR)).equals(user.getAddress2())) {
 				logger.error("address2 do not match");
-				Assert.fail("address2 do not match");
-				throw new Exception("address2 do not match");				
+				softAssertion.fail("address2 do not match");
 			}
 			
 			if(!profilePage.readText(By.className(ProfilePage.HOME_PHONE_LOCATOR)).equals(user.getHomePhone())) {
 				logger.error("home phone do not match");
-				Assert.fail("home phone do not match");
-				throw new Exception("home phone do not match");				
+				softAssertion.fail("home phone do not match");
 			}
 			
 			if(!profilePage.readText(By.className(ProfilePage.MOBILE_PHONE_LOCATOR)).equals(user.getMobilePhone())) {
 				logger.error("mobile phone do not match");
-				Assert.fail("mobile phone do not match");
-				throw new Exception("mobile phone do not match");				
+				softAssertion.fail("mobile phone do not match");
 			}
 			
 			profilePage.click(By.className(BasePage.LOGOUT_BUTTON_LOCATOR));
@@ -178,8 +146,8 @@ public class UserProfileTests {
 				WebElement element = wait.until((WebDriver d) -> d.findElement(By.id(LoginPage.EMAIL_TEXTBOX_LOCATOR)));
 			}
 			catch(Exception e) {
-				Assert.fail(e.toString());
-				logger.error("Lpgin form load error: " + e.toString());
+				softAssertion.fail("Login form load error: " + e.toString());
+				logger.error("Login form load error: " + e.toString());
 			}
 			
 		}
@@ -198,7 +166,7 @@ public class UserProfileTests {
 			}
 			
 			catch(Exception e) {
-				Assert.fail(e.toString());
+				softAssertion.fail("Can't login: " + e.toString());
 				logger.error("Can't login: " + e.toString());
 			}
 			
@@ -207,52 +175,103 @@ public class UserProfileTests {
 				WebDriverWait wait = new WebDriverWait(driver, 10);
 				WebElement element = wait.until((WebDriver d) -> d.findElement(By.className(ProfilePage.ADDRESSES_BUTTON_LOCATOR)));
 				
-				profilePage.click(By.className(ProfilePage.USER_BUTTON_LOCATOR));
+				profilePage.click(By.xpath(ProfilePage.USER_BUTTON_LOCATOR));
 			}
 			catch(Exception e) {
-				Assert.fail(e.toString());
+				softAssertion.fail("Login form load error: " + e.toString());
 				logger.error("Login form load error: " + e.toString());
 			}
 			
 			if(!profilePage.checkSelection(By.id(ProfilePage.MALE_BUTTON_LOCATOR))) {
 				logger.error("gender do not match");
-				Assert.fail("gender do not match");
-				throw new Exception("gender do not match");				
+				softAssertion.fail("gender do not match" );
 			}
 			
 			//String txt = profilePage.readText(By.id(ProfilePage.FISTNAME_TEXTBOX_LOCATOR));
-			if(!profilePage.readText(By.id(ProfilePage.FISTNAME_TEXTBOX_LOCATOR)).equals(user.getFistName())) { // Doesn't read name
+			if(!profilePage.getValue(By.id(ProfilePage.FISTNAME_TEXTBOX_LOCATOR)).equals(user.getFistName())) { // Doesn't read name
 				logger.error("fist name do not match");
-				Assert.fail("fist name do not match");
-				throw new Exception("fist name do not match");				
+				softAssertion.fail("fist name do not match" );
 			}
 			
-			if(!profilePage.readText(By.id(ProfilePage.LASTNAME_TEXTBOX_LOCATOR)).equals(user.getLastName())) {
+			if(!profilePage.getValue(By.id(ProfilePage.LASTNAME_TEXTBOX_LOCATOR)).equals(user.getLastName())) {
 				logger.error("last name do not match");
-				Assert.fail("last name do not match");
-				throw new Exception("last name do not match");				
+				softAssertion.fail("last name do not match");
 			}
 			
-			if(!profilePage.readText(By.id(ProfilePage.EMAIL_TEXTBOX_LOCATOR)).equals(user.getEmail())) {
+			if(!profilePage.getValue(By.id(ProfilePage.EMAIL_TEXTBOX_LOCATOR)).equals(user.getEmail())) {
 				logger.error("email do not match");
-				Assert.fail("email do not match");
-				throw new Exception("email do not match");				
+				softAssertion.fail("email do not match");
 			}
-			
-			if(!profilePage.readText(By.id(ProfilePage.DAY_LOCATOR)).equals(user.getDayBirth())) {
+
+			//new Select(driver.findElement(By.id(DAY_LOCATOR))).getAllSelectedOptions();
+
+			//Check day
+			try{
+				List<WebElement> days = new Select(driver.findElement(By.id(DAY_LOCATOR))).getAllSelectedOptions();
+				for (WebElement day : days)
+					if (day.isSelected())
+						chosenDay = day;
+			}
+			catch(Exception e) {
+				Assert.fail(e.toString());
+				logger.error("Days list load error: " + e.toString());
+			}
+			String txt = chosenDay.getText();
+			if(!chosenDay.getText().equals(user.getDayBirth())) {
 				logger.error("day of birth do not match");
 				Assert.fail("day of birth do not match");
 				throw new Exception("day of birth  do not match");				
 			}
-			
-			//TODO: Check month
-			
-			if(!profilePage.readText(By.id(ProfilePage.YEAR_LOCATOR)).equals(user.getYearBirth())) {
+
+			/*
+			//Check month
+			try{
+				List<WebElement> months = driver.findElements(By.xpath("//select[@id='months']"));
+				for (WebElement month : months)
+					if (month.isSelected())
+						chosenMonth = month;
+			}
+			catch(Exception e) {
+				Assert.fail(e.toString());
+				logger.error("Month list load error: " + e.toString());
+			}
+
+			if(!chosenMonth.getText().equals(user.getMonthBirth().toString())) {
 				logger.error("Year of birth do not match");
 				Assert.fail("Year of birth do not match");
-				throw new Exception("Year of birth  do not match");				
+				throw new Exception("Year of birth  do not match");
 			}
-			
+
+			//Check year
+			try{
+				List<WebElement> years = driver.findElements(By.xpath("//select[@id='years']"));
+				for (WebElement year : years)
+					if (year.isSelected())
+						chosenYear = year;
+			}
+			catch(Exception e) {
+				Assert.fail(e.toString());
+				logger.error("Month list load error: " + e.toString());
+			}
+
+			if(!chosenYear.getText().equals(user.getYearBirth())) {
+				logger.error("Year of birth do not match");
+				Assert.fail("Year of birth do not match");
+				throw new Exception("Year of birth  do not match");
+			}
+			*/
+
+			if (!driver.findElement(By.id(LoginPage.NEWSLETTER_LOCATOR)).isSelected()){
+				logger.error("Newsletter checkbox is'nt selected");
+				softAssertion.fail("Newsletter checkbox is'nt selected");
+			}
+
+			if (!driver.findElement(By.id(LoginPage.OFFERS_LOCATOR)).isSelected()){
+				logger.error("Newsletter checkbox is'nt selected");
+				softAssertion.fail("Newsletter checkbox is'nt selected");
+			}
+
+			softAssertion.assertAll();
 			//profilePage.click(By.className(BasePage.LOGIN_BUTTON_LOCATOR));
 		}
 }

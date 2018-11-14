@@ -7,10 +7,10 @@ public class ProfilePage extends BasePage{
 	
 	// Classes
 	public static final String ADDRESSES_BUTTON_LOCATOR = "icon-building"; 
-	public static final String USER_BUTTON_LOCATOR = "icon-user"; 
+	public static final String USER_BUTTON_LOCATOR = "//span[contains(text(),'My personal information')]";
 	public static final String NAME_LOCATOR = "address_name"; 
 	public static final String COMPANY_LOCATOR = "address_company"; 
-	public static final String ADDRESS1_LOCATOR = "address_address1"; 
+	public static final String ADDRESS1_LOCATOR = "address_address1";
 	public static final String ADDRESS2_LOCATOR = "address_address2"; 
 	public static final String HOME_PHONE_LOCATOR = "address_phone"; 
 	public static final String MOBILE_PHONE_LOCATOR = "address_phone_mobile"; 

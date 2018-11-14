@@ -13,45 +13,45 @@
     <session id="804489684">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.0" value="4" />
+          <entry key="project.closed" value="6" />
+          <entry key="project.open.time.0" value="5" />
           <entry key="project.open.time.11" value="1" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="class" value="8" />
-          <entry key="java" value="7" />
-          <entry key="xml" value="3" />
+          <entry key="class" value="10" />
+          <entry key="java" value="8" />
+          <entry key="xml" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="8" />
-          <entry key="JAVA" value="7" />
-          <entry key="XML" value="3" />
+          <entry key="CLASS" value="10" />
+          <entry key="JAVA" value="8" />
+          <entry key="XML" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="365" />
+          <entry key="java" value="1709" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="365" />
+          <entry key="JAVA" value="1709" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/org/MavenTests/RegPageTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="339" column="41" lean-forward="true" selection-start-line="339" selection-start-column="41" selection-end-line="339" selection-end-column="41" />
+            <state relative-caret-position="159">
+              <caret line="222" column="9" lean-forward="true" selection-start-line="222" selection-start-column="9" selection-end-line="222" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,21 +62,27 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/Models/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+            <state relative-caret-position="479">
+              <caret line="48" column="33" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="48" selection-end-column="33" />
               <folding>
-                <element signature="e#719#720#0" expanded="true" />
-                <element signature="e#748#749#0" expanded="true" />
+                <element signature="e#2412#2413#0" expanded="true" />
+                <element signature="e#2433#2434#0" expanded="true" />
+                <element signature="e#2743#2744#0" expanded="true" />
+                <element signature="e#2769#2770#0" expanded="true" />
+                <element signature="e#2902#2903#0" expanded="true" />
+                <element signature="e#2928#2929#0" expanded="true" />
+                <element signature="e#961#962#0" expanded="true" />
+                <element signature="e#983#984#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/org/MavenTests/UserProfileTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2860">
-              <caret line="53" column="64" selection-start-line="53" selection-start-column="64" selection-end-line="53" selection-end-column="64" />
+            <state relative-caret-position="326">
+              <caret line="220" column="58" lean-forward="true" selection-start-line="220" selection-start-column="58" selection-end-line="220" selection-end-column="58" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -85,17 +91,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/POM/ProfilePage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="192">
+              <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+              <folding>
+                <element signature="e#1330#1331#0" expanded="true" />
+                <element signature="e#1350#1351#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/POM/BasePage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="19" column="4" lean-forward="true" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+            <state relative-caret-position="276">
+              <caret line="31" column="16" lean-forward="true" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
               <folding>
-                <element signature="e#604#605#0" expanded="true" />
-                <element signature="e#653#654#0" expanded="true" />
-                <element signature="e#726#727#0" expanded="true" />
-                <element signature="e#782#783#0" expanded="true" />
-                <element signature="e#842#843#0" expanded="true" />
-                <element signature="e#900#901#0" expanded="true" />
+                <element signature="e#929#930#0" expanded="true" />
+                <element signature="e#987#988#0" expanded="true" />
+                <element signature="e#1034#1035#0" expanded="true" />
+                <element signature="e#1092#1093#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,8 +121,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/POM/LoginPage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+            <state relative-caret-position="198">
+              <caret line="23" column="45" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -119,10 +136,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/test/java/POM/BasePage.java" />
         <option value="$PROJECT_DIR$/src/test/java/Models/User.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/org/MavenTests/UserProfileTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/POM/LoginPage.java" />
+        <option value="$PROJECT_DIR$/src/test/java/POM/ProfilePage.java" />
+        <option value="$PROJECT_DIR$/src/test/java/POM/BasePage.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/org/MavenTests/RegPageTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/org/MavenTests/UserProfileTests.java" />
       </list>
     </option>
   </component>
@@ -135,17 +154,7 @@
   </component>
   <component name="MavenProjectNavigator">
     <treeState>
-      <expand>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="MavenTestsProject" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="MavenTestsProject" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
-        </path>
-      </expand>
+      <expand />
       <select />
     </treeState>
   </component>
@@ -217,7 +226,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../QATest" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -234,7 +243,39 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="TestNG.UserProfileTests.checkAddresses">
+  <component name="RunManager" selected="TestNG.UserProfileTests.checkPrsonalInfo">
+    <configuration name="RegPageTest (1)" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="MavenTestsProject (1)" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.org.MavenTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.org.MavenTests" />
+      <option name="MAIN_CLASS_NAME" value="com.org.MavenTests.RegPageTest" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RegPageTest (2)" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="MavenTestsProject (1)" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.org.MavenTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.org.MavenTests" />
+      <option name="MAIN_CLASS_NAME" value="com.org.MavenTests.RegPageTest" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RegPageTest" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
       <module name="MavenTestsProject (1)" />
       <extension name="coverage">
@@ -251,7 +292,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserProfileTests" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="RegPageTest.checkRegistration" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
       <module name="MavenTestsProject (1)" />
       <extension name="coverage">
         <pattern>
@@ -260,24 +301,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.org.MavenTests" />
-      <option name="MAIN_CLASS_NAME" value="com.org.MavenTests.UserProfileTests" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserProfileTests.checkAddresses (1)" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="MavenTestsProject (1)" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.org.MavenTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.org.MavenTests" />
-      <option name="MAIN_CLASS_NAME" value="com.org.MavenTests.UserProfileTests" />
-      <option name="METHOD_NAME" value="checkAddresses" />
+      <option name="MAIN_CLASS_NAME" value="com.org.MavenTests.RegPageTest" />
+      <option name="METHOD_NAME" value="checkRegistration" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -285,7 +310,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserProfileTests.checkAddresses (2)" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="UserProfileTests.checkPrsonalInfo" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
       <module name="MavenTestsProject (1)" />
       <extension name="coverage">
         <pattern>
@@ -295,25 +320,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.org.MavenTests" />
       <option name="MAIN_CLASS_NAME" value="com.org.MavenTests.UserProfileTests" />
-      <option name="METHOD_NAME" value="checkAddresses" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserProfileTests.checkAddresses" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="MavenTestsProject (1)" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.org.MavenTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.org.MavenTests" />
-      <option name="MAIN_CLASS_NAME" value="com.org.MavenTests.UserProfileTests" />
-      <option name="METHOD_NAME" value="checkAddresses" />
+      <option name="METHOD_NAME" value="checkPrsonalInfo" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -322,18 +329,18 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="TestNG.UserProfileTests.checkAddresses" />
-      <item itemvalue="TestNG.UserProfileTests" />
       <item itemvalue="TestNG.RegPageTest" />
-      <item itemvalue="TestNG.UserProfileTests.checkAddresses (1)" />
-      <item itemvalue="TestNG.UserProfileTests.checkAddresses (2)" />
+      <item itemvalue="TestNG.RegPageTest.checkRegistration" />
+      <item itemvalue="TestNG.RegPageTest (1)" />
+      <item itemvalue="TestNG.RegPageTest (2)" />
+      <item itemvalue="TestNG.UserProfileTests.checkPrsonalInfo" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="TestNG.UserProfileTests.checkAddresses" />
-        <item itemvalue="TestNG.UserProfileTests.checkAddresses (2)" />
-        <item itemvalue="TestNG.UserProfileTests.checkAddresses (1)" />
-        <item itemvalue="TestNG.UserProfileTests" />
+        <item itemvalue="TestNG.UserProfileTests.checkPrsonalInfo" />
+        <item itemvalue="TestNG.RegPageTest (2)" />
+        <item itemvalue="TestNG.RegPageTest (1)" />
+        <item itemvalue="TestNG.RegPageTest.checkRegistration" />
         <item itemvalue="TestNG.RegPageTest" />
       </list>
     </recent_temporary>
@@ -352,83 +359,81 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="RegPageTest - 2018.11.14 at 14h 23m 48s.xml">
+    <history-entry file="UserProfileTests_checkPrsonalInfo - 2018.11.14 at 20h 19m 28s.xml">
+      <configuration name="UserProfileTests.checkPrsonalInfo" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="UserProfileTests - 2018.11.14 at 20h 20m 10s.xml">
+      <configuration name="UserProfileTests" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="RegPageTest - 2018.11.14 at 20h 25m 10s.xml">
       <configuration name="RegPageTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserProfileTests - 2018.11.14 at 14h 26m 37s.xml">
-      <configuration name="UserProfileTests" configurationId="TestNG" />
+    <history-entry file="RegPageTest_checkRegistration - 2018.11.14 at 20h 25m 53s.xml">
+      <configuration name="RegPageTest.checkRegistration" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserProfileTests - 2018.11.14 at 14h 28m 27s.xml">
-      <configuration name="UserProfileTests" configurationId="TestNG" />
+    <history-entry file="RegPageTest_checkRegistration - 2018.11.14 at 20h 28m 27s.xml">
+      <configuration name="RegPageTest.checkRegistration" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserProfileTests - 2018.11.14 at 14h 29m 57s.xml">
-      <configuration name="UserProfileTests" configurationId="TestNG" />
+    <history-entry file="RegPageTest_checkRegistration - 2018.11.14 at 20h 29m 18s.xml">
+      <configuration name="RegPageTest.checkRegistration" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserProfileTests_checkAddresses - 2018.11.14 at 14h 33m 07s.xml">
-      <configuration name="UserProfileTests.checkAddresses" configurationId="TestNG" />
+    <history-entry file="RegPageTest_(1) - 2018.11.14 at 20h 32m 35s.xml">
+      <configuration name="RegPageTest (1)" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserProfileTests_checkAddresses_(1) - 2018.11.14 at 14h 34m 17s.xml">
-      <configuration name="UserProfileTests.checkAddresses (1)" configurationId="TestNG" />
+    <history-entry file="RegPageTest_(2) - 2018.11.14 at 20h 33m 02s.xml">
+      <configuration name="RegPageTest (2)" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserProfileTests_checkAddresses - 2018.11.14 at 14h 40m 49s.xml">
-      <configuration name="UserProfileTests.checkAddresses" configurationId="TestNG" />
+    <history-entry file="UserProfileTests_checkPrsonalInfo - 2018.11.14 at 21h 10m 34s.xml">
+      <configuration name="UserProfileTests.checkPrsonalInfo" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserProfileTests_checkAddresses - 2018.11.14 at 14h 41m 22s.xml">
-      <configuration name="UserProfileTests.checkAddresses" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="UserProfileTests_checkAddresses_(2) - 2018.11.14 at 14h 42m 52s.xml">
-      <configuration name="UserProfileTests.checkAddresses (2)" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="UserProfileTests_checkAddresses - 2018.11.14 at 14h 48m 56s.xml">
-      <configuration name="UserProfileTests.checkAddresses" configurationId="TestNG" />
+    <history-entry file="UserProfileTests_checkPrsonalInfo - 2018.11.14 at 21h 16m 07s.xml">
+      <configuration name="UserProfileTests.checkPrsonalInfo" configurationId="TestNG" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13326226" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13432837" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" weight="0.329718" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.329718" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.18329719" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.32104123" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.329718" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
-      <window_info anchor="right" id="Maven Projects" order="5" visible="true" weight="0.035181236" />
+      <window_info anchor="right" id="Maven Projects" order="5" visible="true" weight="0.034648187" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/org/MavenTests/UserProfileTests.java</url>
+          <line>218</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/testng.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/POM/ProfilePage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
-          <folding>
-            <element signature="e#1330#1331#0" expanded="true" />
-            <element signature="e#1350#1351#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://F:/Programs/JDK/src.zip!/java/util/function/Function.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
@@ -461,9 +466,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="431">
           <caret line="53" selection-start-line="53" selection-end-line="53" />
-          <folding>
-            <element signature="e#2034#2035#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -471,17 +473,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
           <caret line="889" column="37" lean-forward="true" selection-start-line="889" selection-start-column="37" selection-end-line="889" selection-end-column="37" />
-          <folding>
-            <element signature="e#32680#32681#0" expanded="true" />
-            <element signature="e#32726#32727#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.14.2/testng-6.14.2.jar!/org/testng/internal/Invoker.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="864" selection-start-line="864" selection-end-line="864" />
         </state>
       </provider>
     </entry>
@@ -492,53 +483,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/POM/LoginPage.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/POM/BasePage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+        <state relative-caret-position="276">
+          <caret line="31" column="16" lean-forward="true" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
+          <folding>
+            <element signature="e#929#930#0" expanded="true" />
+            <element signature="e#987#988#0" expanded="true" />
+            <element signature="e#1034#1035#0" expanded="true" />
+            <element signature="e#1092#1093#0" expanded="true" />
+          </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.14.2/testng-6.14.2.jar!/org/testng/internal/Invoker.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="449" selection-start-line="449" selection-end-line="449" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/POM/ProfilePage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+          <folding>
+            <element signature="e#1330#1331#0" expanded="true" />
+            <element signature="e#1350#1351#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/POM/LoginPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="23" column="45" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.14.2/testng-6.14.2.jar!/org/testng/Assert.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
+          <folding>
+            <element signature="e#1378#1379#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testng.xml">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/Models/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="16" column="32" lean-forward="true" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+        <state relative-caret-position="479">
+          <caret line="48" column="33" lean-forward="true" selection-start-line="24" selection-start-column="4" selection-end-line="48" selection-end-column="33" />
           <folding>
-            <element signature="e#719#720#0" expanded="true" />
-            <element signature="e#748#749#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/POM/BasePage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="19" column="4" lean-forward="true" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
-          <folding>
-            <element signature="e#604#605#0" expanded="true" />
-            <element signature="e#653#654#0" expanded="true" />
-            <element signature="e#726#727#0" expanded="true" />
-            <element signature="e#782#783#0" expanded="true" />
-            <element signature="e#842#843#0" expanded="true" />
-            <element signature="e#900#901#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/org/MavenTests/UserProfileTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2860">
-          <caret line="53" column="64" selection-start-line="53" selection-start-column="64" selection-end-line="53" selection-end-column="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2412#2413#0" expanded="true" />
+            <element signature="e#2433#2434#0" expanded="true" />
+            <element signature="e#2743#2744#0" expanded="true" />
+            <element signature="e#2769#2770#0" expanded="true" />
+            <element signature="e#2902#2903#0" expanded="true" />
+            <element signature="e#2928#2929#0" expanded="true" />
+            <element signature="e#961#962#0" expanded="true" />
+            <element signature="e#983#984#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/org/MavenTests/RegPageTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="339" column="41" lean-forward="true" selection-start-line="339" selection-start-column="41" selection-end-line="339" selection-end-column="41" />
+        <state relative-caret-position="159">
+          <caret line="222" column="9" lean-forward="true" selection-start-line="222" selection-start-column="9" selection-end-line="222" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/org/MavenTests/UserProfileTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="220" column="58" lean-forward="true" selection-start-line="220" selection-start-column="58" selection-end-line="220" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
