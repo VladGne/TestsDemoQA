@@ -4,7 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class BasePage {
-	
+
+	public static final String DRIVER_PATH = "F:\\Programs\\GekoDriver\\geckodriver.exe";
+
 	//Classes
 	public static final String LOGOUT_BUTTON_LOCATOR = "logout"; 
 	public static final String LOGIN_BUTTON_LOCATOR = "login"; 

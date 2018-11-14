@@ -2,8 +2,8 @@ package com.org.MavenTests;
 
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 import java.beans.Customizer;
 
@@ -24,15 +24,16 @@ import org.testng.asserts.SoftAssert;
 import Models.User;
 import POM.BasePage;
 import POM.LoginPage;
+import org.testng.log4testng.Logger;
 
 public class RegPageTest {
 	
-	private static final Logger logger = LoggerFactory.getLogger(RegPageTest.class); 	
+	private static final Logger logger =  Logger.getLogger(RegPageTest.class);//LoggerFactory.getLogger(RegPageTest.class);
 	private WebDriver driver;
 				
 		@BeforeSuite
 		public void initionalBrowser() {
-			System.setProperty("webdriver.gecko.driver", "D:\\_Programs\\geckodriver.exe");
+			System.setProperty("webdriver.gecko.driver", BasePage.DRIVER_PATH);
 			driver = new FirefoxDriver();
 			logger.info("Test start!");
 		}
@@ -68,24 +69,18 @@ public class RegPageTest {
 			User[] validUserData = new User[1]; 
 			validUserData[0] = new User();
 			validUserData[0].setEmail(email);
-			validUserData[0].setGender(gender);
 			validUserData[0].setFistName(fistName);
 			validUserData[0].setLastName(lastName);
 			validUserData[0].setAddress(address);
 			validUserData[0].setAddress2(address2);
 			validUserData[0].setAdditionInformation(additionInformation);
-			validUserData[0].setCountry(country);
 			validUserData[0].setCity(city);
-			validUserData[0].setState(state);
 			validUserData[0].setZipCode(zipCode);
 			validUserData[0].setCompany(company);
 			validUserData[0].setHomePhone(homePhone);
 			validUserData[0].setMobilePhone(mobilePhone);
 			validUserData[0].setAddressAlias(addressAlias);
 			validUserData[0].setPassword(password);
-			validUserData[0].setDayBirth(dayBirth);
-			validUserData[0].setMonthBirth(monthBirth);
-			validUserData[0].setYearBirth(yearBirth);
 			return validUserData;
 		}
 				
@@ -334,7 +329,7 @@ public class RegPageTest {
 			final String address = "TestAddress";
 			final String address2 = "TestAddress2"; 							// Additional address information
 			final String city = "Fortuna";
-			final String state = User.state.California.toString();; 											// Dropdown List have only values, so it is should be California 
+			final String state = User.State.California.toString();; 											// Dropdown List have only values, so it is should be California
 			final String country = "21";										// Dropdown List have only values, so it is should be USA
 			final String zipCode = "95540";
 			final String additionInformation = "TestAdditionalInformation";

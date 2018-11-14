@@ -64,6 +64,14 @@
           <mainClass>com.example.Main</mainClass>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>8</source>
+          <target>8</target>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <dependencies>
@@ -82,6 +90,30 @@
           <groupId>org.apache-extras.beanshell</groupId>
         </exclusion>
       </exclusions>
+    </dependency>
+      <dependency>
+          <groupId>org.testng</groupId>
+          <artifactId>testng</artifactId>
+          <version>RELEASE</version>
+          <scope>test</scope>
+      </dependency>
+    <dependency>
+      <groupId>com.org.MavenTests</groupId>
+      <artifactId>MavenTestsProject</artifactId>
+      <version>1-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+      <dependency>
+          <groupId>com.org.MavenTests</groupId>
+          <artifactId>MavenTestsProject</artifactId>
+          <version>1-SNAPSHOT</version>
+          <scope>test</scope>
+      </dependency>
+    <dependency>
+      <groupId>com.org.MavenTests</groupId>
+      <artifactId>MavenTestsProject</artifactId>
+      <version>1-SNAPSHOT</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   <properties>

@@ -3,14 +3,13 @@ package com.org.MavenTests;
 import static org.testng.Assert.expectThrows;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
@@ -23,15 +22,16 @@ import Models.User;
 import POM.BasePage;
 import POM.LoginPage;
 import POM.ProfilePage;
+import org.testng.log4testng.Logger;
 
 public class UserProfileTests {
 	
-	private static final Logger logger = LoggerFactory.getLogger(RegPageTest.class); 	
+	private static final Logger logger = Logger.getLogger(RegPageTest.class); //LoggerFactory.getLogger(RegPageTest.class);
 	public WebDriver driver;
 				
 		@BeforeSuite
 		public void initionalBrowser() {
-			System.setProperty("webdriver.gecko.driver", "D:\\_Programs\\geckodriver.exe");
+			System.setProperty("webdriver.gecko.driver", BasePage.DRIVER_PATH);
 			driver = new FirefoxDriver();
 			logger.info("Test start!");
 		}	
@@ -53,7 +53,7 @@ public class UserProfileTests {
 			final String address = "TestAddress";
 			final String address2 = "TestAddress2"; 							// Additional address information
 			final String city = "Fortuna";
-			final String state = User.state.California.toString(); 			    // Dropdown List have only values, so it is should be California 
+			final String state = User.State.California.toString(); 			    // Dropdown List have only values, so it is should be California
 			final String country = "21";										// Dropdown List have only values, so it is should be USA
 			final String zipCode = "95540";
 			final String additionInformation = "TestAdditionalInformation";
@@ -106,7 +106,7 @@ public class UserProfileTests {
 				Assert.fail(e.toString());
 				logger.error("Can't login: " + e.toString());
 			}
-			
+
 			try {
 				// Wait for profile form
 				WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -126,10 +126,18 @@ public class UserProfileTests {
 			}
 			
 			// TODO: Check last name
-			//WebElement elem = driver.findElement(By.xpath("//li[@class='address_name']/li"));
-			//driver.findElements(By.className("address_name"));
-			//ArrayList<WebElement> elements =  new ArrayList<WebElement>();
-			
+			try{
+				List<WebElement> names = driver.findElements(By.xpath("//span[@class='address_name']"));
+				names.get(0);
+				for (WebElement name: names) {
+					System.out.println(name.getText());
+				}
+			}
+			catch(Exception e) {
+				Assert.fail(e.toString());
+				logger.error("Names list load error: " + e.toString());
+			}
+
 			
 			
 			if(!profilePage.readText(By.className(ProfilePage.COMPANY_LOCATOR)).equals(user.getCompany())) {

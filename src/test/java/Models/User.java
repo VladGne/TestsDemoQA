@@ -21,14 +21,19 @@ public class User {
 	private String monthBirth;
 	private String yearBirth;
 	
-	public static enum state{
-		Alabama,
-		Alaska,
-		Arizona,
-		Arkansas,
-		California,
-		Colorado,
-		Connecticut;
+	public static enum State{
+		Alabama(1),
+		Alaska(2),
+		Arizona(3),
+		Arkansas(4),
+		California(5),
+		Colorado(6),
+		Connecticut(7);
+
+		int value;
+		State(int value){
+				this.value = value;
+		}
 	}
 	
 	public static enum monthBirth{
