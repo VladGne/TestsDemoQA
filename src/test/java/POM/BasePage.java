@@ -10,7 +10,7 @@ public class BasePage {
 	//Classes
 	public static final String LOGOUT_BUTTON_LOCATOR = "logout"; 
 	public static final String LOGIN_BUTTON_LOCATOR = "login"; 
-	
+	public static int waiterTime = 10;
 	public WebDriver driver;
 	
 	//Constructor

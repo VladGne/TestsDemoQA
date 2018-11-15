@@ -37,9 +37,32 @@ public class LoginPage extends BasePage{
 	public static final String MOBILE_PHONE_TEXTBOX_LOCATOR = "phone_mobile";
 	public static final String ALIAS_TEXTBOX_LOCATOR = "alias";
 	public static final String REGISTER_BUTTON_LOCATOR = "submitAccount";
-	
+
 	public static final String ERROR_MESSAGE_LOCATOR = "create_account_error";
-	
+
+	//Alert texts
+	public static final String MAX_LAST_NAME_MESSAGE = "lastname is too long. Maximum length: 32";
+	public static final String MAX_FIRST_NAME_MESSAGE = "firstname is too long. Maximum length: 32";
+	public static final String MAX_PASSWORD_MESSAGE = "passwd is too long. Maximum length: 32";
+	public static final String MAX_ALIAS_MESSAGE = "alias is too long. Maximum length: 32";
+	public static final String MAX_ADDRESS1_MESSAGE = "address1 is too long. Maximum length: 128";
+	public static final String MAX_ADDRESS2_MESSAGE = "address2 is too long. Maximum length: 128";
+	public static final String MAX_POSTCODE_MESSAGE = "postcode is too long. Maximum length: 12";
+	public static final String MAX_ADDITION_INFO_MESSAGE = "other is too long. Maximum length: 300";
+	public static final String MAX_HOME_PHONE_MESSAGE = "phone is too long. Maximum length: 32";
+	public static final String MAX_MOBILE_PHONE_MESSAGE = "phone_mobile is too long. Maximum length: 32";
+
+	public static final String INVALID_EMAIL_MESSAGE = "Invalid email address.";
+	public static final String INVALID_FIRST_NAME_MESSAGE = "firstname is invalid.";
+	public static final String INVALID_LAST_NAME_MESSAGE = "lastname is invalid.";
+	public static final String INVALID_PASSWORD_MESSAGE = "passwd is invalid.";
+	public static final String INVALID_POSTCODE_MESSAGE = "The Zip/Postal code you've entered is invalid. It must follow this format: 00000";
+	public static final String INVALID_STATE_MESSAGE = "This country requires you to choose a State";
+	public static final String INVALID_DATE_MESSAGE = "Invalid date of birth";
+	public static final String INVALID_COUNTRY_MESSAGE = "Country is invalid";
+	public static final String REPEATED_EMAIL_MESSAGE = "An account using this email address has already been registered. Please enter a valid password or request a new one.";
+
+
 	//Classes
 	public static final String ALERTS_LOCATOR = "alert-danger";
 	

@@ -84,7 +84,7 @@ public class UserProfileTests {
 
 			try {
 				// Wait for profile form
-				WebDriverWait wait = new WebDriverWait(driver, 10);
+				WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
 				WebElement element = wait.until((WebDriver d) -> d.findElement(By.className(ProfilePage.ADDRESSES_BUTTON_LOCATOR)));
 				
 				profilePage.click(By.className(ProfilePage.ADDRESSES_BUTTON_LOCATOR));
@@ -144,7 +144,7 @@ public class UserProfileTests {
 			
 			try {
 				// Wait for profile form
-				WebDriverWait wait = new WebDriverWait(driver, 10);
+				WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
 				WebElement element = wait.until((WebDriver d) -> d.findElement(By.id(LoginPage.EMAIL_TEXTBOX_LOCATOR)));
 			}
 			catch(Exception e) {
@@ -174,7 +174,7 @@ public class UserProfileTests {
 			
 			try {
 				// Wait for profile form
-				WebDriverWait wait = new WebDriverWait(driver, 10);
+				WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
 				WebElement element = wait.until((WebDriver d) -> d.findElement(By.className(ProfilePage.ADDRESSES_BUTTON_LOCATOR)));
 				
 				profilePage.click(By.xpath(ProfilePage.USER_BUTTON_LOCATOR));
