@@ -64,6 +64,40 @@ public class User {
 		this.yearBirth = yearBirth;
 	}
 
+	public User(String invalidValue){
+
+		// Valid consts
+		final String gender = "Male";
+		final String yearBirth = "1991";
+		final User.State state = User.State.California; 											// Dropdown List have only values, so it is should be California
+		final User.Country country =  User.Country.UnitedStates;
+
+		// Invalid consts
+		final String dayBirth = "31";
+		final User.MonthBirth monthBirth = MonthBirth.February;
+
+		this.gender = gender;
+		this.country = country;
+		this.state = state;
+		this.dayBirth = dayBirth;
+		this.monthBirth = monthBirth;
+		this.yearBirth = yearBirth;
+
+		this.email = invalidValue;
+		this.fistName = invalidValue;
+		this.lastName = invalidValue;
+		this.address = invalidValue;
+		this.address2 = invalidValue;
+		this.additionInformation = invalidValue;
+		this.city = invalidValue;
+		this.zipCode = invalidValue;
+		this.company = invalidValue;
+		this.homePhone = invalidValue;
+		this.mobilePhone = invalidValue;
+		this.addressAlias = invalidValue;
+		this.password = invalidValue;
+	}
+
 	public static enum State{
 		Alabama(1),
 		Alaska(2),
