@@ -1,6 +1,8 @@
 package com.org.MavenTests;
 
 import static POM.ProfilePage.DAY_LOCATOR;
+import static POM.ProfilePage.MONTH_LOCATOR;
+import static POM.ProfilePage.YEAR_LOCATOR;
 import static org.testng.Assert.expectThrows;
 
 import java.util.ArrayList;
@@ -213,53 +215,52 @@ public class UserProfileTests {
 						chosenDay = day;
 			}
 			catch(Exception e) {
-				Assert.fail(e.toString());
+				softAssertion.fail("Days list load error: " + e.toString());
 				logger.error("Days list load error: " + e.toString());
 			}
-			String txt = chosenDay.getText();
-			if(!chosenDay.getText().equals(user.getDayBirth())) {
+
+			String[] day = chosenDay.getText().split(" ");
+			if(!day[0].equals(user.getDayBirth())) {
 				logger.error("day of birth do not match");
-				Assert.fail("day of birth do not match");
-				throw new Exception("day of birth  do not match");				
+				softAssertion.fail("day of birth do not match" );
 			}
 
-			/*
 			//Check month
 			try{
-				List<WebElement> months = driver.findElements(By.xpath("//select[@id='months']"));
+				List<WebElement> months = new Select(driver.findElement(By.id(MONTH_LOCATOR))).getAllSelectedOptions();
 				for (WebElement month : months)
 					if (month.isSelected())
 						chosenMonth = month;
 			}
 			catch(Exception e) {
-				Assert.fail(e.toString());
+				softAssertion.fail("Month list load error: " + e.toString());
 				logger.error("Month list load error: " + e.toString());
 			}
 
-			if(!chosenMonth.getText().equals(user.getMonthBirth().toString())) {
+			String[] month = chosenMonth.getText().split(" ");
+			if(!month[0].equals(user.getMonthBirth().toString())) {
 				logger.error("Year of birth do not match");
-				Assert.fail("Year of birth do not match");
-				throw new Exception("Year of birth  do not match");
+				softAssertion.fail("Year of birth do not match");
 			}
 
 			//Check year
 			try{
-				List<WebElement> years = driver.findElements(By.xpath("//select[@id='years']"));
+				List<WebElement> years = new Select(driver.findElement(By.id(YEAR_LOCATOR))).getAllSelectedOptions();
 				for (WebElement year : years)
 					if (year.isSelected())
 						chosenYear = year;
 			}
 			catch(Exception e) {
-				Assert.fail(e.toString());
+				softAssertion.fail("Month list load error: " + e.toString());
 				logger.error("Month list load error: " + e.toString());
 			}
 
-			if(!chosenYear.getText().equals(user.getYearBirth())) {
+			String[] year = chosenYear.getText().split(" ");
+			if(!year.equals(user.getYearBirth())) {
 				logger.error("Year of birth do not match");
-				Assert.fail("Year of birth do not match");
-				throw new Exception("Year of birth  do not match");
+				softAssertion.fail("Year of birth do not match");
 			}
-			*/
+
 
 			if (!driver.findElement(By.id(LoginPage.NEWSLETTER_LOCATOR)).isSelected()){
 				logger.error("Newsletter checkbox is'nt selected");
