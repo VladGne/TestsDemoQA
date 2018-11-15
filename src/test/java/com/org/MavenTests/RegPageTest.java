@@ -68,7 +68,7 @@ public class RegPageTest {
 			final String password = longString;
 					
 			User[] validUserData = new User[1]; 
-			validUserData[0] = new User();
+			validUserData[0] = new User(longString);
 			validUserData[0].setEmail(email);
 			validUserData[0].setFistName(fistName);
 			validUserData[0].setLastName(lastName);
@@ -86,7 +86,7 @@ public class RegPageTest {
 		}
 				
 		// Test case 1 - User registration with valid data
-		@Test (priority = 3, dataProvider="validUserData")
+		@Test (priority = 3, dataProvider="upperUserData")
 		public void checkUpperLimits(User userData){
 											
 			User user = userData;
@@ -113,8 +113,7 @@ public class RegPageTest {
 				logger.error("Registration form loading error: " + e.toString());
 				softAssertion.fail("Registration form loading error: " + e.toString());
 			}
-					
-								
+
 			// Enter user data into registration form
 			try {
 				loginPage.writeText(By.id(LoginPage.CUSTOMER_FISTNAME_TEXTBOX_LOCATOR), (user.getFistName()));			// Enter fist name
@@ -226,38 +225,11 @@ public class RegPageTest {
 		@DataProvider (name = "invalidUserData")
 		public Object[] getInvalidUserData(){
 			final String email = "test2@test.com2";
-			final String fistName = "1";
-			final String lastName = "2";
-			final String company = "3";
-			final String address = "4";
-			final String address2 = "5"; 							// Additional address information
-			final String city = "6";					
-			final String zipCode = "1";
-			final String homePhone = "1";
-			final String mobilePhone = "1";
-			final String addressAlias = "1";	
-			final String password = "1";
-			final String dayBirth = "31";
-			final User.MonthBirth monthBirth = User.MonthBirth.November;
-			final String yearBirth = "2018";
-					
+			final String invalidValue = "1";
+
 			User[] invalidUserData = new User[1];					
-			invalidUserData[0] = new User();
+			invalidUserData[0] = new User(invalidValue);
 			invalidUserData[0].setEmail(email);
-			invalidUserData[0].setFistName(fistName);
-			invalidUserData[0].setLastName(lastName);
-			invalidUserData[0].setAddress(address);
-			invalidUserData[0].setAddress2(address2);
-			invalidUserData[0].setCity(city);
-			invalidUserData[0].setZipCode(zipCode);
-			invalidUserData[0].setCompany(company);
-			invalidUserData[0].setHomePhone(homePhone);
-			invalidUserData[0].setMobilePhone(mobilePhone);
-			invalidUserData[0].setAddressAlias(addressAlias);
-			invalidUserData[0].setPassword(password);
-			invalidUserData[0].setDayBirth(dayBirth);
-			invalidUserData[0].setMonthBirth(monthBirth);
-			invalidUserData[0].setYearBirth(yearBirth);
 			return invalidUserData;
 		}
 				
