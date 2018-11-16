@@ -60,7 +60,7 @@ public class LoginPage extends BasePage{
 	public static final String INVALID_STATE_MESSAGE = "This country requires you to choose a State";
 	public static final String INVALID_DATE_MESSAGE = "Invalid date of birth";
 	public static final String INVALID_COUNTRY_MESSAGE = "Country is invalid";
-	public static final String REPEATED_EMAIL_MESSAGE = "An account using this email address has already been registered. Please enter a valid password or request a new one.";
+
 
 
 	//Classes

@@ -1,52 +1,23 @@
 package com.org.MavenTests;
 
-import org.openqa.selenium.support.ui.Select;
+
 import org.openqa.selenium.support.ui.WebDriverWait;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-
-import java.beans.Customizer;
 import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
 
 import Models.User;
 import POM.BasePage;
 import POM.LoginPage;
 import org.testng.log4testng.Logger;
 
-public class RegPageTest {
-	
-	private static final Logger logger =  Logger.getLogger(RegPageTest.class);//LoggerFactory.getLogger(RegPageTest.class);
-	private WebDriver driver;
-	SoftAssert softAssertion= new SoftAssert();
+public class RegPageTest extends TestBase{
 
-		@BeforeSuite
-		public void initionalBrowser() {
-			System.setProperty("webdriver.gecko.driver", BasePage.DRIVER_PATH);
-			driver = new FirefoxDriver();
-			logger.info("Test start!");
-		}
-					
-		@AfterSuite
-		public void closeBrowser() {
-			//driver.close();
-			//driver.quit();
-			logger.info("Test end!");
-		}	
-		
+	private Logger logger =  Logger.getLogger(RegPageTest.class);
+
 		// Create invalid user
 		@DataProvider (name = "upperUserData")
 		public Object[] getUpperUserData(){
@@ -170,97 +141,9 @@ public class RegPageTest {
 			//loginPage.click(By.className(BasePage.LOGIN_BUTTON_LOCATOR));
 		}					
 		
-		// Create invalid user
-		@DataProvider (name = "repeatedUserEmail")
-		public Object[] getRepeatedUserEmail(){
-			final String repeatedEmail = "test1@test.com1";			
-					
-			User[] invalidUserData = new User[1]; 
-			invalidUserData[0] = new User();
-			invalidUserData[0].setEmail(repeatedEmail);
-							
-			return invalidUserData;
-		}
-				
-		@Test (priority = 1, dataProvider="repeatedUserEmail")
-		public void checkEmailRepeat(User userData){
-			User user = userData;
-			
-			LoginPage loginPage = LoginPage.open(driver);
-					
-			try {			
-				// Enter email to get access to registration page
-				loginPage.writeText(By.id(LoginPage.EMAIL_CREATION_TEXTBOX_LOCATOR), (user.getEmail()));			
-				loginPage.click(By.id(LoginPage.SUBMIT_BUTTON_LOCATOR));
-				try {
-					// Wait for registration form
-					WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
-					WebElement element = wait.until((WebDriver d) -> d.findElement(By.className(LoginPage.ALERTS_LOCATOR)));
-				}
-				catch (Exception e) {
-					logger.error("Alert message loading error: " + e.toString());
-					softAssertion.fail("Alert message loading error: " + e.toString());
-				}
-				if(!loginPage.readText(By.className(LoginPage.ALERTS_LOCATOR)).equals(LoginPage.REPEATED_EMAIL_MESSAGE)){
-					logger.error("Email validation alert message fail:" );
-					softAssertion.fail("Email validation alert message fail:");
-				}
-			}
-					
-			catch(Exception e) {
-				logger.error("Email validation fail: " + e.toString());
-				softAssertion.fail("Email validation fail: " + e.toString());
-			}
 
-			softAssertion.assertAll();
-		}
 		
-		// Create invalid user
-		@DataProvider (name = "invalidUserEmail")
-		public Object[] getInvalidUserEmail(){
-			final String invalidEmail = "invlalidMail";			
-			
-			User[] invalidUserData = new User[1]; 
-			invalidUserData[0] = new User();
-			invalidUserData[0].setEmail(invalidEmail);
-					
-			return invalidUserData;
-		}
-		
-		@Test (priority = 2, dataProvider="invalidUserEmail")
-		public void checkEmailValidations(User userData){
-			User user =  userData;
-			
-			LoginPage loginPage = LoginPage.open(driver);
-			
-			try {
-				// Enter email to get access to registration page
-				loginPage.writeText(By.id(LoginPage.EMAIL_CREATION_TEXTBOX_LOCATOR), (user.getEmail()));			
-				loginPage.click(By.id(LoginPage.SUBMIT_BUTTON_LOCATOR));
 
-				try {
-					// Wait for registration form
-					WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
-					WebElement element = wait.until((WebDriver d) -> d.findElement(By.className(LoginPage.ALERTS_LOCATOR)));
-				}
-				catch (Exception e) {
-					logger.error("Alert message loading error: " + e.toString());
-					softAssertion.fail("Alert message loading error: " + e.toString());
-				}
-
-				if(!loginPage.readText(By.className(LoginPage.ALERTS_LOCATOR)).equals(LoginPage.INVALID_EMAIL_MESSAGE)){
-					logger.error("Email validation alert message fail:" );
-					softAssertion.fail("Email validation alert message fail:");
-				}
-			}
-			
-			catch(Exception e) {
-				logger.error("Email validation fail: " + e.toString());
-				softAssertion.fail("Email validation fail: " + e.toString());
-			}
-
-			softAssertion.assertAll();
-		}
 		
 		// Create invalid user
 		@DataProvider (name = "invalidUserData")
