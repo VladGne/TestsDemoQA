@@ -1,20 +1,11 @@
 package com.org.MavenTests;
 
 import Models.User;
-import POM.BasePage;
-import POM.LoginPage;
 import POM.PersonalPage;
-import POM.ProfilePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
-
-import java.util.List;
 
 import static POM.ProfilePage.DAY_LOCATOR;
 import static POM.ProfilePage.MONTH_LOCATOR;
