@@ -26,3 +26,11 @@ target/test-classes/com/org/MavenTests/UserProfileTests\.class
 target/test-classes/POM/LoginPage\.class
 
 target/test-classes/POM/RegistrationPage\.class
+
+\.idea/compiler\.xml
+
+\.idea/libraries/Maven__org_testng_testng_7_0_0_beta1\.xml
+
+dependency-reduced-pom\.xml
+
+MavenTestsProject\.iml

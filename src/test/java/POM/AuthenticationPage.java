@@ -12,29 +12,29 @@ public class AuthenticationPage extends BasePage{
     public static final String INVALID_EMAIL_MESSAGE = "Invalid email address.";
 
     @FindBy(id = "email_create")
-    private TextField emailCreateTextbox;
+    private WebElement emailCreateTextbox;
 
     @FindBy(id = "SubmitCreate")
     private WebElement createAccountButton;
 
     public void openRegistrationForm(final String email){
-        emailCreateTextbox.setText(email);
+        emailCreateTextbox.sendKeys(email);
         createAccountButton.click();
     }
 
     @FindBy(id = "email")
-    private TextField emailTextbox;
+    private WebElement emailTextbox;
 
     @FindBy(id = "passwd")
-    private TextField passwordTextbox;
+    private WebElement passwordTextbox;
 
     @FindBy(id = "SubmitLogin")
     private WebElement loginButton;
 
 
     public void doLogin(String email, String password){
-        emailTextbox.setText(email);
-        passwordTextbox.setText(password);
+        emailTextbox.sendKeys(email);
+        passwordTextbox.sendKeys(password);
         loginButton.click();
     }
 
