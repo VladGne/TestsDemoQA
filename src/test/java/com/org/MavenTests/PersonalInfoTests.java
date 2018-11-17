@@ -3,12 +3,14 @@ package com.org.MavenTests;
 import Models.User;
 import POM.BasePage;
 import POM.LoginPage;
+import POM.PersonalPage;
 import POM.ProfilePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
@@ -25,112 +27,80 @@ public class PersonalInfoTests extends TestBase{
     WebElement chosenYear;
     private Logger logger =  Logger.getLogger(PersonalInfoTests.class);
 
+    // Create valid user
+    @DataProvider(name = "validUserData")
+    public Object[] getValidUserData(){
+        User[] validUserData = new User[1];
+        validUserData[0] = new User();
+        return validUserData;
+    }
+
     @Test(priority = 1, dataProvider="validUserData")
-    public void checkPrsonalInfo(Object userData) throws Exception{
-        User user = (User) userData;
+    public void checkPersonalInfo(User user){
 
-        ProfilePage profilePage = ProfilePage.open(driver); // open login page
+        logger.info("\n --- Check personal info test start ---\n");
 
-        // Login
-        profilePage.writeText(By.id(LoginPage.EMAIL_TEXTBOX_LOCATOR), (user.getEmail()));
-        profilePage.writeText(By.id(LoginPage.PASSWORD_TEXTBOX_LOCATOR), (user.getPassword()));
-        profilePage.click(By.id(LoginPage.LOGIN_BUTTON_LOCATOR));
+        logger.info("Navigate to login page");
+        PersonalPage personalPage = PersonalPage.open(driver);
 
-        softAssertion.fail("Can't login: ");
-        logger.error("Can't login: " );
+        logger.info("Login");
+        personalPage.doLogin(user.getEmail(),user.getPassword());
 
-        // Wait for profile form
-        WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
-        WebElement element = wait.until((WebDriver d) -> d.findElement(By.className(ProfilePage.ADDRESSES_BUTTON_LOCATOR)));
+        logger.info("Navigate to personal page");
+        personalPage.navigateToPersonalInfo();
 
-        profilePage.click(By.xpath(ProfilePage.USER_BUTTON_LOCATOR));
-
-        softAssertion.fail("Login form load error: " );
-        logger.error("Login form load error: ");
-
-
-        if(!profilePage.checkSelection(By.id(ProfilePage.MALE_BUTTON_LOCATOR))) {
-            logger.error("gender do not match");
-            softAssertion.fail("gender do not match" );
+        logger.info("Check gender");
+        if(!personalPage.checkMaleGender()){
+            logger.error("Gender validation error");
+            softAssertion.fail("Gender validation error");
         }
 
-        //String txt = profilePage.readText(By.id(ProfilePage.FISTNAME_TEXTBOX_LOCATOR));
-        if(!profilePage.getValue(By.id(ProfilePage.FISTNAME_TEXTBOX_LOCATOR)).equals(user.getFistName())) { // Doesn't read name
-            logger.error("fist name do not match");
-            softAssertion.fail("fist name do not match" );
+        logger.info("Check first name");
+        if(!personalPage.checkFirstName(user.getFistName())){
+            logger.error("First name validation error");
+            softAssertion.fail("First name validation error");
         }
 
-        if(!profilePage.getValue(By.id(ProfilePage.LASTNAME_TEXTBOX_LOCATOR)).equals(user.getLastName())) {
-            logger.error("last name do not match");
-            softAssertion.fail("last name do not match");
+        logger.info("Check last name");
+        if(!personalPage.checkLastName(user.getLastName())){
+            logger.error("Last name validation error");
+            softAssertion.fail("Last name validation error");
         }
 
-        if(!profilePage.getValue(By.id(ProfilePage.EMAIL_TEXTBOX_LOCATOR)).equals(user.getEmail())) {
-            logger.error("email do not match");
-            softAssertion.fail("email do not match");
+        logger.info("Check email");
+        if(!personalPage.checkEmail(user.getEmail())){
+            logger.error("Email validation error");
+            softAssertion.fail("Email validation error");
         }
 
-        //new Select(driver.findElement(By.id(DAY_LOCATOR))).getAllSelectedOptions();
-
-        //Check day
-
-        List<WebElement> days = new Select(driver.findElement(By.id(DAY_LOCATOR))).getAllSelectedOptions();
-        for (WebElement day : days)
-            if (day.isSelected())
-                chosenDay = day;
-
-        softAssertion.fail("Days list load error: ");
-        logger.error("Days list load error: ");
-
-
-        String[] day = chosenDay.getText().split(" ");
-        if(!day[0].equals(user.getDayBirth())) {
-            logger.error("day of birth do not match");
-            softAssertion.fail("day of birth do not match" );
+        logger.info("Check birth day");
+        if(!personalPage.checkBithDay(user.getDayBirth())){
+            logger.error("Birth day validation error");
+            softAssertion.fail("Birth day validation error");
         }
 
-        //Check month
-
-        List<WebElement> months = new Select(driver.findElement(By.id(MONTH_LOCATOR))).getAllSelectedOptions();
-        for (WebElement month : months)
-            if (month.isSelected())
-                chosenMonth = month;
-
-        softAssertion.fail("Month list load error: ");
-        logger.error("Month list load error: ");
-
-
-        String[] month = chosenMonth.getText().split(" ");
-        if(!month[0].equals(user.getMonthBirth().toString())) {
-            logger.error("Year of birth do not match");
-            softAssertion.fail("Year of birth do not match");
+        logger.info("Check birth month");
+        if(!personalPage.checkBithMonth(user.getMonthBirth())){
+            logger.error("Birth month validation error");
+            softAssertion.fail("Birth month validation error");
         }
 
-        //Check year
-
-        List<WebElement> years = new Select(driver.findElement(By.id(YEAR_LOCATOR))).getAllSelectedOptions();
-        for (WebElement year : years)
-            if (year.isSelected())
-                chosenYear = year;
-
-        softAssertion.fail("Month list load error: ");
-        logger.error("Month list load error: ");
-
-
-        String[] year = chosenYear.getText().split(" ");
-        if(!year.equals(user.getYearBirth())) {
-            logger.error("Year of birth do not match");
-            softAssertion.fail("Year of birth do not match");
+        logger.info("Check birth year");
+        if(!personalPage.checkBithYear(user.getYearBirth())){
+            logger.error("Birth year validation error");
+            softAssertion.fail("Birth year validation error");
         }
 
-        if (!driver.findElement(By.id(LoginPage.NEWSLETTER_LOCATOR)).isSelected()){
-            logger.error("Newsletter checkbox is'nt selected");
-            softAssertion.fail("Newsletter checkbox is'nt selected");
+        logger.info("Check news");
+        if(!personalPage.checkNews()){
+            logger.error("News validation error");
+            softAssertion.fail("News validation error");
         }
 
-        if (!driver.findElement(By.id(LoginPage.OFFERS_LOCATOR)).isSelected()){
-            logger.error("Newsletter checkbox is'nt selected");
-            softAssertion.fail("Newsletter checkbox is'nt selected");
+        logger.info("Check options");
+        if(!personalPage.checkOptions()){
+            logger.error("Option validation error");
+            softAssertion.fail("Option validation error");
         }
 
         softAssertion.assertAll();
