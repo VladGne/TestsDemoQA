@@ -34,3 +34,5 @@ target/test-classes/POM/RegistrationPage\.class
 dependency-reduced-pom\.xml
 
 MavenTestsProject\.iml
+
+\.idea/modules\.xml
