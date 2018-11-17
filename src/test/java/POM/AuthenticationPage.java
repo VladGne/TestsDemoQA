@@ -17,7 +17,7 @@ public class AuthenticationPage extends BasePage{
     @FindBy(id = "SubmitCreate")
     private WebElement createAccountButton;
 
-    public void openRegistrationForm(final String email){
+    public void inputNewEmail(final String email){
         emailCreateTextbox.sendKeys(email);
         createAccountButton.click();
     }
@@ -37,9 +37,7 @@ public class AuthenticationPage extends BasePage{
         passwordTextbox.sendKeys(password);
         loginButton.click();
     }
-
-    public void init(final WebDriver driver){PageFactory.initElements(driver, this);}
-
+    
     private AuthenticationPage(WebDriver driver) {
         super(driver);
     }
