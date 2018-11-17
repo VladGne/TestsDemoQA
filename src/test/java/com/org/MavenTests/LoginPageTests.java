@@ -30,26 +30,25 @@ public class LoginPageTests extends TestBase{
 
     @Test(priority = 1, dataProvider="repeatedUserEmail")
     public void checkEmailRepeat(User user){
-
         logger.info("\n --- Check Repeated Email Test Start ---\n");
+
         logger.info("Navigate to Authentication Page");
         AuthenticationPage authenticationPage = AuthenticationPage.open(driver);
-        authenticationPage.init(driver);
 
-        String mail = user.getEmail();
         logger.info("Input email");
-        authenticationPage.openRegistrationForm(mail);
+        authenticationPage.inputNewEmail(user.getEmail());
 
         logger.info("Wait for alert");
-        WebElement alertMessage = authenticationPage.waitForAlert();
+        WebElement alertMessage = authenticationPage.waitForAlertMessage();
 
         logger.info("Check alert message");
         if(!alertMessage.getText().equals(AuthenticationPage.REPEATED_EMAIL_MESSAGE)){
-            logger.error("Email validation fail: ");
-            softAssertion.fail("Email validation fail: ");
+            logger.error("Alert message validation fail: ");
+            softAssertion.fail("Alert message validation fail: ");
         }
 
         softAssertion.assertAll();
+        logger.info("\n --- Check Repeated Email Test End ---\n");
     }
 
     // Create invalid user
@@ -58,37 +57,32 @@ public class LoginPageTests extends TestBase{
         final String invalidEmail = "invlalidMail";
 
         User[] invalidUserData = new User[1];
-        invalidUserData[0] = new User();
-        invalidUserData[0].setEmail(invalidEmail);
+        invalidUserData[0] = new User(invalidEmail);
 
         return invalidUserData;
     }
 
     @Test (priority = 2, dataProvider="invalidUserEmail")
-    public void checkEmailValidations(User userData){
-        User user =  userData;
+    public void checkEmailValidations(User user){
 
-        LoginPage loginPage = LoginPage.open(driver);
+        logger.info("\n --- Check Invalid Email Test Start ---\n");
 
-        // Enter email to get access to registration page
-        loginPage.writeText(By.id(LoginPage.EMAIL_CREATION_TEXTBOX_LOCATOR), (user.getEmail()));
-        loginPage.click(By.id(LoginPage.SUBMIT_BUTTON_LOCATOR));
+        logger.info("Navigate to Authentication Page");
+        AuthenticationPage authenticationPage = AuthenticationPage.open(driver);
 
-        // Wait for registration form
-        WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
-        WebElement element = wait.until((WebDriver d) -> d.findElement(By.className(LoginPage.ALERTS_LOCATOR)));
+        logger.info("Input email");
+        authenticationPage.inputNewEmail(user.getEmail());
 
-        logger.error("Alert message loading error: ");
-        softAssertion.fail("Alert message loading error: ");
+        logger.info("Wait for alert");
+        WebElement alertMessage = authenticationPage.waitForAlertMessage();
 
-        if(!loginPage.readText(By.className(LoginPage.ALERTS_LOCATOR)).equals(LoginPage.INVALID_EMAIL_MESSAGE)){
-            logger.error("Email validation alert message fail:" );
-            softAssertion.fail("Email validation alert message fail:");
+        logger.info("Check alert message");
+        if(!alertMessage.getText().equals(AuthenticationPage.INVALID_EMAIL_MESSAGE)){
+            logger.error("Alert message validation fail: ");
+            softAssertion.fail("Alert message validation fail: ");
         }
 
-        logger.error("Email validation fail: ");
-        softAssertion.fail("Email validation fail: ");
-
         softAssertion.assertAll();
+        logger.info("\n --- Check Invalid Email Test End ---\n");
     }
 }
