@@ -11,7 +11,8 @@ import java.nio.file.WatchEvent;
 
 public class BasePage {
 
-	public static final String DRIVER_PATH = "E:\\_Programs\\GekoDriver\\geckodriver.exe";
+	//public static final String DRIVER_PATH = "E:\\_Programs\\GekoDriver\\geckodriver.exe";
+	public static final String DRIVER_PATH = "E:\\_Programs\\ChromeDriver\\chromedriver.exe";
 
 	//Classes
 	public static final String LOGOUT_BUTTON_LOCATOR = "logout"; 
@@ -32,12 +33,16 @@ public class BasePage {
 		return true;
 	}
 
-	public WebElement waitForAlert(){
+	public WebElement waitForAlertMessage(){
 
 		WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
-		WebElement element = wait.until((WebDriver d) -> alertMessage) ;
+		WebElement message;
+		while (alertMessage.getText().equals("") && !wait.equals(0)){
+		}
 
-		return element;
+		message = wait.until((WebDriver d) -> alertMessage) ;
+
+		return message;
 	}
 	
 	//Constructor
