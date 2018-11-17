@@ -2,6 +2,7 @@ package com.org.MavenTests;
 
 import POM.BasePage;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -16,8 +17,9 @@ public class TestBase {
 
     @BeforeSuite
     public void initionalBrowser() {
-        System.setProperty("webdriver.gecko.driver", BasePage.DRIVER_PATH);
-        driver = new FirefoxDriver();
+        //System.setProperty("webdriver.gecko.driver", BasePage.DRIVER_PATH);
+        System.setProperty("webdriver.chrome.driver",BasePage.DRIVER_PATH);
+        driver = new ChromeDriver();
         logger.info("Test start!");
     }
 
