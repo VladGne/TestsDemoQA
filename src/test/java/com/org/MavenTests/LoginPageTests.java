@@ -42,7 +42,7 @@ public class LoginPageTests extends TestBase{
         WebElement alertMessage = authenticationPage.waitForAlertMessage();
 
         logger.info("Check alert message");
-        if(!alertMessage.getText().equals(AuthenticationPage.REPEATED_EMAIL_MESSAGE)){
+        if(!authenticationPage.checkRepeatedEmailAlertMessage()){
             logger.error("Alert message validation fail: ");
             softAssertion.fail("Alert message validation fail: ");
         }
@@ -77,7 +77,7 @@ public class LoginPageTests extends TestBase{
         WebElement alertMessage = authenticationPage.waitForAlertMessage();
 
         logger.info("Check alert message");
-        if(!alertMessage.getText().equals(AuthenticationPage.INVALID_EMAIL_MESSAGE)){
+        if(!authenticationPage.checkInvalidEmailAlertMessage()){
             logger.error("Alert message validation fail: ");
             softAssertion.fail("Alert message validation fail: ");
         }
