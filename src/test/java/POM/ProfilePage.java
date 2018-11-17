@@ -22,7 +22,7 @@ public class ProfilePage extends BasePage{
 	public static final String FISTNAME_TEXTBOX_LOCATOR = "firstname";
 	public static final String LASTNAME_TEXTBOX_LOCATOR = "lastname";
 	public static final String DAY_LOCATOR = "days";
-	public static final String MONTH_LOCATOR = "months";
+	public static final String MONTH_LOCATOR = "daysList";
 	public static final String YEAR_LOCATOR = "years";
 	public static final String NEWSLETTER_LOCATOR = "newsletter";
 	public static final String OFFERS_LOCATOR = "optin";
@@ -31,11 +31,7 @@ public class ProfilePage extends BasePage{
 		super(driver);
 	}
 	
-	public static ProfilePage open(WebDriver driver) {
-		final String LoginPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
-		driver.navigate().to(LoginPageURL);
-		return new ProfilePage(driver);
-	}
+
 	
 	public boolean checkSelection(By elementLocator) {
 		return driver.findElement(elementLocator).isSelected();

@@ -24,13 +24,11 @@ public class BasePage {
 
 
 	@FindBy(className = "alert-danger")
-	private WebElement alertMessage;
+	protected WebElement alertMessage;
 
-	public boolean checkAlertMessage(WebElement alertMessage, String expectedMessage){
-		if(!alertMessage.getText().equals(expectedMessage)){
-			return false;
-		}
-		return true;
+	public boolean checkAlertMessage(String expectedMessage){
+
+		return alertMessage.getText().equals(expectedMessage);
 	}
 
 	public WebElement waitForAlertMessage(){

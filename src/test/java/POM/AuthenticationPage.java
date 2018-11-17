@@ -22,22 +22,16 @@ public class AuthenticationPage extends BasePage{
         createAccountButton.click();
     }
 
-    @FindBy(id = "email")
-    private WebElement emailTextbox;
+    public boolean checkRepeatedEmailAlertMessage(){
 
-    @FindBy(id = "passwd")
-    private WebElement passwordTextbox;
-
-    @FindBy(id = "SubmitLogin")
-    private WebElement loginButton;
-
-
-    public void doLogin(String email, String password){
-        emailTextbox.sendKeys(email);
-        passwordTextbox.sendKeys(password);
-        loginButton.click();
+        return alertMessage.getText().equals(REPEATED_EMAIL_MESSAGE);
     }
-    
+
+    public boolean checkInvalidEmailAlertMessage(){
+
+        return alertMessage.getText().equals(INVALID_EMAIL_MESSAGE);
+    }
+
     private AuthenticationPage(WebDriver driver) {
         super(driver);
     }
