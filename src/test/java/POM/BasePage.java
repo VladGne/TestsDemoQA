@@ -1,5 +1,6 @@
 package POM;
 
+import com.org.MavenTests.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.nio.file.WatchEvent;
 
-public class BasePage {
+public class BasePage extends TestBase {
 
 	//public static final String DRIVER_PATH = "E:\\_Programs\\GekoDriver\\geckodriver.exe";
 	public static final String DRIVER_PATH = "E:\\_Programs\\ChromeDriver\\chromedriver.exe";
@@ -20,7 +21,7 @@ public class BasePage {
 	public static final String ALERTS_LOCATOR = "alert-danger";
 
 	public static int waiterTime = 10;
-	public WebDriver driver;
+	//public WebDriver driver;
 
 
 	@FindBy(className = "alert-danger")

@@ -1,7 +1,6 @@
 package POM;
 
 import Models.User;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-import static POM.ProfilePage.DAY_LOCATOR;
 
 public class PersonalPage extends BasePage{
 
@@ -51,7 +49,7 @@ public class PersonalPage extends BasePage{
     @FindBy(id = "days")
     private WebElement days;
 
-    @FindBy(id = "month")
+    @FindBy(id = "months")
     private WebElement month;
 
     @FindBy(id = "years")
@@ -105,26 +103,25 @@ public class PersonalPage extends BasePage{
     public boolean checkBithDay(String expectedDay){
 
         List<WebElement> daysList = new Select(days).getAllSelectedOptions();
-        String[] day = daysList.get(0).getText().split(" ");
-        return day[0].equals(expectedDay);
+        String[] selectedDay = daysList.get(0).getText().split(" ");
+        return selectedDay[0].equals(expectedDay);
     }
 
     public boolean checkBithMonth(User.MonthBirth expectedMonth){
 
-        List<WebElement> monthList = new Select(days).getAllSelectedOptions();
-        String[] month = monthList.get(0).getText().split(" ");
-        return month[0].equals(expectedMonth);
+        List<WebElement> monthList = new Select(month).getAllSelectedOptions();
+        String[] selectedMonth = monthList.get(0).getText().split(" ");
+        return selectedMonth[0].equals(expectedMonth.toString());
     }
 
     public boolean checkBithYear(String expectedYear){
 
-        List<WebElement> yearList = new Select(days).getAllSelectedOptions();
-        String[] year = yearList.get(0).getText().split(" ");
-        return year[0].equals(expectedYear);
+        List<WebElement> yearList = new Select(year).getAllSelectedOptions();
+        String[] selectedYear = yearList.get(0).getText().split(" ");
+        return selectedYear[0].equals(expectedYear);
     }
 
     public boolean checkNews(){
-
         return newsCheckBox.isSelected();
     }
 

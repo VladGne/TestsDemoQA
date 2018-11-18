@@ -7,15 +7,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
-import static POM.ProfilePage.DAY_LOCATOR;
-import static POM.ProfilePage.MONTH_LOCATOR;
-import static POM.ProfilePage.YEAR_LOCATOR;
-
 public class PersonalInfoTests extends TestBase{
 
-    WebElement chosenMonth;
-    WebElement chosenDay;
-    WebElement chosenYear;
     private Logger logger =  Logger.getLogger(PersonalInfoTests.class);
 
     // Create valid user
@@ -23,6 +16,7 @@ public class PersonalInfoTests extends TestBase{
     public Object[] getValidUserData(){
         User[] validUserData = new User[1];
         validUserData[0] = new User();
+        validUserData[0].setEmail("test1@test.com1");
         return validUserData;
     }
 

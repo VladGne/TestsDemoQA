@@ -12,7 +12,7 @@ import org.testng.log4testng.Logger;
 public class TestBase {
 
     private static Logger logger = Logger.getLogger(TestBase.class);;//LoggerFactory.getLogger(RegPageTest.class);
-    protected WebDriver driver;
+    public WebDriver driver;
     protected SoftAssert softAssertion= new SoftAssert();
 
     @BeforeSuite
