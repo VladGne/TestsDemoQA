@@ -1,6 +1,7 @@
 package com.org.MavenTests;
 
 
+import POM.RegistrationPage;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 import org.openqa.selenium.By;
@@ -253,76 +254,124 @@ public class RegPageTest extends TestBase{
 		
 		// Test case 1 - User registration with valid data
 		@Test (priority = 4, dataProvider="validUserData")
-		public void checkRegistration(User userData){
-											
-			User user = userData;
-			
-			LoginPage loginPage = LoginPage.open(driver);
-			
-			try {			
-				// Enter email to get access to registration page
-				loginPage.writeText(By.id(LoginPage.EMAIL_CREATION_TEXTBOX_LOCATOR), (user.getEmail()));			
-				loginPage.click(By.id(LoginPage.SUBMIT_BUTTON_LOCATOR));
-			}
-			
-			catch(Exception e) {
-				logger.error("Can't get access to registration page: " + e.toString());
-				softAssertion.fail("Can't get access to registration page: " + e.toString());
-			}
-						
-			try {
-				// Wait for registration form
-				WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
-				WebElement element = wait.until((WebDriver d) -> d.findElement(By.id(LoginPage.MALE_BUTTON_LOCATOR)));
-			}
-			catch (Exception e) {
-				logger.error("Registration form loading error: " + e.toString());
-				softAssertion.fail("Registration form loading error: " + e.toString());
-			}
-			
-						
-			// Enter user data into registration form
-			try {
-				loginPage.click(By.id(LoginPage.MALE_BUTTON_LOCATOR));													// Choice gender
-				loginPage.writeText(By.id(LoginPage.CUSTOMER_FISTNAME_TEXTBOX_LOCATOR), (user.getFistName()));			// Enter fist name
-				loginPage.writeText(By.id(LoginPage.CUSTOMER_LASTNAME_TEXTBOX_LOCATOR), (user.getLastName()));			// Enter last name
-				//loginPage.writeText(By.id(LoginPage.EMAIL_TEXTBOX_LOCATOR), (user.getEmail()));						// email Already in text box
-				loginPage.writeText(By.id(LoginPage.PASSWORD_TEXTBOX_LOCATOR), (user.getPassword()));					// Enter password
-				
-				// Enter Date of birth
-				loginPage.selectItem(By.id(LoginPage.DAY_LOCATOR), user.getDayBirth());			
-				loginPage.selectItem(By.id(LoginPage.MONTH_LOCATOR), user.getMonthBirth().getValue());
-				loginPage.selectItem(By.id(LoginPage.YEAR_LOCATOR), user.getYearBirth());
-				
-				// Optional check-boxes
-				loginPage.click(By.id(LoginPage.NEWSLETTER_LOCATOR));
-				loginPage.click(By.id(LoginPage.OFFERS_LOCATOR));
-				
-				loginPage.writeText(By.id(LoginPage.COMPANY_TEXTBOX_LOCATOR), (user.getCompany()));						// Enter company
-				loginPage.writeText(By.id(LoginPage.ADDRESS_TEXTBOX_LOCATOR), (user.getAddress()));						// Enter address
-				loginPage.writeText(By.id(LoginPage.ADDRESS2_TEXTBOX_LOCATOR), (user.getAddress2()));					// Enter address addition information
-				loginPage.writeText(By.id(LoginPage.CITY_TEXTBOX_LOCATOR), (user.getCity()));							// Enter city
-								
-				loginPage.selectItem(By.id(LoginPage.COUNTRY_TEXTBOX_LOCATOR), user.getCountry().getValue());						// Choice Country
+		public void checkRegistration(User user){
 
+			RegistrationPage registrationPage = RegistrationPage.open(driver);
 
+			registrationPage.submitEmail(user.getEmail());
 
-				if ("United states".equals(loginPage.readText(By.id(LoginPage.COUNTRY_TEXTBOX_LOCATOR))))
-					//loginPage.selectItem(By.id(LoginPage.STATE_TEXTBOX_LOCATOR), user.getState().getValue());							// Choice State
-					loginPage.selectItem(By.id(LoginPage.STATE_TEXTBOX_LOCATOR), user.getState().getValue());
+			registrationPage.waitForRegistrationForm();
 
-				loginPage.writeText(By.id(LoginPage.ZIPCODE_TEXTBOX_LOCATOR), (user.getZipCode()));									// Enter Post code
-				loginPage.writeText(By.id(LoginPage.ADDITIONAL_INFORMATION_TEXTBOX_LOCATOR), (user.getAdditionInformation()));		// Enter addition information
-				loginPage.writeText(By.id(LoginPage.HOME_PHONE_TEXTBOX_LOCATOR), (user.getHomePhone()));							// Enter home phone
-				loginPage.writeText(By.id(LoginPage.MOBILE_PHONE_TEXTBOX_LOCATOR), (user.getMobilePhone()));						// Enter mobile phone
-				loginPage.writeText(By.id(LoginPage.ALIAS_TEXTBOX_LOCATOR), (user.getAddressAlias()));								// Enter alias
-				
-				//loginPage.click(By.id(LoginPage.REGISTER_BUTTON_LOCATOR));
-			}
-			catch(Exception e){			
-				logger.error("User's data input error: " + e.toString());
-				softAssertion.fail("User's data input error: " + e.toString());
-			}	
+			registrationPage.selectMaleGender();
+
+			registrationPage.inputFirstName(user.getFistName());
+
+			registrationPage.inputLastName(user.getLastName());
+
+			registrationPage.inputPassword(user.getPassword());
+
+			registrationPage.inputCompany(user.getCompany());
+
+			registrationPage.inputAddress1(user.getAddress());
+
+			registrationPage.inputAddress2(user.getAddress2());
+
+			registrationPage.inputCity(user.getCity());
+
+			registrationPage.selectCountry(user.getCountry());
+
+			registrationPage.selectState(user.getState());
+
+			registrationPage.inputPostcode(user.getZipCode());
+
+			registrationPage.inputOther(user.getAdditionInformation());
+
+			registrationPage.inputHomePhone(user.getHomePhone());
+
+			registrationPage.inputMobilePhone(user.getMobilePhone());
+
+			registrationPage.inputAlias(user.getAddressAlias());
+
+			registrationPage.selectNews();
+
+			registrationPage.selectOptions();
+
+			registrationPage.selectBirthDay(user.getDayBirth());
+
+			registrationPage.selectBirthMonth(user.getMonthBirth().toString());
+
+			registrationPage.selectBirthYear(user.getYearBirth());
+
+			//registrationPage.registerButtonClick();
+
+//			User user = userData;
+//
+//			LoginPage loginPage = LoginPage.open(driver);
+//
+//			try {
+//				// Enter email to get access to registration page
+//				loginPage.writeText(By.id(LoginPage.EMAIL_CREATION_TEXTBOX_LOCATOR), (user.getEmail()));
+//				loginPage.click(By.id(LoginPage.SUBMIT_BUTTON_LOCATOR));
+//			}
+//
+//			catch(Exception e) {
+//				logger.error("Can't get access to registration page: " + e.toString());
+//				softAssertion.fail("Can't get access to registration page: " + e.toString());
+//			}
+//
+//			try {
+//				// Wait for registration form
+//				WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
+//				WebElement element = wait.until((WebDriver d) -> d.findElement(By.id(LoginPage.MALE_BUTTON_LOCATOR)));
+//			}
+//			catch (Exception e) {
+//				logger.error("Registration form loading error: " + e.toString());
+//				softAssertion.fail("Registration form loading error: " + e.toString());
+//			}
+//
+//
+//			// Enter user data into registration form
+//			try {
+//				loginPage.click(By.id(LoginPage.MALE_BUTTON_LOCATOR));													// Choice gender
+//				loginPage.writeText(By.id(LoginPage.CUSTOMER_FISTNAME_TEXTBOX_LOCATOR), (user.getFistName()));			// Enter fist name
+//				loginPage.writeText(By.id(LoginPage.CUSTOMER_LASTNAME_TEXTBOX_LOCATOR), (user.getLastName()));			// Enter last name
+//				//loginPage.writeText(By.id(LoginPage.EMAIL_TEXTBOX_LOCATOR), (user.getEmail()));						// email Already in text box
+//				loginPage.writeText(By.id(LoginPage.PASSWORD_TEXTBOX_LOCATOR), (user.getPassword()));					// Enter password
+//
+//				// Enter Date of birth
+//				loginPage.selectItem(By.id(LoginPage.DAY_LOCATOR), user.getDayBirth());
+//				loginPage.selectItem(By.id(LoginPage.MONTH_LOCATOR), user.getMonthBirth().getValue());
+//				loginPage.selectItem(By.id(LoginPage.YEAR_LOCATOR), user.getYearBirth());
+//
+//				// Optional check-boxes
+//				loginPage.click(By.id(LoginPage.NEWSLETTER_LOCATOR));
+//				loginPage.click(By.id(LoginPage.OFFERS_LOCATOR));
+//
+//				loginPage.writeText(By.id(LoginPage.COMPANY_TEXTBOX_LOCATOR), (user.getCompany()));						// Enter company
+//				loginPage.writeText(By.id(LoginPage.ADDRESS_TEXTBOX_LOCATOR), (user.getAddress()));						// Enter address
+//				loginPage.writeText(By.id(LoginPage.ADDRESS2_TEXTBOX_LOCATOR), (user.getAddress2()));					// Enter address addition information
+//				loginPage.writeText(By.id(LoginPage.CITY_TEXTBOX_LOCATOR), (user.getCity()));							// Enter city
+//
+//				loginPage.selectItem(By.id(LoginPage.COUNTRY_TEXTBOX_LOCATOR), user.getCountry().getValue());						// Choice Country
+//
+//
+//
+//				if ("United states".equals(loginPage.readText(By.id(LoginPage.COUNTRY_TEXTBOX_LOCATOR))))
+//					//loginPage.selectItem(By.id(LoginPage.STATE_TEXTBOX_LOCATOR), user.getState().getValue());							// Choice State
+//					loginPage.selectItem(By.id(LoginPage.STATE_TEXTBOX_LOCATOR), user.getState().getValue());
+//
+//				loginPage.writeText(By.id(LoginPage.ZIPCODE_TEXTBOX_LOCATOR), (user.getZipCode()));									// Enter Post code
+//				loginPage.writeText(By.id(LoginPage.ADDITIONAL_INFORMATION_TEXTBOX_LOCATOR), (user.getAdditionInformation()));		// Enter addition information
+//				loginPage.writeText(By.id(LoginPage.HOME_PHONE_TEXTBOX_LOCATOR), (user.getHomePhone()));							// Enter home phone
+//				loginPage.writeText(By.id(LoginPage.MOBILE_PHONE_TEXTBOX_LOCATOR), (user.getMobilePhone()));						// Enter mobile phone
+//				loginPage.writeText(By.id(LoginPage.ALIAS_TEXTBOX_LOCATOR), (user.getAddressAlias()));								// Enter alias
+//
+//				//loginPage.click(By.id(LoginPage.REGISTER_BUTTON_LOCATOR));
+//			}
+//			catch(Exception e){
+//				logger.error("User's data input error: " + e.toString());
+//				softAssertion.fail("User's data input error: " + e.toString());
+//			}
 
 			softAssertion.assertAll();
 			//loginPage.click(By.className(BasePage.LOGIN_BUTTON_LOCATOR));
