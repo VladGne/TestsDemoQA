@@ -13,7 +13,7 @@ import java.nio.file.WatchEvent;
 public class BasePage extends TestBase {
 
 	//public static final String DRIVER_PATH = "E:\\_Programs\\GekoDriver\\geckodriver.exe";
-	public static final String DRIVER_PATH = "E:\\_Programs\\ChromeDriver\\chromedriver.exe";
+	public static final String DRIVER_PATH = "F:\\Programs\\ChromeDriver\\chromedriver.exe";
 
 	//Classes
 	public static final String LOGOUT_BUTTON_LOCATOR = "logout"; 
