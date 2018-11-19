@@ -19,6 +19,8 @@ public class AuthenticationPage extends BasePage{
         emailCreateTextbox.sendKeys(email);
     }
 
+
+
     public void createAccountButtonClick(){        createAccountButton.click();}
 
     public boolean checkRepeatedEmailAlertMessage(){

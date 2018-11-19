@@ -112,8 +112,8 @@ public class RegistrationPage extends BasePage {
     @FindBy(className = "page-subheading")
     private WebElement mainHeader;
 
-    @FindBy(xpath = "//div[@class='alert alert-danger']//ol")
-    private List<WebElement> alertList;
+    @FindBy(xpath = "//div[@class='alert alert-danger']//ol") ////div[@class='alert alert-danger']//ol
+    private WebElement alertList;
 
     private void selectNews(){newsCheckBox.click();}
 
@@ -221,40 +221,45 @@ public class RegistrationPage extends BasePage {
 
     public void checkInvalidAlerts(){
 
-        if(!alertList.get(0).getText().equals(INVALID_LAST_NAME_MESSAGE))
+        String[] alertMessage = alertList.getText().split("\n");
+
+        if(!alertMessage[0].equals(INVALID_LAST_NAME_MESSAGE))
             softAssertion.fail("Last name alert message error: ");
-        if(!alertList.get(1).getText().equals(INVALID_FIRST_NAME_MESSAGE))
+        if(!alertMessage[1].equals(INVALID_FIRST_NAME_MESSAGE))
             softAssertion.fail("First name alert message error: ");
-        if(!alertList.get(2).getText().equals(INVALID_PASSWORD_MESSAGE))
+        if(!alertMessage[2].equals(INVALID_PASSWORD_MESSAGE))
             softAssertion.fail("Password alert message error: ");
-        if(!alertList.get(3).getText().equals(INVALID_POSTCODE_MESSAGE))
+        if(!alertMessage[3].equals(INVALID_POSTCODE_MESSAGE))
             softAssertion.fail("Postcode alert message error: ");
-        if(!alertList.get(4).getText().equals(INVALID_STATE_MESSAGE))
-            softAssertion.fail("State alert message error: ");
-        if(!alertList.get(5).getText().equals(INVALID_DATE_MESSAGE))
+//        if(!alertMessage[4].equals(INVALID_STATE_MESSAGE))
+//            softAssertion.fail("State alert message error: ");
+        if(!alertMessage[4].equals(INVALID_DATE_MESSAGE))
             softAssertion.fail("Date alert message error: ");
     }
 
     public void checkUpperLimitsAlerts(){
-        if(!alertList.get(0).getText().equals(MAX_LAST_NAME_MESSAGE))
+
+        String[] alertMessage = alertList.getText().split("\n");
+
+        if(!alertMessage[0].equals(MAX_LAST_NAME_MESSAGE))
             softAssertion.fail("Last name alert message error: ");
-		if(!alertList.get(1).getText().equals(MAX_FIRST_NAME_MESSAGE))
+		if(!alertMessage[1].equals(MAX_FIRST_NAME_MESSAGE))
 			softAssertion.fail("First name alert message error: ");
-		if(!alertList.get(2).getText().equals(MAX_PASSWORD_MESSAGE))
+		if(!alertMessage[2].equals(MAX_PASSWORD_MESSAGE))
 			softAssertion.fail("Password alert message error: ");
-		if(!alertList.get(3).getText().equals(MAX_ALIAS_MESSAGE))
+		if(!alertMessage[3].equals(MAX_ALIAS_MESSAGE))
 			softAssertion.fail("Alias alert message error: ");
-		if(!alertList.get(4).getText().equals(MAX_ADDRESS1_MESSAGE))
+		if(!alertMessage[4].equals(MAX_ADDRESS1_MESSAGE))
 			softAssertion.fail("Address1 alert message error: ");
-		if(!alertList.get(5).getText().equals(MAX_ADDRESS2_MESSAGE))
+		if(!alertMessage[5].equals(MAX_ADDRESS2_MESSAGE))
 			softAssertion.fail("Address2 alert message error: ");
-		if(!alertList.get(6).getText().equals(MAX_POSTCODE_MESSAGE))
+		if(!alertMessage[6].equals(MAX_POSTCODE_MESSAGE))
 			softAssertion.fail("Postcode alert message error: ");
-		if(!alertList.get(7).getText().equals(MAX_ADDITION_INFO_MESSAGE))
+		if(!alertMessage[7].equals(MAX_ADDITION_INFO_MESSAGE))
 			softAssertion.fail("Addition info alert message error: ");
-		if(!alertList.get(8).getText().equals(MAX_HOME_PHONE_MESSAGE))
+		if(!alertMessage[8].equals(MAX_HOME_PHONE_MESSAGE))
 			softAssertion.fail("Home phone info alert message error: ");
-		if(!alertList.get(9).getText().equals(MAX_MOBILE_PHONE_MESSAGE))
+		if(!alertMessage[9].equals(MAX_MOBILE_PHONE_MESSAGE))
 			softAssertion.fail("Mobile phone info alert message error: ");
     }
 
