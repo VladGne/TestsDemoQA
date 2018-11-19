@@ -7,8 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.log4testng.Logger;
 
 import java.util.List;
+
 
 public class RegistrationPage extends BasePage {
 
@@ -141,7 +143,7 @@ public class RegistrationPage extends BasePage {
     private WebElement registrationForm;
 
     @FindBy(className = "page-subheading")
-    private WebElement mainHeader;
+    public WebElement mainHeader;
 
     @FindBy(xpath = "//div[@class='alert alert-danger']//ol")
     private List<WebElement> alertList;
@@ -219,7 +221,7 @@ public class RegistrationPage extends BasePage {
     public void waitForRegistrationForm(){
 
         WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
-        WebElement header = wait.until((WebDriver d) -> mainHeader) ;
+        WebElement header = wait.until((WebDriver d) -> mainHeader);
 
         while (header.getText().equals("") && !wait.equals(0)){
         }
@@ -292,5 +294,67 @@ public class RegistrationPage extends BasePage {
 			softAssertion.fail("Home phone info alert message error: ");
 		if(!alertList.get(5).getText().equals(MAX_MOBILE_PHONE_MESSAGE))
 			softAssertion.fail("Mobile phone info alert message error: ");
+    }
+
+    public void fillRegistrationForm(User user, Logger logger){
+        logger.info("Select gender");
+        selectMaleGender();
+
+        logger.info("Input first name");
+        inputFirstName(user.getFistName());
+
+        logger.info("Input last name");
+        inputLastName(user.getLastName());
+
+        logger.info("Input password");
+        inputPassword(user.getPassword());
+
+        logger.info("Input company");
+        inputCompany(user.getCompany());
+
+        logger.info("Input address1");
+        inputAddress1(user.getAddress());
+
+        logger.info("Input address2");
+        inputAddress2(user.getAddress2());
+
+        logger.info("Input city");
+        inputCity(user.getCity());
+
+        logger.info("Input country");
+        selectCountry(user.getCountry());
+
+        logger.info("Input state");
+        selectState(user.getState());
+
+        logger.info("Input post code");
+        inputPostcode(user.getZipCode());
+
+        logger.info("Input addition information");
+        inputOther(user.getAdditionInformation());
+
+        logger.info("Input home phone");
+        inputHomePhone(user.getHomePhone());
+
+        logger.info("Input mobile phone");
+        inputMobilePhone(user.getMobilePhone());
+
+        logger.info("Input alias");
+        inputAlias(user.getAddressAlias());
+
+        logger.info("Select news");
+        selectNews();
+
+        logger.info("Select options");
+        selectOptions();
+
+        logger.info("Select day of birth");
+        selectBirthDay(user.getDayBirth());
+
+        logger.info("Select month of birth");
+        selectBirthMonth(user.getMonthBirth().toString());
+
+        logger.info("Select year of birth");
+        selectBirthYear(user.getYearBirth());
     }
 }
