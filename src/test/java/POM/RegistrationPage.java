@@ -181,8 +181,8 @@ public class RegistrationPage extends BasePage {
         new Select(yearsList).selectByValue(year);
     }
 
-    private void selectBirthMonth(String month){
-        new Select(monthsList).selectByValue(month);
+    private void selectBirthMonth(User.MonthBirth month){
+        new Select(monthsList).selectByValue(Integer.toString(month.getValue()));
     }
 
     public void waitForRegistrationForm(){
@@ -314,7 +314,7 @@ public class RegistrationPage extends BasePage {
         selectBirthDay(user.getDayBirth());
 
         logger.info("Select month of birth");
-        selectBirthMonth(user.getMonthBirth().toString());
+        selectBirthMonth(user.getMonthBirth());
 
         logger.info("Select year of birth");
         selectBirthYear(user.getYearBirth());
