@@ -2,17 +2,10 @@ package com.org.MavenTests;
 
 
 import POM.RegistrationPage;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.util.List;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import Models.User;
-import POM.BasePage;
-import POM.LoginPage;
 import org.testng.log4testng.Logger;
 
 public class RegPageTest extends TestBase{
@@ -61,53 +54,81 @@ public class RegPageTest extends TestBase{
 		// Test case 1 - User registration with valid data
 		@Test (priority = 3, dataProvider="upperUserData")
 		public void checkUpperLimits(User user){
+			logger.info("\n --- Validation test start ---\n");
 
+			logger.info("Navigate to login page");
 			RegistrationPage registrationPage = RegistrationPage.open(driver);
 
+			logger.info("Input email");
 			registrationPage.submitEmail(user.getEmail());
 
+			logger.info("Wait for registration form");
 			registrationPage.waitForRegistrationForm();
 
+			logger.info("Select gender");
+			registrationPage.selectMaleGender();
+
+			logger.info("Input first name");
 			registrationPage.inputFirstName(user.getFistName());
 
+			logger.info("Input last name");
 			registrationPage.inputLastName(user.getLastName());
 
+			logger.info("Input password");
 			registrationPage.inputPassword(user.getPassword());
 
+			logger.info("Input company");
 			registrationPage.inputCompany(user.getCompany());
 
+			logger.info("Input address1");
 			registrationPage.inputAddress1(user.getAddress());
 
+			logger.info("Input address2");
 			registrationPage.inputAddress2(user.getAddress2());
 
+			logger.info("Input city");
 			registrationPage.inputCity(user.getCity());
 
+			logger.info("Input country");
 			registrationPage.selectCountry(user.getCountry());
 
+			logger.info("Input state");
 			registrationPage.selectState(user.getState());
 
+			logger.info("Input post code");
 			registrationPage.inputPostcode(user.getZipCode());
 
+			logger.info("Input addition information");
 			registrationPage.inputOther(user.getAdditionInformation());
 
+			logger.info("Input home phone");
 			registrationPage.inputHomePhone(user.getHomePhone());
 
+			logger.info("Input mobile phone");
 			registrationPage.inputMobilePhone(user.getMobilePhone());
 
+			logger.info("Input alias");
 			registrationPage.inputAlias(user.getAddressAlias());
 
+			logger.info("Select news");
 			registrationPage.selectNews();
 
+			logger.info("Select options");
 			registrationPage.selectOptions();
 
+			logger.info("Select day of birth");
 			registrationPage.selectBirthDay(user.getDayBirth());
 
+			logger.info("Select month of birth");
 			registrationPage.selectBirthMonth(user.getMonthBirth().toString());
 
+			logger.info("Select year of birth");
 			registrationPage.selectBirthYear(user.getYearBirth());
 
+			logger.info("Click register button");
 			registrationPage.registerButtonClick();
 
+			logger.info("Check alert");
 			registrationPage.checkUpperLimitsAlerts();
 
 			softAssertion.assertAll();
@@ -128,53 +149,81 @@ public class RegPageTest extends TestBase{
 		//Check date and phone number validation
 		@Test (priority = 3, dataProvider="invalidUserData")
 		public void checkValidations(User user){
+			logger.info("\n --- Validation test start ---\n");
 
+			logger.info("Navigate to login page");
 			RegistrationPage registrationPage = RegistrationPage.open(driver);
 
+			logger.info("Input email");
 			registrationPage.submitEmail(user.getEmail());
 
+			logger.info("Wait for registration form");
 			registrationPage.waitForRegistrationForm();
 
+			logger.info("Select gender");
+			registrationPage.selectMaleGender();
+
+			logger.info("Input first name");
 			registrationPage.inputFirstName(user.getFistName());
 
+			logger.info("Input last name");
 			registrationPage.inputLastName(user.getLastName());
 
+			logger.info("Input password");
 			registrationPage.inputPassword(user.getPassword());
 
+			logger.info("Input company");
 			registrationPage.inputCompany(user.getCompany());
 
+			logger.info("Input address1");
 			registrationPage.inputAddress1(user.getAddress());
 
+			logger.info("Input address2");
 			registrationPage.inputAddress2(user.getAddress2());
 
+			logger.info("Input city");
 			registrationPage.inputCity(user.getCity());
 
+			logger.info("Input country");
 			registrationPage.selectCountry(user.getCountry());
 
+			logger.info("Input state");
 			registrationPage.selectState(user.getState());
 
+			logger.info("Input post code");
 			registrationPage.inputPostcode(user.getZipCode());
 
+			logger.info("Input addition information");
 			registrationPage.inputOther(user.getAdditionInformation());
 
+			logger.info("Input home phone");
 			registrationPage.inputHomePhone(user.getHomePhone());
 
+			logger.info("Input mobile phone");
 			registrationPage.inputMobilePhone(user.getMobilePhone());
 
+			logger.info("Input alias");
 			registrationPage.inputAlias(user.getAddressAlias());
 
+			logger.info("Select news");
 			registrationPage.selectNews();
 
+			logger.info("Select options");
 			registrationPage.selectOptions();
 
+			logger.info("Select day of birth");
 			registrationPage.selectBirthDay(user.getDayBirth());
 
+			logger.info("Select month of birth");
 			registrationPage.selectBirthMonth(user.getMonthBirth().toString());
 
+			logger.info("Select year of birth");
 			registrationPage.selectBirthYear(user.getYearBirth());
 
+			logger.info("Click register button");
 			registrationPage.registerButtonClick();
 
+			logger.info("Check alert");
 			registrationPage.checkInvalidAlerts();
 
 			softAssertion.assertAll();
@@ -191,56 +240,80 @@ public class RegPageTest extends TestBase{
 		// Test case 1 - User registration with valid data
 		@Test (priority = 4, dataProvider="validUserData")
 		public void checkRegistration(User user){
+			logger.info("\n --- Registration test start ---\n");
 
+			logger.info("Navigate to login page");
 			RegistrationPage registrationPage = RegistrationPage.open(driver);
 
+			logger.info("Input email");
 			registrationPage.submitEmail(user.getEmail());
 
+			logger.info("Wait for registration form");
 			registrationPage.waitForRegistrationForm();
 
+			logger.info("Select gender");
 			registrationPage.selectMaleGender();
 
+			logger.info("Input first name");
 			registrationPage.inputFirstName(user.getFistName());
 
+			logger.info("Input last name");
 			registrationPage.inputLastName(user.getLastName());
 
+			logger.info("Input password");
 			registrationPage.inputPassword(user.getPassword());
 
+			logger.info("Input company");
 			registrationPage.inputCompany(user.getCompany());
 
+			logger.info("Input address1");
 			registrationPage.inputAddress1(user.getAddress());
 
+			logger.info("Input address2");
 			registrationPage.inputAddress2(user.getAddress2());
 
+			logger.info("Input city");
 			registrationPage.inputCity(user.getCity());
 
+			logger.info("Input country");
 			registrationPage.selectCountry(user.getCountry());
 
+			logger.info("Input state");
 			registrationPage.selectState(user.getState());
 
+			logger.info("Input post code");
 			registrationPage.inputPostcode(user.getZipCode());
 
+			logger.info("Input addition information");
 			registrationPage.inputOther(user.getAdditionInformation());
 
+			logger.info("Input home phone");
 			registrationPage.inputHomePhone(user.getHomePhone());
 
+			logger.info("Input mobile phone");
 			registrationPage.inputMobilePhone(user.getMobilePhone());
 
+			logger.info("Input alias");
 			registrationPage.inputAlias(user.getAddressAlias());
 
+			logger.info("Select news");
 			registrationPage.selectNews();
 
+			logger.info("Select options");
 			registrationPage.selectOptions();
 
+			logger.info("Select day of birth");
 			registrationPage.selectBirthDay(user.getDayBirth());
 
+			logger.info("Select month of birth");
 			registrationPage.selectBirthMonth(user.getMonthBirth().toString());
 
+			logger.info("Select year of birth");
 			registrationPage.selectBirthYear(user.getYearBirth());
 
+			logger.info("Click register button");
 			//registrationPage.registerButtonClick();
 
 			softAssertion.assertAll();
-		}			
-		
+		}
 }
