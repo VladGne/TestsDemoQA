@@ -71,6 +71,9 @@ public class LoginPageTests extends TestBase{
         logger.info("Input email");
         authenticationPage.inputNewEmail(user.getEmail());
 
+        logger.info("Click submit button");
+        authenticationPage.createAccountButtonClick();
+
         logger.info("Wait for alert");
         WebElement alertMessage = authenticationPage.waitForAlertMessage();
 
