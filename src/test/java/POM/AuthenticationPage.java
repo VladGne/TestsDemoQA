@@ -8,8 +8,8 @@ import java.awt.*;
 
 public class AuthenticationPage extends BasePage{
 
-    public static final String REPEATED_EMAIL_MESSAGE = "An account using this email address has already been registered. Please enter a valid password or request a new one.";
-    public static final String INVALID_EMAIL_MESSAGE = "Invalid email address.";
+    private static final String REPEATED_EMAIL_MESSAGE = "An account using this email address has already been registered. Please enter a valid password or request a new one.";
+    private static final String INVALID_EMAIL_MESSAGE = "Invalid email address.";
 
     @FindBy(id = "email_create")
     private WebElement emailCreateTextbox;
