@@ -36,3 +36,5 @@ dependency-reduced-pom\.xml
 MavenTestsProject\.iml
 
 \.idea/modules\.xml
+
+\.idea/TestsDemoQA\.iml
