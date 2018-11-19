@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.log4testng.Logger;
 
 import java.util.List;
 
@@ -77,7 +78,7 @@ public class PersonalPage extends BasePage{
         WebElement form = wait.until((WebDriver d) -> personalInfoForm) ;
     }
 
-    public boolean checkMaleGender(){
+    private boolean checkMaleGender(){
             return maleCheckBox.isSelected();
     }
 
@@ -85,47 +86,53 @@ public class PersonalPage extends BasePage{
         return femaleCheckBox.isSelected();
     }
 
-    public boolean checkFirstName(String expectedFirstName){
-
-        return firstName.getAttribute("value").equals(expectedFirstName);
+    private void checkFirstName(String expectedFirstName){
+        String actualName = firstName.getAttribute("value");
+        if(!actualName.equals(expectedFirstName))
+            softAssertion.fail(String.format("First name validation error: actual - %s, expected - %s",actualName, expectedFirstName ));
     }
 
-    public boolean checkLastName(String expectedLastName){
-
-        return lastName.getAttribute("value").equals(expectedLastName);
+    private void checkLastName(String expectedLastName){
+        String actualName = lastName.getAttribute("value");
+        if(!actualName.equals(expectedLastName))
+            softAssertion.fail(String.format("Last name validation error: actual - %s, expected - %s",actualName, expectedLastName ));
     }
 
-    public boolean checkEmail (String expectedEmail){
-
-        return email.getAttribute("value").equals(expectedEmail);
+    private void checkEmail (String expectedEmail){
+        String actualEmail = email.getAttribute("value");
+        if(!actualEmail.equals(expectedEmail))
+            softAssertion.fail(String.format("Email validation error: actual - %s, expected - %s", actualEmail, expectedEmail ));
     }
 
-    public boolean checkBithDay(String expectedDay){
+    private void checkBithDay(String expectedDay){
 
         List<WebElement> daysList = new Select(days).getAllSelectedOptions();
         String[] selectedDay = daysList.get(0).getText().split(" ");
-        return selectedDay[0].equals(expectedDay);
+        if(selectedDay[0].equals(expectedDay))
+            softAssertion.fail(String.format("Birth day validation error: actual - %s, expected - %s", selectedDay[0], expectedDay ));
     }
 
-    public boolean checkBithMonth(User.MonthBirth expectedMonth){
+    private void checkBithMonth(User.MonthBirth expectedMonth){
 
         List<WebElement> monthList = new Select(month).getAllSelectedOptions();
         String[] selectedMonth = monthList.get(0).getText().split(" ");
-        return selectedMonth[0].equals(expectedMonth.toString());
+        if(selectedMonth[0].equals(expectedMonth.toString()))
+            softAssertion.fail(String.format("Birth month validation error: actual - %s, expected - %s", selectedMonth[0], expectedMonth.toString() ));
     }
 
-    public boolean checkBithYear(String expectedYear){
+    private void checkBithYear(String expectedYear){
 
         List<WebElement> yearList = new Select(year).getAllSelectedOptions();
         String[] selectedYear = yearList.get(0).getText().split(" ");
-        return selectedYear[0].equals(expectedYear);
+        if(selectedYear[0].equals(expectedYear))
+            softAssertion.fail(String.format("Birth year validation error: actual - %s, expected - %s", selectedYear[0], expectedYear ));
     }
 
-    public boolean checkNews(){
+    private boolean checkNews(){
         return newsCheckBox.isSelected();
     }
 
-    public boolean checkOptions(){
+    private boolean checkOptions(){
         return optionCheckBox.isSelected();
     }
 
@@ -133,5 +140,40 @@ public class PersonalPage extends BasePage{
         final String LoginPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
         driver.navigate().to(LoginPageURL);
         return new PersonalPage(driver);
+    }
+
+    public void checkPersonalInfoForm(User user, Logger logger){
+        logger.info("Check gender");
+        if(!checkMaleGender()){
+            softAssertion.fail("Gender validation error: male gender isn't selected");
+        }
+
+        logger.info("Check first name");
+        checkFirstName(user.getFistName());
+
+        logger.info("Check last name");
+        checkLastName(user.getLastName());
+
+        logger.info("Check email");
+        checkEmail(user.getEmail());
+
+        logger.info("Check birth day");
+        checkBithDay(user.getDayBirth());
+
+        logger.info("Check birth month");
+        checkBithMonth(user.getMonthBirth());
+
+        logger.info("Check birth year");
+        checkBithYear(user.getYearBirth());
+
+        logger.info("Check news");
+        if(!checkNews()){
+            softAssertion.fail("News validation error: news checkbox isn't selected");
+        }
+
+        logger.info("Check options");
+        if(!checkOptions()){
+            softAssertion.fail("Option validation error: options checkbox isn't selected");
+        }
     }
 }
