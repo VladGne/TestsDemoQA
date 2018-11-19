@@ -3,8 +3,6 @@ package POM;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import java.awt.*;
 
 public class AuthenticationPage extends BasePage{
 
@@ -19,8 +17,9 @@ public class AuthenticationPage extends BasePage{
 
     public void inputNewEmail(final String email){
         emailCreateTextbox.sendKeys(email);
-        createAccountButton.click();
     }
+
+    public void createAccountButtonClick(){        createAccountButton.click();}
 
     public boolean checkRepeatedEmailAlertMessage(){
 

@@ -1,11 +1,7 @@
 package com.org.MavenTests;
 
 
-import POM.BasePage;
 import POM.RegistrationPage;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

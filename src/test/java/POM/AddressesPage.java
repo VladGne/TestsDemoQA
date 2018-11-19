@@ -10,15 +10,6 @@ import java.util.List;
 
 public class AddressesPage extends BasePage{
 
-
-    public static final String COMPANY_LOCATOR = "address_company";
-    public static final String ADDRESS1_LOCATOR = "address_address1";
-    public static final String ADDRESS2_LOCATOR = "address_address2";
-    public static final String HOME_PHONE_LOCATOR = "address_phone";
-    public static final String MOBILE_PHONE_LOCATOR = "address_phone_mobile";
-
-
-
     @FindBy(xpath = "//span[@class='address_name']")
     private List<WebElement> fullName;
 
@@ -55,24 +46,11 @@ public class AddressesPage extends BasePage{
     @FindBy(className = "address_phone_mobile")
     private WebElement mobilePhoneField;
 
-    @FindBy(id = "email")
-    private WebElement emailTextbox;
-
-    @FindBy(id = "passwd")
-    private WebElement passwordTextbox;
-
-    @FindBy(id = "SubmitLogin")
-    private WebElement loginButton;
 
     public void addressButtonClick(){
         addressButton.click();
     }
 
-    public void doLogin(String email, String password){
-        emailTextbox.sendKeys(email);
-        passwordTextbox.sendKeys(password);
-        loginButton.click();
-    }
 
     private void checkFullName(String expectedFirstName, String expectedLastName){
        String firstName = fullName.get(0).getText();

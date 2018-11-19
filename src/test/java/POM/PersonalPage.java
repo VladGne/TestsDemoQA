@@ -17,14 +17,7 @@ public class PersonalPage extends BasePage{
         super(driver);
     }
 
-    @FindBy(id = "email")
-    private WebElement emailTextbox;
 
-    @FindBy(id = "passwd")
-    private WebElement passwordTextbox;
-
-    @FindBy(id = "SubmitLogin")
-    private WebElement loginButton;
 
     @FindBy(className = "icon-user")
     private WebElement personalInfoButton;
@@ -62,11 +55,7 @@ public class PersonalPage extends BasePage{
     @FindBy(id = "optin")
     private WebElement optionCheckBox;
 
-    public void doLogin(String email, String password){
-        emailTextbox.sendKeys(email);
-        passwordTextbox.sendKeys(password);
-        loginButton.click();
-    }
+
 
     public void navigateToPersonalInfo(){
         personalInfoButton.click();
