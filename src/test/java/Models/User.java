@@ -142,7 +142,7 @@ public class User {
 	}
 
 	public static enum Country{
-		UnitedStates(1);
+		UnitedStates(21);
 		int value;
 		Country(int value) { this.value = value;}
 
