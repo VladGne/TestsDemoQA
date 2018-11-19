@@ -2,19 +2,14 @@ package com.org.MavenTests;
 
 import Models.User;
 import POM.AuthenticationPage;
-import POM.BasePage;
-import POM.LoginPage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
 public class LoginPageTests extends TestBase{
 
-    private Logger logger =  Logger.getLogger(LoginPage.class);
+    private Logger logger =  Logger.getLogger(AuthenticationPage.class);
 
     // Create invalid user
     @DataProvider(name = "repeatedUserEmail")
