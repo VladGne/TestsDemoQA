@@ -4,7 +4,6 @@ package com.org.MavenTests;
 import POM.RegistrationPage;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import Models.User;
 import org.testng.log4testng.Logger;
 

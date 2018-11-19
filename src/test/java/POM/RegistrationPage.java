@@ -1,14 +1,17 @@
 package POM;
 
 import Models.User;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.log4testng.Logger;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class RegistrationPage extends BasePage {
@@ -188,8 +191,7 @@ public class RegistrationPage extends BasePage {
     public void waitForRegistrationForm(){
 
         WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
-        WebElement header = wait.until((WebDriver d) -> maleCheckBox);
-
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("id_gender1")));
     }
 
     private void selectCountry(User.Country country){
