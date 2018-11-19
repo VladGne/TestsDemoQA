@@ -38,3 +38,5 @@ MavenTestsProject\.iml
 \.idea/modules\.xml
 
 \.idea/TestsDemoQA\.iml
+
+target/test-classes/Models/User\$Country\.class
