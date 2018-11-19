@@ -60,91 +60,58 @@ public class RegPageTest extends TestBase{
 				
 		// Test case 1 - User registration with valid data
 		@Test (priority = 3, dataProvider="upperUserData")
-		public void checkUpperLimits(User userData){
-											
-			User user = userData;
-					
-			LoginPage loginPage = LoginPage.open(driver);
-					
-			try {			
-				// Enter email to get access to registration page
-				loginPage.writeText(By.id(LoginPage.EMAIL_CREATION_TEXTBOX_LOCATOR), (user.getEmail()));			
-				loginPage.click(By.id(LoginPage.SUBMIT_BUTTON_LOCATOR));
-			}
-					
-			catch(Exception e) {
-				logger.error("Can't get access to registration page: " + e.toString());
-				softAssertion.fail("Can't get access to registration page: " + e.toString());
-			}
-								
-			try {
-				// Wait for registration form
-				WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
-				WebElement element = wait.until((WebDriver d) -> d.findElement(By.id(LoginPage.MALE_BUTTON_LOCATOR)));
-			}
-			catch (Exception e) {
-				logger.error("Registration form loading error: " + e.toString());
-				softAssertion.fail("Registration form loading error: " + e.toString());
-			}
+		public void checkUpperLimits(User user){
 
-			// Enter user data into registration form
-			try {
-				loginPage.writeText(By.id(LoginPage.CUSTOMER_FISTNAME_TEXTBOX_LOCATOR), (user.getFistName()));			// Enter fist name
-				loginPage.writeText(By.id(LoginPage.CUSTOMER_LASTNAME_TEXTBOX_LOCATOR), (user.getLastName()));			// Enter last name
-				//loginPage.writeText(By.id(LoginPage.EMAIL_TEXTBOX_LOCATOR), (user.getEmail()));						// email Already in text box
-				loginPage.writeText(By.id(LoginPage.PASSWORD_TEXTBOX_LOCATOR), (user.getPassword()));					// Enter password
-						
-				loginPage.writeText(By.id(LoginPage.COMPANY_TEXTBOX_LOCATOR), (user.getCompany()));						// Enter company
-				loginPage.writeText(By.id(LoginPage.ADDRESS_TEXTBOX_LOCATOR), (user.getAddress()));						// Enter address
-				loginPage.writeText(By.id(LoginPage.ADDRESS2_TEXTBOX_LOCATOR), (user.getAddress2()));					// Enter address addition information
-				loginPage.writeText(By.id(LoginPage.CITY_TEXTBOX_LOCATOR), (user.getCity()));							// Enter city
-						
-				loginPage.writeText(By.id(LoginPage.ZIPCODE_TEXTBOX_LOCATOR), (user.getZipCode()));									// Enter Post code
-				loginPage.writeText(By.id(LoginPage.ADDITIONAL_INFORMATION_TEXTBOX_LOCATOR), (user.getAdditionInformation()));		// Enter addition information
-				loginPage.writeText(By.id(LoginPage.HOME_PHONE_TEXTBOX_LOCATOR), (user.getHomePhone()));							// Enter home phone
-				loginPage.writeText(By.id(LoginPage.MOBILE_PHONE_TEXTBOX_LOCATOR), (user.getMobilePhone()));						// Enter mobile phone
-				loginPage.writeText(By.id(LoginPage.ALIAS_TEXTBOX_LOCATOR), (user.getAddressAlias()));								// Enter alias
-						
-				loginPage.click(By.id(LoginPage.REGISTER_BUTTON_LOCATOR));
-				
-				loginPage.readText(By.className(LoginPage.ALERTS_LOCATOR));
-			}
-			catch(Exception e){			
-				logger.error("User's data input error: " + e.toString());
-				softAssertion.fail("User's data input error: " + e.toString());
-			}
+			RegistrationPage registrationPage = RegistrationPage.open(driver);
 
-			List<WebElement> alertMessages = driver.findElements(By.xpath("//div[@class='alert alert-danger']//ol"));
+			registrationPage.submitEmail(user.getEmail());
 
-			String fn = alertMessages.get(1).getText();
-			if(alertMessages.get(0).getText().equals(LoginPage.MAX_LAST_NAME_MESSAGE))
-				softAssertion.fail("Last name alert message error: ");
-			if(alertMessages.get(1).getText().equals(LoginPage.MAX_FIRST_NAME_MESSAGE))
-				softAssertion.fail("First name alert message error: ");
-			if(alertMessages.get(2).getText().equals(LoginPage.MAX_PASSWORD_MESSAGE))
-				softAssertion.fail("Password alert message error: ");
-			if(alertMessages.get(3).getText().equals(LoginPage.MAX_ALIAS_MESSAGE))
-				softAssertion.fail("Alias alert message error: ");
-			if(alertMessages.get(4).getText().equals(LoginPage.MAX_ADDRESS1_MESSAGE))
-				softAssertion.fail("Address1 alert message error: ");
-			if(alertMessages.get(5).getText().equals(LoginPage.MAX_ADDRESS2_MESSAGE))
-				softAssertion.fail("Address2 alert message error: ");
-			if(alertMessages.get(5).getText().equals(LoginPage.MAX_POSTCODE_MESSAGE))
-				softAssertion.fail("Postcode alert message error: ");
-			if(alertMessages.get(5).getText().equals(LoginPage.MAX_ADDITION_INFO_MESSAGE))
-				softAssertion.fail("Addition info alert message error: ");
-			if(alertMessages.get(5).getText().equals(LoginPage.MAX_HOME_PHONE_MESSAGE))
-				softAssertion.fail("Home phone info alert message error: ");
-			if(alertMessages.get(5).getText().equals(LoginPage.MAX_MOBILE_PHONE_MESSAGE))
-				softAssertion.fail("Mobile phone info alert message error: ");
+			registrationPage.waitForRegistrationForm();
+
+			registrationPage.inputFirstName(user.getFistName());
+
+			registrationPage.inputLastName(user.getLastName());
+
+			registrationPage.inputPassword(user.getPassword());
+
+			registrationPage.inputCompany(user.getCompany());
+
+			registrationPage.inputAddress1(user.getAddress());
+
+			registrationPage.inputAddress2(user.getAddress2());
+
+			registrationPage.inputCity(user.getCity());
+
+			registrationPage.selectCountry(user.getCountry());
+
+			registrationPage.selectState(user.getState());
+
+			registrationPage.inputPostcode(user.getZipCode());
+
+			registrationPage.inputOther(user.getAdditionInformation());
+
+			registrationPage.inputHomePhone(user.getHomePhone());
+
+			registrationPage.inputMobilePhone(user.getMobilePhone());
+
+			registrationPage.inputAlias(user.getAddressAlias());
+
+			registrationPage.selectNews();
+
+			registrationPage.selectOptions();
+
+			registrationPage.selectBirthDay(user.getDayBirth());
+
+			registrationPage.selectBirthMonth(user.getMonthBirth().toString());
+
+			registrationPage.selectBirthYear(user.getYearBirth());
+
+			registrationPage.registerButtonClick();
+
+			registrationPage.checkUpperLimitsAlerts();
 
 			softAssertion.assertAll();
-			//loginPage.click(By.className(BasePage.LOGIN_BUTTON_LOCATOR));
-		}					
-		
-
-		
-
+		}
 		
 		// Create invalid user
 		@DataProvider (name = "invalidUserData")
@@ -160,88 +127,57 @@ public class RegPageTest extends TestBase{
 				
 		//Check date and phone number validation
 		@Test (priority = 3, dataProvider="invalidUserData")
-		public void checkValidations(User userData){
-			User user = userData;
-			
-			LoginPage loginPage = LoginPage.open(driver);
-			
-			try {			
-				// Enter email to get access to registration page
-				loginPage.writeText(By.id(LoginPage.EMAIL_CREATION_TEXTBOX_LOCATOR), (user.getEmail()));			
-				loginPage.click(By.id(LoginPage.SUBMIT_BUTTON_LOCATOR));
-			}
-			
-			catch(Exception e) {
-				logger.error("Can't get access to registration page: " + e.toString());
-				softAssertion.fail("Can't get access to registration page: " + e.toString());
-			}
-			
-			try {
-				// Wait for registration form
-				WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
-				WebElement element = wait.until((WebDriver d) -> d.findElement(By.id(LoginPage.MALE_BUTTON_LOCATOR)));
-			}
-			catch (Exception e) {
-				logger.error("Registration form loading error: " + e.toString());
-				softAssertion.fail("Registration form loading error: " + e.toString());
-			}
-			
-			// Enter user data into registration form
-						
-			try{
-							
-				loginPage.writeText(By.id(LoginPage.CUSTOMER_FISTNAME_TEXTBOX_LOCATOR), (user.getFistName()));			// Enter fist name
-				loginPage.writeText(By.id(LoginPage.CUSTOMER_LASTNAME_TEXTBOX_LOCATOR), (user.getLastName()));			// Enter last name
-				//loginPage.writeText(By.id(LoginPage.EMAIL_TEXTBOX_LOCATOR), (user.getEmail()));						// email Already in text box
-				loginPage.writeText(By.id(LoginPage.PASSWORD_TEXTBOX_LOCATOR), (user.getPassword()));					// Enter password
+		public void checkValidations(User user){
 
-				// Enter Date of birth
-				loginPage.selectItem(By.id(LoginPage.DAY_LOCATOR), user.getDayBirth());
-				loginPage.selectItem(By.id(LoginPage.MONTH_LOCATOR), user.getMonthBirth().getValue());
-				loginPage.selectItem(By.id(LoginPage.YEAR_LOCATOR), user.getYearBirth());
+			RegistrationPage registrationPage = RegistrationPage.open(driver);
 
-				loginPage.writeText(By.id(LoginPage.ADDRESS_TEXTBOX_LOCATOR), (user.getAddress()));						// Enter address
-				loginPage.writeText(By.id(LoginPage.ADDRESS2_TEXTBOX_LOCATOR), (user.getAddress2()));					// Enter address addition information
-				loginPage.writeText(By.id(LoginPage.CITY_TEXTBOX_LOCATOR), (user.getCity()));							// Enter city
+			registrationPage.submitEmail(user.getEmail());
 
-				loginPage.writeText(By.id(LoginPage.ZIPCODE_TEXTBOX_LOCATOR), (user.getZipCode()));						// Enter Post code
-				loginPage.writeText(By.id(LoginPage.HOME_PHONE_TEXTBOX_LOCATOR), (user.getHomePhone()));				// Enter home phone
-				loginPage.writeText(By.id(LoginPage.MOBILE_PHONE_TEXTBOX_LOCATOR), (user.getMobilePhone()));			// Enter mobile phone
-				loginPage.writeText(By.id(LoginPage.ALIAS_TEXTBOX_LOCATOR), (user.getAddressAlias()));					// Enter alias
+			registrationPage.waitForRegistrationForm();
 
-				loginPage.click(By.id(LoginPage.REGISTER_BUTTON_LOCATOR));
-				}
-			
-				catch(Exception e){
-					logger.error("User's data input error: " + e.toString());
-					softAssertion.fail("User's data input error: " + e.toString());
-				}
+			registrationPage.inputFirstName(user.getFistName());
 
-				try {
-					// Wait for registration form
-					WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
-					WebElement element = wait.until((WebDriver d) -> d.findElement(By.className(LoginPage.ALERTS_LOCATOR)));
-				}
-				catch (Exception e) {
-					logger.error("Alert message loading error: " + e.toString());
-					softAssertion.fail("Alert message loading error: " + e.toString());
-				}
+			registrationPage.inputLastName(user.getLastName());
 
-				List<WebElement> alertMessages = driver.findElements(By.xpath("//div[@class='alert alert-danger']//ol"));
-				if(alertMessages.get(0).getText().equals(LoginPage.INVALID_LAST_NAME_MESSAGE))
-					softAssertion.fail("Last name alert message error: ");
-				if(alertMessages.get(1).getText().equals(LoginPage.INVALID_FIRST_NAME_MESSAGE))
-					softAssertion.fail("First name alert message error: ");
-				if(alertMessages.get(2).getText().equals(LoginPage.INVALID_PASSWORD_MESSAGE))
-				softAssertion.fail("Password alert message error: ");
-				if(alertMessages.get(3).getText().equals(LoginPage.INVALID_POSTCODE_MESSAGE))
-					softAssertion.fail("Postcode alert message error: ");
-				if(alertMessages.get(4).getText().equals(LoginPage.INVALID_STATE_MESSAGE))
-					softAssertion.fail("State alert message error: ");
-				if(alertMessages.get(5).getText().equals(LoginPage.INVALID_DATE_MESSAGE))
-					softAssertion.fail("Date alert message error: ");
+			registrationPage.inputPassword(user.getPassword());
 
-				softAssertion.assertAll();
+			registrationPage.inputCompany(user.getCompany());
+
+			registrationPage.inputAddress1(user.getAddress());
+
+			registrationPage.inputAddress2(user.getAddress2());
+
+			registrationPage.inputCity(user.getCity());
+
+			registrationPage.selectCountry(user.getCountry());
+
+			registrationPage.selectState(user.getState());
+
+			registrationPage.inputPostcode(user.getZipCode());
+
+			registrationPage.inputOther(user.getAdditionInformation());
+
+			registrationPage.inputHomePhone(user.getHomePhone());
+
+			registrationPage.inputMobilePhone(user.getMobilePhone());
+
+			registrationPage.inputAlias(user.getAddressAlias());
+
+			registrationPage.selectNews();
+
+			registrationPage.selectOptions();
+
+			registrationPage.selectBirthDay(user.getDayBirth());
+
+			registrationPage.selectBirthMonth(user.getMonthBirth().toString());
+
+			registrationPage.selectBirthYear(user.getYearBirth());
+
+			registrationPage.registerButtonClick();
+
+			registrationPage.checkInvalidAlerts();
+
+			softAssertion.assertAll();
 		}	
 		
 		// Create valid user
@@ -304,77 +240,7 @@ public class RegPageTest extends TestBase{
 
 			//registrationPage.registerButtonClick();
 
-//			User user = userData;
-//
-//			LoginPage loginPage = LoginPage.open(driver);
-//
-//			try {
-//				// Enter email to get access to registration page
-//				loginPage.writeText(By.id(LoginPage.EMAIL_CREATION_TEXTBOX_LOCATOR), (user.getEmail()));
-//				loginPage.click(By.id(LoginPage.SUBMIT_BUTTON_LOCATOR));
-//			}
-//
-//			catch(Exception e) {
-//				logger.error("Can't get access to registration page: " + e.toString());
-//				softAssertion.fail("Can't get access to registration page: " + e.toString());
-//			}
-//
-//			try {
-//				// Wait for registration form
-//				WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
-//				WebElement element = wait.until((WebDriver d) -> d.findElement(By.id(LoginPage.MALE_BUTTON_LOCATOR)));
-//			}
-//			catch (Exception e) {
-//				logger.error("Registration form loading error: " + e.toString());
-//				softAssertion.fail("Registration form loading error: " + e.toString());
-//			}
-//
-//
-//			// Enter user data into registration form
-//			try {
-//				loginPage.click(By.id(LoginPage.MALE_BUTTON_LOCATOR));													// Choice gender
-//				loginPage.writeText(By.id(LoginPage.CUSTOMER_FISTNAME_TEXTBOX_LOCATOR), (user.getFistName()));			// Enter fist name
-//				loginPage.writeText(By.id(LoginPage.CUSTOMER_LASTNAME_TEXTBOX_LOCATOR), (user.getLastName()));			// Enter last name
-//				//loginPage.writeText(By.id(LoginPage.EMAIL_TEXTBOX_LOCATOR), (user.getEmail()));						// email Already in text box
-//				loginPage.writeText(By.id(LoginPage.PASSWORD_TEXTBOX_LOCATOR), (user.getPassword()));					// Enter password
-//
-//				// Enter Date of birth
-//				loginPage.selectItem(By.id(LoginPage.DAY_LOCATOR), user.getDayBirth());
-//				loginPage.selectItem(By.id(LoginPage.MONTH_LOCATOR), user.getMonthBirth().getValue());
-//				loginPage.selectItem(By.id(LoginPage.YEAR_LOCATOR), user.getYearBirth());
-//
-//				// Optional check-boxes
-//				loginPage.click(By.id(LoginPage.NEWSLETTER_LOCATOR));
-//				loginPage.click(By.id(LoginPage.OFFERS_LOCATOR));
-//
-//				loginPage.writeText(By.id(LoginPage.COMPANY_TEXTBOX_LOCATOR), (user.getCompany()));						// Enter company
-//				loginPage.writeText(By.id(LoginPage.ADDRESS_TEXTBOX_LOCATOR), (user.getAddress()));						// Enter address
-//				loginPage.writeText(By.id(LoginPage.ADDRESS2_TEXTBOX_LOCATOR), (user.getAddress2()));					// Enter address addition information
-//				loginPage.writeText(By.id(LoginPage.CITY_TEXTBOX_LOCATOR), (user.getCity()));							// Enter city
-//
-//				loginPage.selectItem(By.id(LoginPage.COUNTRY_TEXTBOX_LOCATOR), user.getCountry().getValue());						// Choice Country
-//
-//
-//
-//				if ("United states".equals(loginPage.readText(By.id(LoginPage.COUNTRY_TEXTBOX_LOCATOR))))
-//					//loginPage.selectItem(By.id(LoginPage.STATE_TEXTBOX_LOCATOR), user.getState().getValue());							// Choice State
-//					loginPage.selectItem(By.id(LoginPage.STATE_TEXTBOX_LOCATOR), user.getState().getValue());
-//
-//				loginPage.writeText(By.id(LoginPage.ZIPCODE_TEXTBOX_LOCATOR), (user.getZipCode()));									// Enter Post code
-//				loginPage.writeText(By.id(LoginPage.ADDITIONAL_INFORMATION_TEXTBOX_LOCATOR), (user.getAdditionInformation()));		// Enter addition information
-//				loginPage.writeText(By.id(LoginPage.HOME_PHONE_TEXTBOX_LOCATOR), (user.getHomePhone()));							// Enter home phone
-//				loginPage.writeText(By.id(LoginPage.MOBILE_PHONE_TEXTBOX_LOCATOR), (user.getMobilePhone()));						// Enter mobile phone
-//				loginPage.writeText(By.id(LoginPage.ALIAS_TEXTBOX_LOCATOR), (user.getAddressAlias()));								// Enter alias
-//
-//				//loginPage.click(By.id(LoginPage.REGISTER_BUTTON_LOCATOR));
-//			}
-//			catch(Exception e){
-//				logger.error("User's data input error: " + e.toString());
-//				softAssertion.fail("User's data input error: " + e.toString());
-//			}
-
 			softAssertion.assertAll();
-			//loginPage.click(By.className(BasePage.LOGIN_BUTTON_LOCATOR));
 		}			
 		
 }

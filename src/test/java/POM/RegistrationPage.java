@@ -8,6 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class RegistrationPage extends BasePage {
 
     // id
@@ -141,6 +143,9 @@ public class RegistrationPage extends BasePage {
     @FindBy(className = "page-subheading")
     private WebElement mainHeader;
 
+    @FindBy(xpath = "//div[@class='alert alert-danger']//ol")
+    private List<WebElement> alertList;
+
     public void selectNews(){newsCheckBox.click();}
 
     public void selectOptions(){optionCheckBox.click();}
@@ -221,8 +226,6 @@ public class RegistrationPage extends BasePage {
 
     }
 
-
-
     public void selectCountry(User.Country country){
 
         new Select(countryBox).selectByValue(String.valueOf(country.getValue()));
@@ -250,5 +253,44 @@ public class RegistrationPage extends BasePage {
         final String AuthenticationPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
         driver.navigate().to(AuthenticationPageURL);
         return new RegistrationPage(driver);
+    }
+
+    public void checkInvalidAlerts(){
+
+        if(!alertList.get(0).getText().equals(INVALID_LAST_NAME_MESSAGE))
+            softAssertion.fail("Last name alert message error: ");
+        if(!alertList.get(1).getText().equals(INVALID_FIRST_NAME_MESSAGE))
+            softAssertion.fail("First name alert message error: ");
+        if(!alertList.get(2).getText().equals(INVALID_PASSWORD_MESSAGE))
+            softAssertion.fail("Password alert message error: ");
+        if(!alertList.get(3).getText().equals(INVALID_POSTCODE_MESSAGE))
+            softAssertion.fail("Postcode alert message error: ");
+        if(!alertList.get(4).getText().equals(INVALID_STATE_MESSAGE))
+            softAssertion.fail("State alert message error: ");
+        if(!alertList.get(5).getText().equals(INVALID_DATE_MESSAGE))
+            softAssertion.fail("Date alert message error: ");
+    }
+
+    public void checkUpperLimitsAlerts(){
+        if(!alertList.get(0).getText().equals(MAX_LAST_NAME_MESSAGE))
+            softAssertion.fail("Last name alert message error: ");
+		if(!alertList.get(1).getText().equals(MAX_FIRST_NAME_MESSAGE))
+			softAssertion.fail("First name alert message error: ");
+		if(!alertList.get(2).getText().equals(MAX_PASSWORD_MESSAGE))
+			softAssertion.fail("Password alert message error: ");
+		if(!alertList.get(3).getText().equals(MAX_ALIAS_MESSAGE))
+			softAssertion.fail("Alias alert message error: ");
+		if(!alertList.get(4).getText().equals(MAX_ADDRESS1_MESSAGE))
+			softAssertion.fail("Address1 alert message error: ");
+		if(!alertList.get(5).getText().equals(MAX_ADDRESS2_MESSAGE))
+			softAssertion.fail("Address2 alert message error: ");
+		if(!alertList.get(5).getText().equals(MAX_POSTCODE_MESSAGE))
+			softAssertion.fail("Postcode alert message error: ");
+		if(!alertList.get(5).getText().equals(MAX_ADDITION_INFO_MESSAGE))
+			softAssertion.fail("Addition info alert message error: ");
+		if(!alertList.get(5).getText().equals(MAX_HOME_PHONE_MESSAGE))
+			softAssertion.fail("Home phone info alert message error: ");
+		if(!alertList.get(5).getText().equals(MAX_MOBILE_PHONE_MESSAGE))
+			softAssertion.fail("Mobile phone info alert message error: ");
     }
 }
