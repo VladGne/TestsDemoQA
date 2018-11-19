@@ -8,17 +8,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.nio.file.WatchEvent;
-
 public class BasePage extends TestBase {
 
 	//public static final String DRIVER_PATH = "E:\\_Programs\\GekoDriver\\geckodriver.exe";
 	public static final String DRIVER_PATH = "F:\\Programs\\ChromeDriver\\chromedriver.exe";
 
-	//Classes
-	public static final String LOGOUT_BUTTON_LOCATOR = "logout"; 
-	public static final String LOGIN_BUTTON_LOCATOR = "login";
-	public static final String ALERTS_LOCATOR = "alert-danger";
 
 	public static int waiterTime = 10;
 	//public WebDriver driver;
@@ -55,6 +49,15 @@ public class BasePage extends TestBase {
 		driver.navigate().to(BasePageURL);
 		return new BasePage(driver);
 	}
+
+	@FindBy(id = "email")
+	private WebElement emailTextbox;
+
+	@FindBy(id = "passwd")
+	private WebElement passwordTextbox;
+
+	@FindBy(id = "SubmitLogin")
+	private WebElement loginButton;
 	
 	//Click Method
 	public void click(By elementLocator) {
@@ -73,6 +76,12 @@ public class BasePage extends TestBase {
 
 	public String getValue(By elementLocator) {
 		return driver.findElement(elementLocator).getAttribute("value");
+	}
+
+	public void doLogin(String email, String password){
+		emailTextbox.sendKeys(email);
+		passwordTextbox.sendKeys(password);
+		loginButton.click();
 	}
 }
 
