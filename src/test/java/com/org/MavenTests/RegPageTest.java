@@ -2,10 +2,10 @@ package com.org.MavenTests;
 
 
 import POM.RegistrationPage;
+import org.apache.log4j.Logger;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import Models.User;
-import org.testng.log4testng.Logger;
 
 public class RegPageTest extends TestBase{
 
@@ -140,7 +140,11 @@ public class RegPageTest extends TestBase{
 			registrationPage.fillRegistrationForm(user, logger);
 
 			logger.info("Click register button");
-			//registrationPage.registerButtonClick();
+			registrationPage.registerButtonClick();
+
+			//registrationPage.
+
+			//TODO: check Title expected: <title>My account - My Store</title>
 
 			softAssertion.assertAll();
 		}
