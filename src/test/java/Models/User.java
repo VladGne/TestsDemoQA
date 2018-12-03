@@ -23,7 +23,7 @@ public class User {
 	private MonthBirth monthBirth;
 
 	public User(){
-		final String email = "test2@test.com2";								//test1@test.com1 - for login
+		final String email = "test1@test.com1";								//test1@test.com1 - for login
 		final String gender = "Male";
 		final String fistName = "TestFistName";
 		final String lastName = "TestLastName";
