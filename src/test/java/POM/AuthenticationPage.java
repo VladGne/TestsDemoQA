@@ -20,7 +20,6 @@ public class AuthenticationPage extends BasePage{
     }
 
 
-
     public void createAccountButtonClick(){        createAccountButton.click();}
 
     public boolean checkRepeatedEmailAlertMessage(){

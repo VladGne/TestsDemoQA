@@ -2,10 +2,11 @@ package com.org.MavenTests;
 
 import Models.User;
 import POM.AuthenticationPage;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.log4testng.Logger;
+
 
 public class LoginPageTests extends TestBase{
 

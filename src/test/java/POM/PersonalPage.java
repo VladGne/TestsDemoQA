@@ -1,12 +1,13 @@
 package POM;
 
 import Models.User;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.log4testng.Logger;
+
 
 import java.util.List;
 
@@ -16,8 +17,6 @@ public class PersonalPage extends BasePage{
     private PersonalPage(WebDriver driver) {
         super(driver);
     }
-
-
 
     @FindBy(className = "icon-user")
     private WebElement personalInfoButton;
