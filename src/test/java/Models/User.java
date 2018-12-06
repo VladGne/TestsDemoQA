@@ -24,6 +24,8 @@ public class User {
 	private State state;
 	private Country country;
 	private MonthBirth monthBirth;
+	private boolean news;
+	private boolean options;
 
 	public User(){
 		final String email = "test2@test.com2";								//test1@test.com1 - for login
