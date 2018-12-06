@@ -2,28 +2,28 @@ package Models;
 
 import lombok.Getter;
 import lombok.Setter;
-
+@Getter @Setter
 public class User {
 
-	@Getter @Setter	private String email;
-	@Getter @Setter private String fistName;
-	@Getter @Setter private String lastName;
-	@Getter @Setter private String company;
-	@Getter @Setter private String address;
-	@Getter @Setter private String address2; // Additional address information
-	@Getter @Setter private String city;
-	@Getter @Setter private String zipCode;
-	@Getter @Setter private String additionInformation;
-	@Getter @Setter private String homePhone;
-	@Getter @Setter private String mobilePhone;
-	@Getter @Setter private String addressAlias;
-	@Getter @Setter private String gender;
-	@Getter @Setter private String password;
-	@Getter @Setter private String dayBirth;
-	@Getter @Setter private String yearBirth;
-	@Getter @Setter private State state;
-	@Getter @Setter private Country country;
-	@Getter @Setter private MonthBirth monthBirth;
+	private String email;
+	private String fistName;
+	private String lastName;
+	private String company;
+	private String address;
+	private String address2; // Additional address information
+	private String city;
+	private String zipCode;
+	private String additionInformation;
+	private String homePhone;
+	private String mobilePhone;
+	private String addressAlias;
+	private String gender;
+	private String password;
+	private String dayBirth;
+	private String yearBirth;
+	private State state;
+	private Country country;
+	private MonthBirth monthBirth;
 
 	public User(){
 		final String email = "test2@test.com2";								//test1@test.com1 - for login
@@ -101,6 +101,7 @@ public class User {
 		this.password = invalidValue;
 	}
 
+	@Getter
 	public static enum State{
 		Alabama(1),
 		Alaska(2),
@@ -110,12 +111,13 @@ public class User {
 		Colorado(6),
 		Connecticut(7);
 
-		@Getter int value;
+		int value;
 		State(int value){
 				this.value = value;
 		}
 	}
-	
+
+	@Getter
 	public static enum MonthBirth{
 		January (1),
 		February (2),
@@ -130,16 +132,17 @@ public class User {
 		November (11),
 		December (12);
 
-		@Getter int value;
+		int value;
 		MonthBirth(int value){
 			this.value = value;
 		}
 	}
 
+	@Getter
 	public static enum Country{
 		UnitedStates(21);
 
-		@Getter int value;
+		int value;
 		Country(int value) { this.value = value;}
 	}
 }
