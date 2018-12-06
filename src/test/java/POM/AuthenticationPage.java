@@ -15,16 +15,13 @@ public class AuthenticationPage extends BasePage{
     @FindBy(id = "SubmitCreate")
     private WebElement createAccountButton;
 
-    public void inputNewEmail(final String email){
-        emailCreateTextbox.sendKeys(email);
-    }
+    public void inputNewEmail(final String email){emailCreateTextbox.sendKeys(email);}
 
+    public void createAccountButtonClick(){createAccountButton.click();}
 
-    public void createAccountButtonClick(){        createAccountButton.click();}
-
-    public boolean checkRepeatedEmailAlertMessage(){
-
-        return alertMessage.getText().equals(REPEATED_EMAIL_MESSAGE);
+    public void checkRepeatedEmailAlertMessage(){
+        if(!alertMessage.getText().equals(REPEATED_EMAIL_MESSAGE));
+            //softAssertion.fail("Alert message validation fail: ");
     }
 
     public boolean checkInvalidEmailAlertMessage(){
@@ -36,9 +33,9 @@ public class AuthenticationPage extends BasePage{
         super(driver);
     }
 
-    public static AuthenticationPage open(WebDriver driver) {
-        final String AuthenticationPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
-        driver.navigate().to(AuthenticationPageURL);
+    public static AuthenticationPage open() {
+        //final String AuthenticationPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
+        //driver.navigate().to(AuthenticationPageURL);
         return new AuthenticationPage(driver);
     }
 }

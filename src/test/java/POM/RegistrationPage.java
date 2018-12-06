@@ -1,7 +1,6 @@
 package POM;
 
 import Models.User;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +8,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.testng.Assert;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class RegistrationPage extends BasePage {
 
@@ -33,6 +34,9 @@ public class RegistrationPage extends BasePage {
     private static final String INVALID_STATE_MESSAGE = "This country requires you to choose a State";
     private static final String INVALID_DATE_MESSAGE = "Invalid date of birth";
     public static final String INVALID_COUNTRY_MESSAGE = "Country is invalid";
+
+    @FindBy(className = "header_user_info")
+    private WebElement userProfileButton;
 
     @FindBy(id = "email_create")
     private WebElement emailTextbox;
@@ -186,7 +190,6 @@ public class RegistrationPage extends BasePage {
     }
 
     public void waitForRegistrationForm(){
-
         WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("id_gender1")));
     }
@@ -209,118 +212,127 @@ public class RegistrationPage extends BasePage {
     }
 
     private RegistrationPage(WebDriver driver) {
-        super(driver);
+       super(driver);
     }
 
-    public static RegistrationPage open(WebDriver driver) {
+    public static RegistrationPage open() {
         final String AuthenticationPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
-        driver.navigate().to(AuthenticationPageURL);
-        return new RegistrationPage(driver);
+        BasePage.driver.navigate().to(AuthenticationPageURL);
+        return new RegistrationPage(BasePage.driver);
+    }
+
+    public void checkUserButton(){
+        if(!userProfileButton.isDisplayed())
+            Assert.fail("User profile button doesn't exist");
     }
 
     public void checkInvalidAlerts(){
 
-        String[] alertMessage = alertList.getText().split("\n");
-
-        if(!alertMessage[0].equals(INVALID_LAST_NAME_MESSAGE))
-            softAssertion.fail("Last name alert message error: ");
-        if(!alertMessage[1].equals(INVALID_FIRST_NAME_MESSAGE))
-            softAssertion.fail("First name alert message error: ");
-        if(!alertMessage[2].equals(INVALID_PASSWORD_MESSAGE))
-            softAssertion.fail("Password alert message error: ");
-        if(!alertMessage[3].equals(INVALID_POSTCODE_MESSAGE))
-            softAssertion.fail("Postcode alert message error: ");
-//        if(!alertMessage[4].equals(INVALID_STATE_MESSAGE))
-//            softAssertion.fail("State alert message error: ");
-        if(!alertMessage[4].equals(INVALID_DATE_MESSAGE))
-            softAssertion.fail("Date alert message error: ");
+//        String[] alertMessage = alertList.getText().split("\n");
+//
+//        if(!alertMessage[0].equals(INVALID_LAST_NAME_MESSAGE))
+//            softAssertion.fail("Last name alert message error: ");
+//        if(!alertMessage[1].equals(INVALID_FIRST_NAME_MESSAGE))
+//            softAssertion.fail("First name alert message error: ");
+//        if(!alertMessage[2].equals(INVALID_PASSWORD_MESSAGE))
+//            softAssertion.fail("Password alert message error: ");
+//        if(!alertMessage[3].equals(INVALID_POSTCODE_MESSAGE))
+//            softAssertion.fail("Postcode alert message error: ");
+////        if(!alertMessage[4].equals(INVALID_STATE_MESSAGE))
+////            softAssertion.fail("State alert message error: ");
+//        if(!alertMessage[4].equals(INVALID_DATE_MESSAGE))
+//            softAssertion.fail("Date alert message error: ");
+//
+//        softAssertion.assertAll();;
     }
 
     public void checkUpperLimitsAlerts(){
 
         String[] alertMessage = alertList.getText().split("\n");
-
-        if(!alertMessage[0].equals(MAX_LAST_NAME_MESSAGE))
-            softAssertion.fail("Last name alert message error: ");
-		if(!alertMessage[1].equals(MAX_FIRST_NAME_MESSAGE))
-			softAssertion.fail("First name alert message error: ");
-		if(!alertMessage[2].equals(MAX_PASSWORD_MESSAGE))
-			softAssertion.fail("Password alert message error: ");
-		if(!alertMessage[3].equals(MAX_ALIAS_MESSAGE))
-			softAssertion.fail("Alias alert message error: ");
-		if(!alertMessage[4].equals(MAX_ADDRESS1_MESSAGE))
-			softAssertion.fail("Address1 alert message error: ");
-		if(!alertMessage[5].equals(MAX_ADDRESS2_MESSAGE))
-			softAssertion.fail("Address2 alert message error: ");
-		if(!alertMessage[6].equals(MAX_POSTCODE_MESSAGE))
-			softAssertion.fail("Postcode alert message error: ");
-		if(!alertMessage[7].equals(MAX_ADDITION_INFO_MESSAGE))
-			softAssertion.fail("Addition info alert message error: ");
-		if(!alertMessage[8].equals(MAX_HOME_PHONE_MESSAGE))
-			softAssertion.fail("Home phone info alert message error: ");
-		if(!alertMessage[9].equals(MAX_MOBILE_PHONE_MESSAGE))
-			softAssertion.fail("Mobile phone info alert message error: ");
+//
+//        if(!alertMessage[0].equals(MAX_LAST_NAME_MESSAGE))
+//            softAssertion.fail("Last name alert message error: ");
+//		if(!alertMessage[1].equals(MAX_FIRST_NAME_MESSAGE))
+//			softAssertion.fail("First name alert message error: ");
+//		if(!alertMessage[2].equals(MAX_PASSWORD_MESSAGE))
+//			softAssertion.fail("Password alert message error: ");
+//		if(!alertMessage[3].equals(MAX_ALIAS_MESSAGE))
+//			softAssertion.fail("Alias alert message error: ");
+//		if(!alertMessage[4].equals(MAX_ADDRESS1_MESSAGE))
+//			softAssertion.fail("Address1 alert message error: ");
+//		if(!alertMessage[5].equals(MAX_ADDRESS2_MESSAGE))
+//			softAssertion.fail("Address2 alert message error: ");
+//		if(!alertMessage[6].equals(MAX_POSTCODE_MESSAGE))
+//			softAssertion.fail("Postcode alert message error: ");
+//		if(!alertMessage[7].equals(MAX_ADDITION_INFO_MESSAGE))
+//			softAssertion.fail("Addition info alert message error: ");
+//		if(!alertMessage[8].equals(MAX_HOME_PHONE_MESSAGE))
+//			softAssertion.fail("Home phone info alert message error: ");
+//		if(!alertMessage[9].equals(MAX_MOBILE_PHONE_MESSAGE))
+//			softAssertion.fail("Mobile phone info alert message error: ");
+//
+//        softAssertion.assertAll();
     }
 
-    public void fillRegistrationForm(User user, Logger logger){
-        logger.info("Select gender");
+    public void fillRegistrationForm(User user){
+        logger.debug("Select gender");
         selectMaleGender();
 
-        logger.info("Input first name");
+        logger.debug("Input first name");
         inputFirstName(user.getFistName());
 
-        logger.info("Input last name");
+        logger.debug("Input last name");
         inputLastName(user.getLastName());
 
-        logger.info("Input password");
+        logger.debug("Input password");
         inputPassword(user.getPassword());
 
-        logger.info("Input company");
+        logger.debug("Input company");
         inputCompany(user.getCompany());
 
-        logger.info("Input address1");
+        logger.debug("Input address1");
         inputAddress1(user.getAddress());
 
-        logger.info("Input address2");
+        logger.debug("Input address2");
         inputAddress2(user.getAddress2());
 
-        logger.info("Input city");
+        logger.debug("Input city");
         inputCity(user.getCity());
 
-        logger.info("Input country");
+        logger.debug("Input country");
         selectCountry(user.getCountry());
 
-        logger.info("Input state");
+        logger.debug("Input state");
         selectState(user.getState());
 
-        logger.info("Input post code");
+        logger.debug("Input post code");
         inputPostcode(user.getZipCode());
 
-        logger.info("Input addition information");
+        logger.debug("Input addition information");
         inputOther(user.getAdditionInformation());
 
-        logger.info("Input home phone");
+        logger.debug("Input home phone");
         inputHomePhone(user.getHomePhone());
 
-        logger.info("Input mobile phone");
+        logger.debug("Input mobile phone");
         inputMobilePhone(user.getMobilePhone());
 
-        logger.info("Input alias");
+        logger.debug("Input alias");
         inputAlias(user.getAddressAlias());
 
-        logger.info("Select news");
+        logger.debug("Select news");
         selectNews();
 
-        logger.info("Select options");
+        logger.debug("Select options");
         selectOptions();
 
-        logger.info("Select day of birth");
+        logger.debug("Select day of birth");
         selectBirthDay(user.getDayBirth());
 
-        logger.info("Select month of birth");
+        logger.debug("Select month of birth");
         selectBirthMonth(user.getMonthBirth());
 
-        logger.info("Select year of birth");
+        logger.debug("Select year of birth");
         selectBirthYear(user.getYearBirth());
     }
 }
