@@ -1,39 +1,39 @@
 package com.org.MavenTests;
 
-
 import POM.RegistrationPage;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import Models.User;
 
 public class RegPageTest extends TestBase{
 
-	private Logger logger =  Logger.getLogger(RegPageTest.class);
+	private Logger logger = LogManager.getLogger(RegPageTest.class);
 
 		// Create invalid user
 		@DataProvider (name = "upperUserData")
 		public Object[] getUpperUserData(){
-			String longString ="1";
+			StringBuilder longString = new StringBuilder("1");
 			for (int i=0; i<10000; i++)
-				longString += "1";
+				longString.append("1");
 			
 			final String email = "Mustbeverylargetestusermailforthistextbox@gamil.com";								//test1@test.com1 - for login
 			final String fistName = "Mustbeverylargetestfistnameforthistextbox";
 			final String lastName = "Mustbeverylargetestlastnameforthistextbox";
 			final String company = "Mustbeverylargetestlastnameforthistextbox";
-			final String address = longString;
-			final String address2 = longString; 							// Additional address information
+			final String address = longString.toString();
+			final String address2 = longString.toString(); 							// Additional address information
 			final String city = "Mustbeverylargetestlastnameforthistextbox";
 			final String zipCode = "88888888888888888888888888888888888";
-			final String additionInformation = longString;
+			final String additionInformation = longString.toString();
 			final String homePhone = "88888888888888888888888888888888888";
 			final String mobilePhone = "88888888888888888888888888888888888";
-			final String addressAlias = longString;	
+			final String addressAlias = longString.toString();
 			final String password = "MustBeVeryLargeTestPasswordForThisTextbox1";;
 					
 			User[] validUserData = new User[1]; 
-			validUserData[0] = new User(longString);
+			validUserData[0] = new User(longString.toString());
 			validUserData[0].setEmail(email);
 			validUserData[0].setFistName(fistName);
 			validUserData[0].setLastName(lastName);
@@ -56,7 +56,7 @@ public class RegPageTest extends TestBase{
 			logger.info("\n --- Validation test start ---\n");
 
 			logger.info("Navigate to login page");
-			RegistrationPage registrationPage = RegistrationPage.open(driver);
+			RegistrationPage registrationPage = RegistrationPage.open();
 
 			logger.info("Input email");
 			registrationPage.submitEmail(user.getEmail());
@@ -65,7 +65,7 @@ public class RegPageTest extends TestBase{
 			registrationPage.waitForRegistrationForm();
 
 			logger.info("Fill registration form");
-			registrationPage.fillRegistrationForm(user, logger);
+			registrationPage.fillRegistrationForm(user);
 
 			logger.info("Click register button");
 			registrationPage.registerButtonClick();
@@ -73,7 +73,6 @@ public class RegPageTest extends TestBase{
 			logger.info("Check alert");
 			registrationPage.checkUpperLimitsAlerts();
 
-			softAssertion.assertAll();
 		}
 		
 		// Create invalid user
@@ -94,7 +93,7 @@ public class RegPageTest extends TestBase{
 			logger.info("\n --- Validation test start ---\n");
 
 			logger.info("Navigate to login page");
-			RegistrationPage registrationPage = RegistrationPage.open(driver);
+			RegistrationPage registrationPage = RegistrationPage.open();
 
 			logger.info("Input email");
 			registrationPage.submitEmail(user.getEmail());
@@ -103,15 +102,13 @@ public class RegPageTest extends TestBase{
 			registrationPage.waitForRegistrationForm();
 
 			logger.info("Fill registration form");
-			registrationPage.fillRegistrationForm(user, logger);
+			registrationPage.fillRegistrationForm(user);
 
 			logger.info("Click register button");
 			registrationPage.registerButtonClick();
 
 			logger.info("Check alert");
 			registrationPage.checkInvalidAlerts();
-
-			softAssertion.assertAll();
 		}	
 		
 		// Create valid user
@@ -128,7 +125,7 @@ public class RegPageTest extends TestBase{
 			logger.info("\n --- Registration test start ---\n");
 
 			logger.info("Navigate to login page");
-			RegistrationPage registrationPage = RegistrationPage.open(driver);
+			RegistrationPage registrationPage = RegistrationPage.open();
 
 			logger.info("Input email");
 			registrationPage.submitEmail(user.getEmail());
@@ -137,15 +134,28 @@ public class RegPageTest extends TestBase{
 			registrationPage.waitForRegistrationForm();
 
 			logger.info("Fill registration form");
-			registrationPage.fillRegistrationForm(user, logger);
+			registrationPage.fillRegistrationForm(user);
 
 			logger.info("Click register button");
-			registrationPage.registerButtonClick();
+			//registrationPage.registerButtonClick();
 
-			//registrationPage.
+			logger.info("Check user profile button");
+			registrationPage.checkUserButton();
+		}
 
-			//TODO: check Title expected: <title>My account - My Store</title>
+		@Test (priority = 0, dataProvider="validUserData")
+		public void checkVisibility(User user){
+			logger.info("\n --- Visibility test start ---\n");
 
-			softAssertion.assertAll();
+			logger.info("Navigate to login page");
+			RegistrationPage registrationPage = RegistrationPage.open();
+
+			logger.info("Input email");
+			registrationPage.submitEmail(user.getEmail());
+
+			logger.info("Wait for registration form");
+			registrationPage.waitForRegistrationForm();
+
+			//registrationPage.checkElementsVisibility(this.getClass());
 		}
 }
