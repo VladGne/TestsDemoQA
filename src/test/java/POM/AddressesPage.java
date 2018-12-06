@@ -50,6 +50,25 @@ public class AddressesPage extends BasePage{
         addressButton.click();
     }
 
+    public User getActualUserData(){
+        User actualUser = new User();
+
+        actualUser.setFistName(fullName.get(0).getText());
+        actualUser.setLastName(fullName.get(1).getText());
+        String country = countryField.getText().replaceAll("\\s","");
+        actualUser.setCountry(User.Country.valueOf(country));
+        String[] currentCity = city.getText().split(",");
+        actualUser.setCity(currentCity[0]);
+        actualUser.setState(User.State.valueOf(state.getText()));
+        actualUser.setZipCode(postCode.getText() + "12321");
+        actualUser.setCompany(companyField.getText());
+        actualUser.setAddress(address1Field.getText());
+        actualUser.setAddress2(address2Field.getText());
+        actualUser.setHomePhone(homePhoneField.getText());
+        actualUser.setMobilePhone(mobilePhoneField.getText());
+
+        return actualUser;
+    }
 
     private void checkFullName(String expectedFirstName, String expectedLastName){
        String firstName = fullName.get(0).getText();
@@ -140,6 +159,8 @@ public class AddressesPage extends BasePage{
         logger.debug("Check Postcode");
         checkPostCode(user.getZipCode());
     }
+
+
 
     private AddressesPage(WebDriver driver) {
         super(driver);
