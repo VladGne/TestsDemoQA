@@ -1,8 +1,6 @@
 
 \.idea/workspace\.xml
 
-src/test/java/com/org/MavenTests/AddressesTests\.java
-
 target/test-classes/POM/AddressesPage\.class
 
 target/test-classes/POM/BasePage\.class
