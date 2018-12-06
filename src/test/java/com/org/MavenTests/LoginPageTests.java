@@ -4,12 +4,14 @@ import Models.User;
 import POM.AuthenticationPage;
 
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class LoginPageTests extends TestBase{
 
-
+    AuthenticationPage authenticationPage;
 
     // Create invalid user
     @DataProvider(name = "repeatedUserEmail")
@@ -23,12 +25,15 @@ public class LoginPageTests extends TestBase{
         return invalidUserData;
     }
 
+    @BeforeMethod
+    public void openLoginPage(){
+        logger.info("Navigate to login page");
+        authenticationPage = AuthenticationPage.open();
+    }
+
     @Test(priority = 1, dataProvider="repeatedUserEmail")
     public void checkEmailRepeat(User user){
         logger.info("\n --- Check Repeated Email Test Start ---\n");
-
-        logger.info("Navigate to Authentication Page");
-        AuthenticationPage authenticationPage = AuthenticationPage.open();
 
         logger.info("Input email");
         authenticationPage.inputNewEmail(user.getEmail());
@@ -61,9 +66,6 @@ public class LoginPageTests extends TestBase{
     public void checkEmailValidations(User user){
 
         logger.info("\n --- Check Invalid Email Test Start ---\n");
-
-        logger.info("Navigate to Authentication Page");
-        AuthenticationPage authenticationPage = AuthenticationPage.open();
 
         logger.info("Input email");
         authenticationPage.inputNewEmail(user.getEmail());

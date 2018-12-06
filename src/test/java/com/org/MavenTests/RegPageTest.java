@@ -11,6 +11,13 @@ import Models.User;
 public class RegPageTest extends TestBase{
 
 	private Logger logger = LogManager.getLogger(RegPageTest.class);
+	RegistrationPage registrationPage;
+
+	@BeforeMethod
+	public void openLoginPage(){
+		logger.info("Navigate to login page");
+		registrationPage.open();
+	}
 
 		// Create invalid user
 		@DataProvider (name = "upperUserData")
@@ -56,8 +63,8 @@ public class RegPageTest extends TestBase{
 		public void checkUpperLimits(User user){
 			logger.info("\n --- Validation test start ---\n");
 
-			logger.info("Navigate to login page");
-			RegistrationPage registrationPage = RegistrationPage.open();
+//			logger.info("Navigate to login page");
+//			RegistrationPage registrationPage = RegistrationPage.open();
 
 			logger.info("Input email");
 			registrationPage.submitEmail(user.getEmail());
@@ -93,8 +100,8 @@ public class RegPageTest extends TestBase{
 		public void checkValidations(User user){
 			logger.info("\n --- Validation test start ---\n");
 
-			logger.info("Navigate to login page");
-			RegistrationPage registrationPage = RegistrationPage.open();
+//			logger.info("Navigate to login page");
+//			RegistrationPage registrationPage = RegistrationPage.open();
 
 			logger.info("Input email");
 			registrationPage.submitEmail(user.getEmail());
@@ -125,8 +132,8 @@ public class RegPageTest extends TestBase{
 		public void checkRegistration(User user){
 			logger.info("\n --- Registration test start ---\n");
 
-			logger.info("Navigate to login page");
-			RegistrationPage registrationPage = RegistrationPage.open();
+//			logger.info("Navigate to login page");
+//			RegistrationPage registrationPage = RegistrationPage.open();
 
 			logger.info("Input email");
 			registrationPage.submitEmail(user.getEmail());
@@ -147,9 +154,6 @@ public class RegPageTest extends TestBase{
 		@Test (priority = 0, dataProvider="validUserData")
 		public void checkVisibility(User user){
 			logger.info("\n --- Visibility test start ---\n");
-
-			logger.info("Navigate to login page");
-			RegistrationPage registrationPage = RegistrationPage.open();
 
 			logger.info("Input email");
 			registrationPage.submitEmail(user.getEmail());

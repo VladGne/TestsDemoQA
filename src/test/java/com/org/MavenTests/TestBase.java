@@ -20,43 +20,26 @@ import java.util.List;
 public class TestBase {
 
     protected Logger logger = LogManager.getLogger(this);
+    private WebDriver driver;
 
-    //protected WebDriver driver;
+    @BeforeSuite
+    public void initionalBrowser() {
+        logger.info("Browser Initialization");
+        //System.setProperty("webdriver.gecko.driver", BasePage.DRIVER_PATH);
+        System.setProperty("webdriver.chrome.driver",BasePage.DRIVER_PATH);
+        driver = new ChromeDriver();
+    }
+
+    @AfterSuite
+    public void closeBrowser() {
+        //driver.quit();
+    }
+
+    @BeforeTest
+    public void openBasePage(){
+        logger.info("Open main page");
+        BasePage.open(driver);
+    }
+
     protected SoftAssert softAssertion= new SoftAssert();
-
-    public List<WebElement> getMainPageElements(Class classObject){
-
-        List<WebElement> allPageElementList = new LinkedList<>();
-
-        for (Field field : classObject.getDeclaredFields()) {
-            if (field.getType() == WebElement.class){
-                try {
-                    allPageElementList.add((WebElement) field.get(classObject));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return allPageElementList;
-    }
-
-
-    public void checkElementsVisibility(Class classObject){
-
-        SoftAssert softAssert = new SoftAssert();
-        WebElement element;
-
-        for (Field field : classObject.getDeclaredFields()) {
-            if (field.getType() == WebElement.class){
-                try {
-                    element = (WebElement) field.get(classObject);
-                    if (!element.isDisplayed())
-                        softAssert.fail("Element isn't displayed - " + element.getAttribute("name"));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        softAssert.assertAll();
-    }
 }

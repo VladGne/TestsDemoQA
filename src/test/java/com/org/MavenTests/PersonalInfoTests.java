@@ -7,7 +7,6 @@ import org.testng.annotations.*;
 
 public class PersonalInfoTests extends TestBase{
 
-
     private PersonalPage personalPage;
 
     // Create valid user
@@ -20,16 +19,11 @@ public class PersonalInfoTests extends TestBase{
     }
 
     @BeforeTest
-    public void initialBrowser(){
+    public void openLoginPage(){
         logger.info("Navigate to login page");
-//        personalPage = PersonalPage.open(driver);
+        personalPage = PersonalPage.open();
     }
 
-    @AfterTest
-    public void closeBrowser(){
-        logger.info("Close browser");
-        personalPage.closeBrowser();
-    }
 
     @Test(priority = 0, dataProvider="validUserData")
     public void checkVisibility(User user){
@@ -43,7 +37,7 @@ public class PersonalInfoTests extends TestBase{
         personalPage.navigateToPersonalInfo();
 
         logger.info("Check elements visibility");
-       // personalPage.checkElementsVisibility(this.getClass());
+        personalPage.checkElementsVisibility(this.getClass());
 
         logger.info("\n --- Check personal info page elements visibility test end ---\n");
     }
@@ -53,17 +47,9 @@ public class PersonalInfoTests extends TestBase{
 
         logger.info("\n --- Check personal info test start ---\n");
 
-       //logger.info("Login");
-       //personalPage.doLogin(user.getEmail(),user.getPassword());
-
-       //logger.info("Navigate to personal page");
-       //personalPage.navigateToPersonalInfo();
-
         logger.info("Check personal information form");
-        personalPage.checkPersonalInfoForm(user, logger);
+        personalPage.checkPersonalInfoForm(user);
 
         //profilePage.click(By.className(BasePage.LOGIN_BUTTON_LOCATOR));
     }
-
-
 }
