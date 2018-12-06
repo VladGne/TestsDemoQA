@@ -4,14 +4,12 @@ import Models.User;
 import POM.AuthenticationPage;
 
 import org.openqa.selenium.WebElement;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.Assert;
+import org.testng.annotations.*;
 
 public class LoginPageTests extends TestBase{
 
-    AuthenticationPage authenticationPage;
+    private AuthenticationPage authenticationPage;
 
     // Create invalid user
     @DataProvider(name = "repeatedUserEmail")
@@ -45,9 +43,10 @@ public class LoginPageTests extends TestBase{
         WebElement alertMessage = authenticationPage.waitForAlertMessage();
 
         logger.info("Check alert message");
-        authenticationPage.checkRepeatedEmailAlertMessage();
+        //authenticationPage.checkRepeatedEmailAlertMessage();
 
-        softAssertion.assertAll();
+        Assert.assertEquals(authenticationPage.getEmailAlertMessage(), AuthenticationPage.REPEATED_EMAIL_MESSAGE);
+
         logger.info("\n --- Check Repeated Email Test End ---\n");
     }
 
@@ -77,12 +76,9 @@ public class LoginPageTests extends TestBase{
         WebElement alertMessage = authenticationPage.waitForAlertMessage();
 
         logger.info("Check alert message");
-        if(!authenticationPage.checkInvalidEmailAlertMessage()){
-            logger.error("Alert message validation fail: ");
-            softAssertion.fail("Alert message validation fail: ");
-        }
 
-        softAssertion.assertAll();
+        Assert.assertEquals(authenticationPage.getEmailAlertMessage(), AuthenticationPage.INVALID_EMAIL_MESSAGE);
+
         logger.info("\n --- Check Invalid Email Test End ---\n");
     }
 }
