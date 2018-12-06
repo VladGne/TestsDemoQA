@@ -9,7 +9,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
+
+import java.lang.reflect.Field;
+import java.util.LinkedList;
+import java.util.List;
 
 public class BasePage{
 
@@ -17,20 +21,19 @@ public class BasePage{
 	public static final String DRIVER_PATH = "F:\\Programs\\ChromeDriver\\chromedriver.exe";
 	protected Logger logger = LogManager.getLogger(this);
 
-
 	public static int waiterTime = 10;
-	static protected WebDriver driver;
 
+	static protected WebDriver driver;
 
 	public BasePage(WebDriver driver) {
 		PageFactory.initElements(driver, this);
-		this.driver = driver;
 	}
 
-	public static BasePage open() {
+	public static BasePage open(WebDriver driver) {
+		BasePage.driver = driver;
 		final String BasePageURL = "http://automationpractice.com/index.php";
-		driver.navigate().to(BasePageURL);
-		return new BasePage(driver);
+		BasePage.driver.navigate().to(BasePageURL);
+		return new BasePage(BasePage.driver);
 	}
 
 	@FindBy(className = "alert-danger")
@@ -52,6 +55,9 @@ public class BasePage{
 
 		return message;
 	}
+
+	@FindBy(className = "logout")
+	private WebElement logoutButton;
 
 	@FindBy(id = "email")
 	private WebElement emailTextbox;
@@ -87,25 +93,56 @@ public class BasePage{
 		loginButton.click();
 	}
 
-	@BeforeSuite
-	public void initionalBrowser() {
-		logger.info("Browser Initialization");
-		//System.setProperty("webdriver.gecko.driver", BasePage.DRIVER_PATH);
-		System.setProperty("webdriver.chrome.driver",BasePage.DRIVER_PATH);
-		driver = new ChromeDriver();
+	public List<WebElement> getMainElements(Class classObject){
+
+		List<WebElement> elements = new LinkedList<>();
+
+		for (Field field : classObject.getDeclaredFields()) {
+			if (field.getType() == WebElement.class){
+				try {
+					elements.add( (WebElement) field.get(classObject) );
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return elements;
 	}
 
-	@AfterSuite
-	public void closeBrowser() {
-		//driver.close();
-		driver.quit();
+	public List<WebElement> getVisibleElementsFromList(List<WebElement> elements){
+
+		List<WebElement> visibleElements = new LinkedList<>();
+
+		for (WebElement element: elements)
+			if( element.isDisplayed())
+				visibleElements.add(element);
+
+		return visibleElements;
 	}
 
-	@BeforeTest
-	public void openBasePage(){
-		logger.info("Open main page");
-		BasePage.open();
+	public void checkElementsVisibility(Class classObject){
+
+		SoftAssert softAssert = new SoftAssert();
+		WebElement element;
+
+		for (Field field : classObject.getDeclaredFields()) {
+			if (field.getType() == WebElement.class){
+				try {
+					element = (WebElement) field.get(classObject);
+					if (!element.isDisplayed())
+						softAssert.fail("Element isn't displayed - " + element.getAttribute("name"));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		softAssert.assertAll();
+	}
+
+	public void doLogout(){
+		logoutButton.click();
 	}
 }
+
 
 
