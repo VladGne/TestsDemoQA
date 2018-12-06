@@ -5,15 +5,18 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 
 public class BasePage{
 
@@ -30,8 +33,27 @@ public class BasePage{
 	}
 
 	public static BasePage open(WebDriver driver) {
+		Properties prop = new Properties();
+		InputStream input = null;
+
+		try {
+			input =new FileInputStream("config.properties");
+			// load a properties file
+			prop.load(input);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 		BasePage.driver = driver;
-		final String BasePageURL = "http://automationpractice.com/index.php";
+		final String BasePageURL = "http://automationpractice.com/index.php";	//prop.getProperty("durl");
 		BasePage.driver.navigate().to(BasePageURL);
 		return new BasePage(BasePage.driver);
 	}

@@ -19,7 +19,9 @@ import java.util.List;
 
 public class TestBase {
 
+    protected SoftAssert softAssertion= new SoftAssert();
     protected Logger logger = LogManager.getLogger(this);
+
     private WebDriver driver;
 
     @BeforeSuite
@@ -41,5 +43,5 @@ public class TestBase {
         BasePage.open(driver);
     }
 
-    protected SoftAssert softAssertion= new SoftAssert();
+
 }

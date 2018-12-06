@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AddressesTests extends TestBase {
 
-    AddressesPage addressesPage;
+    private AddressesPage addressesPage;
 
     @DataProvider(name = "validUserData")
     public Object[] getValidUserData(){
