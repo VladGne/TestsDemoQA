@@ -1,10 +1,11 @@
 package com.org.MavenTests;
 
+import POM.BasePage;
 import POM.RegistrationPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.*;
 import Models.User;
 
 public class RegPageTest extends TestBase{

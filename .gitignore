@@ -58,3 +58,5 @@ target/classes/config\.properties
 target/classes/log4j2\.xml
 
 target/classes/testng\.xml
+
+\.idea/libraries/
