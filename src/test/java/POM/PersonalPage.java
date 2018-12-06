@@ -1,8 +1,6 @@
 package POM;
 
 import Models.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -61,6 +59,31 @@ public class PersonalPage extends BasePage{
 
         WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
         WebElement form = wait.until((WebDriver d) -> personalInfoForm) ;
+    }
+
+    public User getActualUserData(){
+        List<WebElement> daysList = new Select(days).getAllSelectedOptions();
+        String[] selectedDay = daysList.get(0).getText().split(" ");
+
+        List<WebElement> monthList = new Select(month).getAllSelectedOptions();
+        String[] selectedMonth = monthList.get(0).getText().split(" ");
+
+        List<WebElement> yearList = new Select(year).getAllSelectedOptions();
+        String[] selectedYear = yearList.get(0).getText().split(" ");
+
+        User actualUser = new User();
+
+        actualUser.setGender(maleCheckBox.isSelected() ? "Male" : "Female");
+        actualUser.setFistName(firstName.getAttribute("value"));
+        actualUser.setLastName(lastName.getAttribute("value"));
+        actualUser.setEmail(email.getAttribute("value"));
+        actualUser.setDayBirth(selectedDay[0]);
+        actualUser.setMonthBirth(User.MonthBirth.valueOf(selectedMonth[0]));
+        actualUser.setYearBirth(selectedYear[0]);
+        actualUser.setNews(newsCheckBox.isSelected());
+        actualUser.setOptions(optionCheckBox.isSelected());
+
+        return actualUser;
     }
 
     private boolean checkMaleGender(){
