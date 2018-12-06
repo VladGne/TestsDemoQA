@@ -2,15 +2,14 @@ package com.org.MavenTests;
 
 import Models.User;
 import POM.AuthenticationPage;
-import org.apache.log4j.Logger;
+
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-
 public class LoginPageTests extends TestBase{
 
-    private Logger logger =  Logger.getLogger(AuthenticationPage.class);
+
 
     // Create invalid user
     @DataProvider(name = "repeatedUserEmail")
@@ -29,7 +28,7 @@ public class LoginPageTests extends TestBase{
         logger.info("\n --- Check Repeated Email Test Start ---\n");
 
         logger.info("Navigate to Authentication Page");
-        AuthenticationPage authenticationPage = AuthenticationPage.open(driver);
+        AuthenticationPage authenticationPage = AuthenticationPage.open();
 
         logger.info("Input email");
         authenticationPage.inputNewEmail(user.getEmail());
@@ -41,10 +40,7 @@ public class LoginPageTests extends TestBase{
         WebElement alertMessage = authenticationPage.waitForAlertMessage();
 
         logger.info("Check alert message");
-        if(!authenticationPage.checkRepeatedEmailAlertMessage()){
-            logger.error("Alert message validation fail: ");
-            softAssertion.fail("Alert message validation fail: ");
-        }
+        authenticationPage.checkRepeatedEmailAlertMessage();
 
         softAssertion.assertAll();
         logger.info("\n --- Check Repeated Email Test End ---\n");
@@ -67,7 +63,7 @@ public class LoginPageTests extends TestBase{
         logger.info("\n --- Check Invalid Email Test Start ---\n");
 
         logger.info("Navigate to Authentication Page");
-        AuthenticationPage authenticationPage = AuthenticationPage.open(driver);
+        AuthenticationPage authenticationPage = AuthenticationPage.open();
 
         logger.info("Input email");
         authenticationPage.inputNewEmail(user.getEmail());

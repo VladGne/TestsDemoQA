@@ -2,13 +2,13 @@ package com.org.MavenTests;
 
 import Models.User;
 import POM.PersonalPage;
-import org.apache.log4j.Logger;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+
+import org.testng.annotations.*;
 
 public class PersonalInfoTests extends TestBase{
 
-    private Logger logger =  Logger.getLogger(PersonalInfoTests.class);
+
+    private PersonalPage personalPage;
 
     // Create valid user
     @DataProvider(name = "validUserData")
@@ -19,13 +19,22 @@ public class PersonalInfoTests extends TestBase{
         return validUserData;
     }
 
+    @BeforeTest
+    public void initialBrowser(){
+        logger.info("Navigate to login page");
+//        personalPage = PersonalPage.open(driver);
+    }
+
+    @AfterTest
+    public void closeBrowser(){
+        logger.info("Close browser");
+        personalPage.closeBrowser();
+    }
+
     @Test(priority = 0, dataProvider="validUserData")
     public void checkVisibility(User user){
 
-        logger.info("\n --- Check personal info page elements visibility test start ---\n");
-
-        logger.info("Navigate to login page");
-        PersonalPage personalPage = PersonalPage.open(driver);
+        logger.info("Check personal info page elements visibility test start\n");
 
         logger.info("Login");
         personalPage.doLogin(user.getEmail(),user.getPassword());
@@ -33,7 +42,8 @@ public class PersonalInfoTests extends TestBase{
         logger.info("Navigate to personal page");
         personalPage.navigateToPersonalInfo();
 
-        checkPageElementsVisibility(driver);
+        logger.info("Check elements visibility");
+       // personalPage.checkElementsVisibility(this.getClass());
 
         logger.info("\n --- Check personal info page elements visibility test end ---\n");
     }
@@ -43,19 +53,17 @@ public class PersonalInfoTests extends TestBase{
 
         logger.info("\n --- Check personal info test start ---\n");
 
-        logger.info("Navigate to login page");
-        PersonalPage personalPage = PersonalPage.open(driver);
+       //logger.info("Login");
+       //personalPage.doLogin(user.getEmail(),user.getPassword());
 
-        logger.info("Login");
-        personalPage.doLogin(user.getEmail(),user.getPassword());
-
-        logger.info("Navigate to personal page");
-        personalPage.navigateToPersonalInfo();
+       //logger.info("Navigate to personal page");
+       //personalPage.navigateToPersonalInfo();
 
         logger.info("Check personal information form");
         personalPage.checkPersonalInfoForm(user, logger);
 
-        softAssertion.assertAll();
         //profilePage.click(By.className(BasePage.LOGIN_BUTTON_LOCATOR));
     }
+
+
 }
