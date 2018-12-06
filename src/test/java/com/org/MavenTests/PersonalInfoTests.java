@@ -3,7 +3,11 @@ package com.org.MavenTests;
 import Models.User;
 import POM.PersonalPage;
 
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.*;
+
+import java.util.List;
 
 public class PersonalInfoTests extends TestBase{
 
@@ -37,7 +41,9 @@ public class PersonalInfoTests extends TestBase{
         personalPage.navigateToPersonalInfo();
 
         logger.info("Check elements visibility");
-        personalPage.checkElementsVisibility(this.getClass());
+        //personalPage.checkElementsVisibility(this.getClass());
+        List<WebElement> elements = personalPage.getMainElements(this.getClass());
+        Assert.assertEquals(elements, personalPage.getVisibleElementsFromList(elements));
 
         logger.info("\n --- Check personal info page elements visibility test end ---\n");
     }
@@ -46,6 +52,12 @@ public class PersonalInfoTests extends TestBase{
     public void checkPersonalInfo(User user){
 
         logger.info("\n --- Check personal info test start ---\n");
+
+        logger.info("Login");
+        personalPage.doLogin(user.getEmail(),user.getPassword());
+
+        logger.info("Navigate to personal page");
+        personalPage.navigateToPersonalInfo();
 
         logger.info("Check personal information form");
         personalPage.checkPersonalInfoForm(user);

@@ -3,7 +3,6 @@ package com.org.MavenTests;
 import Models.User;
 import POM.AuthenticationPage;
 
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -40,7 +39,7 @@ public class LoginPageTests extends TestBase{
         authenticationPage.createAccountButtonClick();
 
         logger.info("Wait for alert");
-        WebElement alertMessage = authenticationPage.waitForAlertMessage();
+        authenticationPage.waitForAlertMessage();
 
         logger.info("Check alert message");
         //authenticationPage.checkRepeatedEmailAlertMessage();
@@ -73,7 +72,7 @@ public class LoginPageTests extends TestBase{
         authenticationPage.createAccountButtonClick();
 
         logger.info("Wait for alert");
-        WebElement alertMessage = authenticationPage.waitForAlertMessage();
+        authenticationPage.waitForAlertMessage();
 
         logger.info("Check alert message");
 
