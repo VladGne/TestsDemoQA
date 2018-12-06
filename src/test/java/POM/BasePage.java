@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
@@ -56,26 +58,6 @@ public class BasePage{
 		final String BasePageURL = "http://automationpractice.com/index.php";	//prop.getProperty("durl");
 		BasePage.driver.navigate().to(BasePageURL);
 		return new BasePage(BasePage.driver);
-	}
-
-	@FindBy(className = "alert-danger")
-	protected WebElement alertMessage;
-
-	public boolean checkAlertMessage(String expectedMessage){
-
-		return alertMessage.getText().equals(expectedMessage);
-	}
-
-	public WebElement waitForAlertMessage(){
-
-		WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
-		WebElement message;
-		while (alertMessage.getText().equals("") && !wait.equals(0)){
-		}
-
-		message = wait.until((WebDriver d) -> alertMessage) ;
-
-		return message;
 	}
 
 	@FindBy(className = "logout")
