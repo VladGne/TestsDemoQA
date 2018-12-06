@@ -1,22 +1,17 @@
 package com.org.MavenTests;
 
-import POM.BasePage;
 import POM.RegistrationPage;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 import Models.User;
 
 public class RegPageTest extends TestBase{
 
-	private Logger logger = LogManager.getLogger(RegPageTest.class);
-	RegistrationPage registrationPage;
+	private RegistrationPage registrationPage;
 
 	@BeforeMethod
 	public void openLoginPage(){
 		logger.info("Navigate to login page");
-		registrationPage.open();
+		registrationPage = RegistrationPage.open();
 	}
 
 		// Create invalid user
