@@ -145,9 +145,9 @@ public class AddressesPage extends BasePage{
         super(driver);
     }
 
-    public static AddressesPage open() {
-        //final String LoginPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
-        //driver.navigate().to(LoginPageURL);
+    static public  AddressesPage open() {
+        final String LoginPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
+        driver.navigate().to(LoginPageURL);
         return new AddressesPage(driver);
     }
 }

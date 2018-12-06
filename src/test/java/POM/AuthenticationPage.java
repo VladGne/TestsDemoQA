@@ -33,9 +33,9 @@ public class AuthenticationPage extends BasePage{
         super(driver);
     }
 
-    public static AuthenticationPage open() {
-        //final String AuthenticationPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
-        //driver.navigate().to(AuthenticationPageURL);
+   static public AuthenticationPage open() {
+        final String AuthenticationPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
+        driver.navigate().to(AuthenticationPageURL);
         return new AuthenticationPage(driver);
     }
 }

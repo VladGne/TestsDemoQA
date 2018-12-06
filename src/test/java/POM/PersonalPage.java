@@ -9,9 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 import java.util.List;
-
 
 public class PersonalPage extends BasePage{
 
@@ -123,13 +121,13 @@ public class PersonalPage extends BasePage{
         return optionCheckBox.isSelected();
     }
 
-    public static PersonalPage open(WebDriver driver) {
+    public static PersonalPage open() {
         final String LoginPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
         driver.navigate().to(LoginPageURL);
         return new PersonalPage(driver);
     }
 
-    public void checkPersonalInfoForm(User user, Logger logger){
+    public void checkPersonalInfoForm(User user){
         logger.info("Check gender");
         if(!checkMaleGender()){
             //softAssertion.fail("Gender validation error: male gender isn't selected");
