@@ -1,0 +1,23 @@
+{
+  "email" : "test3@test.com3",
+  "gender" : "Male",
+  "fistName" : "1",
+  "lastName" : "1",
+  "company" : "1",
+  "address" : "1",
+  "address2" : "1",
+  "city" : "Fortuna",
+  "state" : "California",
+  "country" :  "UnitedStates",
+  "zipCode" : "1",
+  "additionInformation" : "1",
+  "homePhone" : "1",
+  "mobilePhone" : "1",
+  "addressAlias" : "1",
+  "password" : "1",
+  "dayBirth" : "31",
+  "monthBirth" : "February",
+  "yearBirth" : "1991",
+  "news" : "false",
+  "options" : "false"
+}
