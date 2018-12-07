@@ -62,3 +62,5 @@ target/classes/testng\.xml
 target/classes/
 
 target/test-classes/
+
+\.idea/
