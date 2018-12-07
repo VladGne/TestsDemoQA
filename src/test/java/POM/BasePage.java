@@ -24,7 +24,7 @@ public class BasePage{
 	static {
 		InputStream input = null;
 		try {
-			input =new FileInputStream("src/main/resources/config.properties");
+			input =new FileInputStream("src/test/resources/config.properties");
 			// load a properties file
 			prop.load(input);
 		} catch (IOException ex) {
@@ -41,7 +41,7 @@ public class BasePage{
 	}
 
 	//public static final String DRIVER_PATH = "E:\\_Programs\\GekoDriver\\geckodriver.exe";
-	public static final String DRIVER_PATH = "F:\\Programs\\ChromeDriver\\chromedriver.exe";
+	public static final String DRIVER_PATH = "src\\test\\resources\\chromedriver.exe";
 	protected Logger logger = LogManager.getLogger(this);
 
 	public static int waiterTime = 10;
