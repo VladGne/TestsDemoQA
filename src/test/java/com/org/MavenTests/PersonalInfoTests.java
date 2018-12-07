@@ -6,6 +6,7 @@ import POM.PersonalPage;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
@@ -51,6 +52,8 @@ public class PersonalInfoTests extends TestBase{
     @Test(priority = 1, dataProvider="validUserData")
     public void checkPersonalInfo(User user){
 
+        SoftAssert softAssert = new SoftAssert();
+
         logger.info("\n --- Check personal info test start ---\n");
 
         logger.info("Login");
@@ -59,9 +62,22 @@ public class PersonalInfoTests extends TestBase{
         logger.info("Navigate to personal page");
         personalPage.navigateToPersonalInfo();
 
-        logger.info("Check personal information form");
-        personalPage.checkPersonalInfoForm(user);
+        logger.info("Get actual user data");
+        User actualUser = personalPage.getActualUserData();
 
-        //profilePage.click(By.className(BasePage.LOGIN_BUTTON_LOCATOR));
+        logger.info("Check personal information");
+        //personalPage.checkPersonalInfoForm(user);
+
+        softAssert.assertEquals(actualUser.getFistName(), user.getFistName());
+        softAssert.assertEquals(actualUser.getLastName(), user.getLastName());
+        softAssert.assertEquals(actualUser.getEmail(), user.getEmail());
+        softAssert.assertEquals(actualUser.getGender(), user.getGender());
+        softAssert.assertEquals(actualUser.getDayBirth(), user.getDayBirth());
+        softAssert.assertEquals(actualUser.getMonthBirth(), user.getMonthBirth());
+        softAssert.assertEquals(actualUser.getYearBirth(), user.getYearBirth());
+        softAssert.assertEquals(actualUser.isNews(), user.isNews());
+        softAssert.assertEquals(actualUser.isOptions(), user.isOptions());
+
+        softAssert.assertAll();
     }
 }
