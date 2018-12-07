@@ -2,7 +2,6 @@ package POM;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,13 +11,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Properties;
 
 public class BasePage{
 
 	static Properties prop = new Properties();
+	public static int waiterTime = 10;
+	public static final String DRIVER_PATH = "src\\test\\resources\\chromedriver.exe";
+	protected Logger logger = LogManager.getLogger(this);
 
 	// Read config.properties file
 	static {
@@ -40,109 +40,72 @@ public class BasePage{
 		}
 	}
 
-	//public static final String DRIVER_PATH = "E:\\_Programs\\GekoDriver\\geckodriver.exe";
-	public static final String DRIVER_PATH = "src\\test\\resources\\chromedriver.exe";
-	protected Logger logger = LogManager.getLogger(this);
-
-	public static int waiterTime = 10;
-
-	static protected WebDriver driver;
-
 	public BasePage(WebDriver driver) {
 		PageFactory.initElements(driver, this);
-	}
-
-	public static BasePage open(WebDriver driver) {
-		BasePage.driver = driver;
-		final String BasePageURL = prop.getProperty("durl"); //"http://automationpractice.com/index.php";	//
-		BasePage.driver.navigate().to(BasePageURL);
-		return new BasePage(BasePage.driver);
+		final String BasePageURL = prop.getProperty("durl");
+		driver.navigate().to(BasePageURL);
 	}
 
 	@FindBy(className = "logout")
 	private WebElement logoutButton;
 
-	@FindBy(id = "email")
-	private WebElement emailTextbox;
-
-	@FindBy(id = "passwd")
-	private WebElement passwordTextbox;
-
-	@FindBy(id = "SubmitLogin")
-	private WebElement loginButton;
-
-	public void click(By elementLocator) {
-		driver.findElement(elementLocator).click();
-	}
-
-	public void writeText(By elementLocator, String text) {
-		driver.findElement(elementLocator).sendKeys(text);
-	}
-
-	public String readText(By elementLocator) {
-		return driver.findElement(elementLocator).getText();
-	}
-
-	public String getValue(By elementLocator) {
-		return driver.findElement(elementLocator).getAttribute("value");
-	}
-
-	public void doLogin(String email, String password){
-		emailTextbox.sendKeys(email);
-		passwordTextbox.sendKeys(password);
-		loginButton.click();
-	}
-
-	public List<WebElement> getMainElements(Class classObject){
-
-		List<WebElement> elements = new LinkedList<>();
-
-		for (Field field : classObject.getDeclaredFields()) {
-			if (field.getType() == WebElement.class){
-				try {
-					elements.add( (WebElement) field.get(classObject) );
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return elements;
-	}
-
-	public List<WebElement> getVisibleElementsFromList(List<WebElement> elements){
-
-		List<WebElement> visibleElements = new LinkedList<>();
-
-		for (WebElement element: elements)
-			if( element.isDisplayed())
-				visibleElements.add(element);
-
-		return visibleElements;
-	}
-
-	public void checkElementsVisibility(Class classObject){
-
-		SoftAssert softAssert = new SoftAssert();
-		WebElement element;
-
-		for (Field field : classObject.getDeclaredFields()) {
-			if (field.getType() == WebElement.class){
-				try {
-					element = (WebElement) field.get(classObject);
-					if (!element.isDisplayed())
-						softAssert.fail("Element isn't displayed - " + element.getAttribute("name"));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		softAssert.assertAll();
+	public void doLogin(String email, String password, WebDriver driver){
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.inputEmail(email);
+		loginPage.inputPassword(password);
+		loginPage.loginButtonClick();
 	}
 
 	public void doLogout(){
 		logoutButton.click();
 	}
+
+	static void navigate(WebDriver driver, String Url){
+		driver.navigate().to(Url);
+		//return new BasePage(driver);
+	}
+
+	public void checkPageElementsVisibility(Class classObject, SoftAssert softAssert){
+
+		//ToDo : why isDisplayed work not correct?
+
+		for (Field field : classObject.getDeclaredFields()) {
+			if (field.getType() == WebElement.class){
+				try {
+					field.setAccessible(true);
+					WebElement element = (WebElement) field.get(this);
+					if (!element.isEnabled())
+						softAssert.fail("Element isn't enabled - " + element.getAttribute("name"));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+static class AccountPage{
+
+	@FindBy(className = "icon-building")
+	private WebElement addressButton;
+
+	@FindBy(className = "icon-user")
+	private WebElement personalInfoButton;
+
+	public AccountPage(WebDriver driver) {
+		PageFactory.initElements(driver, this);
+	}
+
+	void addressButtonClick(){
+		addressButton.click();
+	}
+
+	void personalInfoButtonClick(){
+		personalInfoButton.click();
+	}
 }
+
+}
+
 
 
 
