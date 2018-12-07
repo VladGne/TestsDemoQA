@@ -2,14 +2,18 @@ package POM;
 
 import Models.User;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 public class RegistrationPage extends BasePage {
+
+    final String AuthenticationPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
 
     //Alert texts
     private static final String MAX_LAST_NAME_MESSAGE = "lastname is too long. Maximum length: 32";
@@ -34,12 +38,6 @@ public class RegistrationPage extends BasePage {
 
     @FindBy(className = "header_user_info")
     private WebElement userProfileButton;
-
-    @FindBy(id = "email_create")
-    private WebElement emailTextbox;
-
-    @FindBy(id = "SubmitCreate")
-    private WebElement submitButton;
 
     @FindBy(id = "id_gender1")
     private WebElement maleCheckBox;
@@ -106,9 +104,6 @@ public class RegistrationPage extends BasePage {
 
     @FindBy(id = "years")
     private WebElement yearsList;
-
-    @FindBy(id = "creation_form")
-    private WebElement registrationForm;
 
     @FindBy(className = "page-subheading")
     private WebElement mainHeader;
@@ -186,9 +181,12 @@ public class RegistrationPage extends BasePage {
         new Select(monthsList).selectByValue(Integer.toString(month.getValue()));
     }
 
-    public void waitForRegistrationForm(){
+    public void waitForRegistrationForm(WebDriver driver){
         WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("id_gender1")));
+        element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("years")));
+        element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("id_state")));
+        element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("postcode")));
     }
 
     private void selectCountry(User.Country country){
@@ -203,19 +201,15 @@ public class RegistrationPage extends BasePage {
         registerButton.click();
     }
 
-    public void submitEmail(String email){
-        emailTextbox.sendKeys(email);
-        submitButton.click();
+    public void submitEmail(String email, WebDriver driver){
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.inputNewEmail(email);
+        loginPage.submitButtonClick();
     }
 
-    private RegistrationPage( ) {
+    public RegistrationPage(WebDriver driver) {
        super(driver);
-    }
-
-    static public RegistrationPage open() {
-        final String AuthenticationPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
-        driver.navigate().to(AuthenticationPageURL);
-        return new RegistrationPage();
+       BasePage.navigate(driver, AuthenticationPageURL);
     }
 
     public void checkUserButton(){
@@ -223,52 +217,49 @@ public class RegistrationPage extends BasePage {
             Assert.fail("User profile button doesn't exist");
     }
 
-    public void checkInvalidAlerts(){
-
-//        String[] alertMessage = alertList.getText().split("\n");
-//
-//        if(!alertMessage[0].equals(INVALID_LAST_NAME_MESSAGE))
-//            softAssertion.fail("Last name alert message error: ");
-//        if(!alertMessage[1].equals(INVALID_FIRST_NAME_MESSAGE))
-//            softAssertion.fail("First name alert message error: ");
-//        if(!alertMessage[2].equals(INVALID_PASSWORD_MESSAGE))
-//            softAssertion.fail("Password alert message error: ");
-//        if(!alertMessage[3].equals(INVALID_POSTCODE_MESSAGE))
-//            softAssertion.fail("Postcode alert message error: ");
-////        if(!alertMessage[4].equals(INVALID_STATE_MESSAGE))
-////            softAssertion.fail("State alert message error: ");
-//        if(!alertMessage[4].equals(INVALID_DATE_MESSAGE))
-//            softAssertion.fail("Date alert message error: ");
-//
-//        softAssertion.assertAll();;
-    }
-
-    public void checkUpperLimitsAlerts(){
+    public void checkInvalidAlerts(SoftAssert softAssert){
 
         String[] alertMessage = alertList.getText().split("\n");
-//
-//        if(!alertMessage[0].equals(MAX_LAST_NAME_MESSAGE))
-//            softAssertion.fail("Last name alert message error: ");
-//		if(!alertMessage[1].equals(MAX_FIRST_NAME_MESSAGE))
-//			softAssertion.fail("First name alert message error: ");
-//		if(!alertMessage[2].equals(MAX_PASSWORD_MESSAGE))
-//			softAssertion.fail("Password alert message error: ");
-//		if(!alertMessage[3].equals(MAX_ALIAS_MESSAGE))
-//			softAssertion.fail("Alias alert message error: ");
-//		if(!alertMessage[4].equals(MAX_ADDRESS1_MESSAGE))
-//			softAssertion.fail("Address1 alert message error: ");
-//		if(!alertMessage[5].equals(MAX_ADDRESS2_MESSAGE))
-//			softAssertion.fail("Address2 alert message error: ");
-//		if(!alertMessage[6].equals(MAX_POSTCODE_MESSAGE))
-//			softAssertion.fail("Postcode alert message error: ");
-//		if(!alertMessage[7].equals(MAX_ADDITION_INFO_MESSAGE))
-//			softAssertion.fail("Addition info alert message error: ");
-//		if(!alertMessage[8].equals(MAX_HOME_PHONE_MESSAGE))
-//			softAssertion.fail("Home phone info alert message error: ");
-//		if(!alertMessage[9].equals(MAX_MOBILE_PHONE_MESSAGE))
-//			softAssertion.fail("Mobile phone info alert message error: ");
-//
-//        softAssertion.assertAll();
+
+        if(!alertMessage[0].equals(INVALID_LAST_NAME_MESSAGE))
+            softAssert.fail("Last name alert message error: ");
+        if(!alertMessage[1].equals(INVALID_FIRST_NAME_MESSAGE))
+            softAssert.fail("First name alert message error: ");
+        if(!alertMessage[2].equals(INVALID_PASSWORD_MESSAGE))
+            softAssert.fail("Password alert message error: ");
+        if(!alertMessage[3].equals(INVALID_POSTCODE_MESSAGE))
+            softAssert.fail("Postcode alert message error: ");
+//        if(!alertMessage[4].equals(INVALID_STATE_MESSAGE))
+//            softAssertion.fail("State alert message error: ");
+        if(!alertMessage[4].equals(INVALID_DATE_MESSAGE))
+            softAssert.fail("Date alert message error: ");
+
+    }
+
+    public void checkUpperLimitsAlerts(SoftAssert softAssert){
+
+        String[] alertMessage = alertList.getText().split("\n");
+
+        if(!alertMessage[0].equals(MAX_LAST_NAME_MESSAGE))
+            softAssert.fail("Last name alert message error: ");
+		if(!alertMessage[1].equals(MAX_FIRST_NAME_MESSAGE))
+            softAssert.fail("First name alert message error: ");
+		if(!alertMessage[2].equals(MAX_PASSWORD_MESSAGE))
+            softAssert.fail("Password alert message error: ");
+		if(!alertMessage[3].equals(MAX_ALIAS_MESSAGE))
+            softAssert.fail("Alias alert message error: ");
+		if(!alertMessage[4].equals(MAX_ADDRESS1_MESSAGE))
+            softAssert.fail("Address1 alert message error: ");
+		if(!alertMessage[5].equals(MAX_ADDRESS2_MESSAGE))
+            softAssert.fail("Address2 alert message error: ");
+		if(!alertMessage[6].equals(MAX_POSTCODE_MESSAGE))
+            softAssert.fail("Postcode alert message error: ");
+		if(!alertMessage[7].equals(MAX_ADDITION_INFO_MESSAGE))
+            softAssert.fail("Addition info alert message error: ");
+		if(!alertMessage[8].equals(MAX_HOME_PHONE_MESSAGE))
+            softAssert.fail("Home phone info alert message error: ");
+		if(!alertMessage[9].equals(MAX_MOBILE_PHONE_MESSAGE))
+            softAssert.fail("Mobile phone info alert message error: ");
     }
 
     public void fillRegistrationForm(User user){
@@ -299,9 +290,6 @@ public class RegistrationPage extends BasePage {
         logger.debug("Input country");
         selectCountry(user.getCountry());
 
-        logger.debug("Input state");
-        selectState(user.getState());
-
         logger.debug("Input post code");
         inputPostcode(user.getZipCode());
 
@@ -331,5 +319,8 @@ public class RegistrationPage extends BasePage {
 
         logger.debug("Select year of birth");
         selectBirthYear(user.getYearBirth());
+
+        logger.debug("Input state");
+        selectState(user.getState());
     }
 }
