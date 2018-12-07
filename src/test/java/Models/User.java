@@ -67,6 +67,8 @@ public class User {
 		this.dayBirth = dayBirth;
 		this.monthBirth = monthBirth;
 		this.yearBirth = yearBirth;
+		this.news = true;
+		this.options = true;
 	}
 
 	public User(String invalidValue){
@@ -101,6 +103,8 @@ public class User {
 		this.mobilePhone = invalidValue;
 		this.addressAlias = invalidValue;
 		this.password = invalidValue;
+		this.news = false;
+		this.options = false;
 	}
 
 	@Getter
