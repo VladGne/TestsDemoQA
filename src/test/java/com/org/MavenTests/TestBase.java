@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.asserts.SoftAssert;
@@ -19,17 +20,17 @@ import java.util.List;
 
 public class TestBase {
 
-    protected SoftAssert softAssertion= new SoftAssert();
+    SoftAssert softAssert = new SoftAssert();
     protected Logger logger = LogManager.getLogger(this);
 
-    private WebDriver driver;
+    WebDriver driver;
 
     @BeforeSuite
     public void initionalBrowser() {
         logger.info("Browser Initialization");
         //System.setProperty("webdriver.gecko.driver", BasePage.DRIVER_PATH);
         System.setProperty("webdriver.chrome.driver",BasePage.DRIVER_PATH);
-        driver = new ChromeDriver();
+
     }
 
     @AfterSuite
@@ -37,11 +38,10 @@ public class TestBase {
         //driver.quit();
     }
 
-    @BeforeTest
+    @BeforeClass
     public void openBasePage(){
         logger.info("Open main page");
-        BasePage.open(driver);
+        driver = new ChromeDriver();
+       // BasePage basePage = new BasePage(driver);
     }
-
-
 }

@@ -2,13 +2,12 @@ package com.org.MavenTests;
 
 import Models.User;
 import POM.PersonalPage;
-
-import org.openqa.selenium.WebElement;
-import org.testng.Assert;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.testng.annotations.*;
-import org.testng.asserts.SoftAssert;
-
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
 
 public class PersonalInfoTests extends TestBase{
 
@@ -17,18 +16,36 @@ public class PersonalInfoTests extends TestBase{
     // Create valid user
     @DataProvider(name = "validUserData")
     public Object[] getValidUserData(){
+
         User[] validUserData = new User[1];
-        validUserData[0] = new User();
-        validUserData[0].setEmail("test1@test.com1");
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            // Convert JSON string from file to Object
+            validUserData[0] = mapper.readValue(new File("src\\test\\resources\\validUser.json"), User.class);
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        final String existedEmail = "test1@test.com1";
+        validUserData[0].setEmail(existedEmail);
         return validUserData;
     }
 
-    @BeforeTest
+    @BeforeMethod
     public void openLoginPage(){
         logger.info("Navigate to login page");
-        personalPage = PersonalPage.open();
+        personalPage = new PersonalPage(driver);
     }
 
+    @AfterMethod
+    public void doLogout(){
+        logger.info("Logout");
+        personalPage.doLogout();
+    }
 
     @Test(priority = 0, dataProvider="validUserData")
     public void checkVisibility(User user){
@@ -36,15 +53,14 @@ public class PersonalInfoTests extends TestBase{
         logger.info("Check personal info page elements visibility test start\n");
 
         logger.info("Login");
-        personalPage.doLogin(user.getEmail(),user.getPassword());
+        personalPage.doLogin(user.getEmail(),user.getPassword(), driver);
 
         logger.info("Navigate to personal page");
-        personalPage.navigateToPersonalInfo();
+        personalPage.navigateToPersonalInfo(driver);
 
         logger.info("Check elements visibility");
-        //personalPage.checkElementsVisibility(this.getClass());
-        List<WebElement> elements = personalPage.getMainElements(this.getClass());
-        Assert.assertEquals(elements, personalPage.getVisibleElementsFromList(elements));
+        personalPage.checkPageElementsVisibility(personalPage.getClass(), softAssert);
+        softAssert.assertAll();
 
         logger.info("\n --- Check personal info page elements visibility test end ---\n");
     }
@@ -52,15 +68,13 @@ public class PersonalInfoTests extends TestBase{
     @Test(priority = 1, dataProvider="validUserData")
     public void checkPersonalInfo(User user){
 
-        SoftAssert softAssert = new SoftAssert();
-
         logger.info("\n --- Check personal info test start ---\n");
 
         logger.info("Login");
-        personalPage.doLogin(user.getEmail(),user.getPassword());
+        personalPage.doLogin(user.getEmail(),user.getPassword(), driver);
 
         logger.info("Navigate to personal page");
-        personalPage.navigateToPersonalInfo();
+        personalPage.navigateToPersonalInfo(driver);
 
         logger.info("Get actual user data");
         User actualUser = personalPage.getActualUserData();
@@ -68,15 +82,15 @@ public class PersonalInfoTests extends TestBase{
         logger.info("Check personal information");
         //personalPage.checkPersonalInfoForm(user);
 
-        softAssert.assertEquals(actualUser.getFistName(), user.getFistName());
-        softAssert.assertEquals(actualUser.getLastName(), user.getLastName());
-        softAssert.assertEquals(actualUser.getEmail(), user.getEmail());
-        softAssert.assertEquals(actualUser.getGender(), user.getGender());
-        softAssert.assertEquals(actualUser.getDayBirth(), user.getDayBirth());
-        softAssert.assertEquals(actualUser.getMonthBirth(), user.getMonthBirth());
-        softAssert.assertEquals(actualUser.getYearBirth(), user.getYearBirth());
-        softAssert.assertEquals(actualUser.isNews(), user.isNews());
-        softAssert.assertEquals(actualUser.isOptions(), user.isOptions());
+        softAssert.assertEquals(actualUser.getFistName(), user.getFistName(), "Users first names doesn't match ");
+        softAssert.assertEquals(actualUser.getLastName(), user.getLastName(), "Users last names doesn't match ");
+        softAssert.assertEquals(actualUser.getEmail(), user.getEmail(), "Users emails doesn't match ");
+        softAssert.assertEquals(actualUser.getGender(), user.getGender(), "Users genders doesn't match ");
+        softAssert.assertEquals(actualUser.getDayBirth(), user.getDayBirth(), "Users birth days doesn't match ");
+        softAssert.assertEquals(actualUser.getMonthBirth(), user.getMonthBirth(), "Users birth months doesn't match ");
+        softAssert.assertEquals(actualUser.getYearBirth(), user.getYearBirth(), "Users birth years doesn't match ");
+        softAssert.assertEquals(actualUser.isNews(), user.isNews(), "Users news doesn't match ");
+        softAssert.assertEquals(actualUser.isOptions(), user.isOptions(), "Users options doesn't match ");
 
         softAssert.assertAll();
     }

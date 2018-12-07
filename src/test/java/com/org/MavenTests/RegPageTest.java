@@ -1,8 +1,14 @@
 package com.org.MavenTests;
 
 import POM.RegistrationPage;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.testng.annotations.*;
 import Models.User;
+
+import java.io.File;
+import java.io.IOException;
 
 public class RegPageTest extends TestBase{
 
@@ -11,46 +17,27 @@ public class RegPageTest extends TestBase{
 	@BeforeMethod
 	public void openLoginPage(){
 		logger.info("Navigate to login page");
-		registrationPage = RegistrationPage.open();
+		registrationPage = new RegistrationPage(driver);
 	}
 
 		// Create invalid user
 		@DataProvider (name = "upperUserData")
 		public Object[] getUpperUserData(){
-			StringBuilder longString = new StringBuilder("1");
-			for (int i=0; i<10000; i++)
-				longString.append("1");
-			
-			final String email = "Mustbeverylargetestusermailforthistextbox@gamil.com";								//test1@test.com1 - for login
-			final String fistName = "Mustbeverylargetestfistnameforthistextbox";
-			final String lastName = "Mustbeverylargetestlastnameforthistextbox";
-			final String company = "Mustbeverylargetestlastnameforthistextbox";
-			final String address = longString.toString();
-			final String address2 = longString.toString(); 							// Additional address information
-			final String city = "Mustbeverylargetestlastnameforthistextbox";
-			final String zipCode = "88888888888888888888888888888888888";
-			final String additionInformation = longString.toString();
-			final String homePhone = "88888888888888888888888888888888888";
-			final String mobilePhone = "88888888888888888888888888888888888";
-			final String addressAlias = longString.toString();
-			final String password = "MustBeVeryLargeTestPasswordForThisTextbox1";;
-					
-			User[] validUserData = new User[1]; 
-			validUserData[0] = new User(longString.toString());
-			validUserData[0].setEmail(email);
-			validUserData[0].setFistName(fistName);
-			validUserData[0].setLastName(lastName);
-			validUserData[0].setAddress(address);
-			validUserData[0].setAddress2(address2);
-			validUserData[0].setAdditionInformation(additionInformation);
-			validUserData[0].setCity(city);
-			validUserData[0].setZipCode(zipCode);
-			validUserData[0].setCompany(company);
-			validUserData[0].setHomePhone(homePhone);
-			validUserData[0].setMobilePhone(mobilePhone);
-			validUserData[0].setAddressAlias(addressAlias);
-			validUserData[0].setPassword(password);
-			return validUserData;
+			User[] upperUserData = new User[1];
+
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				// Convert JSON string from file to Object
+				upperUserData[0] = mapper.readValue(new File("src\\test\\resources\\upperUser.json"), User.class);
+			} catch (JsonGenerationException e) {
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			return upperUserData;
 		}
 				
 		// Test case 1 - User registration with valid data
@@ -58,14 +45,11 @@ public class RegPageTest extends TestBase{
 		public void checkUpperLimits(User user){
 			logger.info("\n --- Validation test start ---\n");
 
-//			logger.info("Navigate to login page");
-//			RegistrationPage registrationPage = RegistrationPage.open();
-
 			logger.info("Input email");
-			registrationPage.submitEmail(user.getEmail());
+			registrationPage.submitEmail(user.getEmail(),driver);
 
 			logger.info("Wait for registration form");
-			registrationPage.waitForRegistrationForm();
+			registrationPage.waitForRegistrationForm(driver);
 
 			logger.info("Fill registration form");
 			registrationPage.fillRegistrationForm(user);
@@ -74,19 +58,29 @@ public class RegPageTest extends TestBase{
 			registrationPage.registerButtonClick();
 
 			logger.info("Check alert");
-			registrationPage.checkUpperLimitsAlerts();
+			registrationPage.checkUpperLimitsAlerts(softAssert);
+
+			softAssert.assertAll();
 
 		}
 		
 		// Create invalid user
 		@DataProvider (name = "invalidUserData")
 		public Object[] getInvalidUserData(){
-			final String email = "test2@test.com2";
-			final String invalidValue = "1";
 
-			User[] invalidUserData = new User[1];					
-			invalidUserData[0] = new User(invalidValue);
-			invalidUserData[0].setEmail(email);
+			User[] invalidUserData = new User[1];
+
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				// Convert JSON string from file to Object
+				invalidUserData[0] = mapper.readValue(new File("src\\test\\resources\\invalidUser.json"), User.class);
+			} catch (JsonGenerationException e) {
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			return invalidUserData;
 		}
 				
@@ -95,14 +89,11 @@ public class RegPageTest extends TestBase{
 		public void checkValidations(User user){
 			logger.info("\n --- Validation test start ---\n");
 
-//			logger.info("Navigate to login page");
-//			RegistrationPage registrationPage = RegistrationPage.open();
-
 			logger.info("Input email");
-			registrationPage.submitEmail(user.getEmail());
+			registrationPage.submitEmail(user.getEmail(),driver);
 
 			logger.info("Wait for registration form");
-			registrationPage.waitForRegistrationForm();
+			registrationPage.waitForRegistrationForm(driver);
 
 			logger.info("Fill registration form");
 			registrationPage.fillRegistrationForm(user);
@@ -111,14 +102,27 @@ public class RegPageTest extends TestBase{
 			registrationPage.registerButtonClick();
 
 			logger.info("Check alert");
-			registrationPage.checkInvalidAlerts();
+			registrationPage.checkInvalidAlerts(softAssert);
+
+			softAssert.assertAll();
 		}	
 		
 		// Create valid user
 		@DataProvider (name = "validUserData")
 		public Object[] getValidUserData(){
 			User[] validUserData = new User[1];
-			validUserData[0] = new User();
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				// Convert JSON string from file to Object
+				validUserData[0] = mapper.readValue(new File("src\\test\\resources\\validUser.json"), User.class);
+			} catch (JsonGenerationException e) {
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 			return validUserData;
 		}
 		
@@ -127,19 +131,16 @@ public class RegPageTest extends TestBase{
 		public void checkRegistration(User user){
 			logger.info("\n --- Registration test start ---\n");
 
-//			logger.info("Navigate to login page");
-//			RegistrationPage registrationPage = RegistrationPage.open();
-
 			logger.info("Input email");
-			registrationPage.submitEmail(user.getEmail());
+			registrationPage.submitEmail(user.getEmail(), driver);
 
 			logger.info("Wait for registration form");
-			registrationPage.waitForRegistrationForm();
+			registrationPage.waitForRegistrationForm(driver);
 
 			logger.info("Fill registration form");
 			registrationPage.fillRegistrationForm(user);
 
-			logger.info("Click register button");
+			//logger.info("Click register button");
 			//registrationPage.registerButtonClick();
 
 			logger.info("Check user profile button");
@@ -151,11 +152,12 @@ public class RegPageTest extends TestBase{
 			logger.info("\n --- Visibility test start ---\n");
 
 			logger.info("Input email");
-			registrationPage.submitEmail(user.getEmail());
+			registrationPage.submitEmail(user.getEmail(), driver);
 
 			logger.info("Wait for registration form");
-			registrationPage.waitForRegistrationForm();
+			registrationPage.waitForRegistrationForm(driver);
 
-			//registrationPage.checkElementsVisibility(this.getClass());
+			registrationPage.checkPageElementsVisibility(registrationPage.getClass(),softAssert);
+			softAssert.assertAll();
 		}
 }
