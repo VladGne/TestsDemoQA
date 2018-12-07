@@ -14,11 +14,11 @@ public class RegPageTest extends TestBase{
 
 	private RegistrationPage registrationPage;
 
-	@BeforeMethod
-	public void openLoginPage(){
-		logger.info("Navigate to login page");
-		registrationPage = new RegistrationPage(driver);
-	}
+		@BeforeMethod(groups = "regression")
+		public void openLoginPage(){
+			logger.info("Navigate to login page");
+			registrationPage = new RegistrationPage(driver);
+		}
 
 		// Create invalid user
 		@DataProvider (name = "upperUserData")
@@ -41,7 +41,7 @@ public class RegPageTest extends TestBase{
 		}
 				
 		// Test case 1 - User registration with valid data
-		@Test (priority = 3, dataProvider="upperUserData")
+		@Test (priority = 3, dataProvider="upperUserData", groups = "regression")
 		public void checkUpperLimits(User user){
 			logger.info("\n --- Validation test start ---\n");
 
@@ -85,7 +85,7 @@ public class RegPageTest extends TestBase{
 		}
 				
 		//Check date and phone number validation
-		@Test (priority = 2, dataProvider="invalidUserData")
+		@Test (priority = 2, dataProvider="invalidUserData", groups = "regression")
 		public void checkValidations(User user){
 			logger.info("\n --- Validation test start ---\n");
 
@@ -127,7 +127,7 @@ public class RegPageTest extends TestBase{
 		}
 		
 		// Test case 1 - User registration with valid data
-		@Test (priority = 1, dataProvider="validUserData")
+		@Test (priority = 1, dataProvider="validUserData", groups = "regression")
 		public void checkRegistration(User user){
 			logger.info("\n --- Registration test start ---\n");
 
@@ -147,7 +147,7 @@ public class RegPageTest extends TestBase{
 			registrationPage.checkUserButton();
 		}
 
-		@Test (priority = 0, dataProvider="validUserData")
+		@Test (priority = 0, dataProvider="validUserData", groups = "regression")
 		public void checkVisibility(User user){
 			logger.info("\n --- Visibility test start ---\n");
 

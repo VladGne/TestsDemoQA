@@ -1,13 +1,19 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name = "Suite1">
+<suite name = "MainSuite" verbose="2">
 	<test name = "test1">
+		<groups>
+			<run>
+				<include name="regression"/>
+			</run>
+		</groups>
 		<classes>
-			<class name="com.org.MavenTests.RegPageTest"/>
+			<class name="com.org.MavenTests.RegPageTest" />
 			<class name="com.org.MavenTests.LoginPageTests"/>
 			<class name="com.org.MavenTests.AddressesTests"/>
 			<class name="com.org.MavenTests.PersonalInfoTests"/>
 		</classes>
 	</test>
+
 </suite>

@@ -16,6 +16,12 @@ public class LoginPageTests extends TestBase{
 
     private LoginPage authenticationPage;
 
+    @BeforeMethod(groups = "regression")
+    public void openLoginPage(){
+        logger.info("Navigate to login page");
+        authenticationPage = new LoginPage(driver);
+    }
+
     // Create invalid user
     @DataProvider(name = "repeatedUserEmail")
     public Object[] getRepeatedUserEmail(){
@@ -39,13 +45,7 @@ public class LoginPageTests extends TestBase{
         return invalidUserData;
     }
 
-    @BeforeMethod
-    public void openLoginPage(){
-        logger.info("Navigate to login page");
-        authenticationPage = new LoginPage(driver);
-    }
-
-    @Test(priority = 1, dataProvider="repeatedUserEmail")
+    @Test(priority = 1, dataProvider="repeatedUserEmail", groups = "regression")
     public void checkEmailRepeat(User user){
         logger.info("\n --- Check Repeated Email Test Start ---\n");
 
@@ -69,7 +69,6 @@ public class LoginPageTests extends TestBase{
     @DataProvider (name = "invalidUserEmail")
     public Object[] getInvalidUserEmail(){
 
-
         User[] invalidUserData = new User[1];
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -86,7 +85,7 @@ public class LoginPageTests extends TestBase{
         return invalidUserData;
     }
 
-    @Test (priority = 2, dataProvider="invalidUserEmail")
+    @Test (priority = 2, dataProvider="invalidUserEmail", groups = "regression")
     public void checkEmailValidations(User user){
 
         logger.info("\n --- Check Invalid Email Test Start ---\n");

@@ -13,6 +13,18 @@ public class PersonalInfoTests extends TestBase{
 
     private PersonalPage personalPage;
 
+    @BeforeMethod(groups = "regression")
+    public void openLoginPage(){
+        logger.info("Navigate to login page");
+        personalPage = new PersonalPage(driver);
+    }
+
+    @AfterMethod(groups = "regression")
+    public void doLogout(){
+        logger.info("Logout");
+        personalPage.doLogout();
+    }
+
     // Create valid user
     @DataProvider(name = "validUserData")
     public Object[] getValidUserData(){
@@ -35,19 +47,7 @@ public class PersonalInfoTests extends TestBase{
         return validUserData;
     }
 
-    @BeforeMethod
-    public void openLoginPage(){
-        logger.info("Navigate to login page");
-        personalPage = new PersonalPage(driver);
-    }
-
-    @AfterMethod
-    public void doLogout(){
-        logger.info("Logout");
-        personalPage.doLogout();
-    }
-
-    @Test(priority = 0, dataProvider="validUserData")
+    @Test(priority = 0, dataProvider="validUserData", groups = "regression")
     public void checkVisibility(User user){
 
         logger.info("Check personal info page elements visibility test start\n");
@@ -65,7 +65,7 @@ public class PersonalInfoTests extends TestBase{
         logger.info("\n --- Check personal info page elements visibility test end ---\n");
     }
 
-    @Test(priority = 1, dataProvider="validUserData")
+    @Test(priority = 1, dataProvider="validUserData", groups = "regression")
     public void checkPersonalInfo(User user){
 
         logger.info("\n --- Check personal info test start ---\n");

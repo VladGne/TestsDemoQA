@@ -16,6 +16,19 @@ public class AddressesTests extends TestBase {
 
     private AddressesPage addressesPage;
 
+    @BeforeMethod(groups = "regression")
+    public void openLoginPage(Method method){
+        logger.info("Navigate to login page");
+        addressesPage = new AddressesPage(driver);
+        logger.info(method.getName() + " start");
+    }
+
+    @AfterMethod(groups = "regression")
+    public void doLogout(){
+        logger.info("Logout");
+        addressesPage.doLogout();
+    }
+
     @DataProvider(name = "validUserData")
     public Object[] getValidUserData(){
         User[] validUserData = new User[1];
@@ -36,19 +49,7 @@ public class AddressesTests extends TestBase {
         return validUserData;
     }
 
-    @BeforeMethod
-    public void openLoginPage(Method method){
-        logger.info("Navigate to login page");
-        addressesPage = new AddressesPage(driver);
-        logger.info(method.getName() + " start");
-    }
-
-    @AfterMethod
-    public void doLogout(){
-        logger.info("Logout");
-        addressesPage.doLogout();
-    }
-    @Test(priority = 0, dataProvider="validUserData")
+    @Test(priority = 0, dataProvider="validUserData", groups = "regression")
     public void checkVisibilityMainElements(User user) {
 
         logger.info("Login");
@@ -65,7 +66,7 @@ public class AddressesTests extends TestBase {
         logger.info("\n --- Addresses test end ---\n");
     }
 
-    @Test(priority = 1, dataProvider="validUserData")
+    @Test(priority = 1, dataProvider="validUserData", groups = "regression")
     public void checkAddressesUserInformation(User user) {
 
         logger.info("Login");

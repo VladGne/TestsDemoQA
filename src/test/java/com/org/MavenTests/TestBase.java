@@ -25,7 +25,7 @@ public class TestBase {
 
     WebDriver driver;
 
-    @BeforeSuite
+    @BeforeSuite(groups = "regression")
     public void initionalBrowser() {
         logger.info("Browser Initialization");
         //System.setProperty("webdriver.gecko.driver", BasePage.DRIVER_PATH);
@@ -33,12 +33,12 @@ public class TestBase {
 
     }
 
-    @AfterSuite
+    @AfterSuite(groups = "regression")
     public void closeBrowser() {
         //driver.quit();
     }
 
-    @BeforeClass
+    @BeforeClass(groups = "regression")
     public void openBasePage(){
         logger.info("Open main page");
         driver = new ChromeDriver();
