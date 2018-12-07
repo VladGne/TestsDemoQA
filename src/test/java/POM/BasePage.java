@@ -7,11 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,6 +17,28 @@ import java.util.List;
 import java.util.Properties;
 
 public class BasePage{
+
+	static Properties prop = new Properties();
+
+	// Read config.properties file
+	static {
+		InputStream input = null;
+		try {
+			input =new FileInputStream("src/main/resources/config.properties");
+			// load a properties file
+			prop.load(input);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	//public static final String DRIVER_PATH = "E:\\_Programs\\GekoDriver\\geckodriver.exe";
 	public static final String DRIVER_PATH = "F:\\Programs\\ChromeDriver\\chromedriver.exe";
@@ -35,27 +53,8 @@ public class BasePage{
 	}
 
 	public static BasePage open(WebDriver driver) {
-		Properties prop = new Properties();
-		InputStream input = null;
-
-		try {
-			input =new FileInputStream("config.properties");
-			// load a properties file
-			prop.load(input);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}finally {
-			if (input != null) {
-				try {
-					input.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
 		BasePage.driver = driver;
-		final String BasePageURL = "http://automationpractice.com/index.php";	//prop.getProperty("durl");
+		final String BasePageURL = prop.getProperty("durl"); //"http://automationpractice.com/index.php";	//
 		BasePage.driver.navigate().to(BasePageURL);
 		return new BasePage(BasePage.driver);
 	}
@@ -71,18 +70,15 @@ public class BasePage{
 
 	@FindBy(id = "SubmitLogin")
 	private WebElement loginButton;
-	
-	//Click Method
+
 	public void click(By elementLocator) {
 		driver.findElement(elementLocator).click();
 	}
-	
-	//Write Text
+
 	public void writeText(By elementLocator, String text) {
 		driver.findElement(elementLocator).sendKeys(text);
 	}
-	
-	//Read Text
+
 	public String readText(By elementLocator) {
 		return driver.findElement(elementLocator).getText();
 	}
