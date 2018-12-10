@@ -23,7 +23,7 @@ public class BasePage{
 	@FindBy(className = "logout")
 	private WebElement logoutButton;
 
-	@FindBy(xpath = "alert-danger") //"//div[@class='alert alert-danger']//ol"
+	@FindBy(xpath = "//div[@class='alert alert-danger']//ol")
 	private WebElement alertList;
 
 	BasePage(WebDriver driver) {
