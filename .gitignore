@@ -1,13 +1,13 @@
 
 \.idea/workspace\.xml
 
-target/test-classes/POM/AddressesPage\.class
+target/test-classes/framework.pageObjectModels/AddressesPage\.class
 
-target/test-classes/POM/BasePage\.class
+target/test-classes/framework.pageObjectModels/BasePage\.class
 
-target/test-classes/POM/AuthenticationPage\.class
+target/test-classes/framework.pageObjectModels/AuthenticationPage\.class
 
-target/test-classes/POM/PersonalPage\.class
+target/test-classes/framework.pageObjectModels/PersonalPage\.class
 
 target/test-classes/com/org/MavenTests/AddressesTests\.class
 
@@ -21,9 +21,9 @@ target/test-classes/com/org/MavenTests/TestBase\.class
 
 target/test-classes/com/org/MavenTests/UserProfileTests\.class
 
-target/test-classes/POM/LoginPage\.class
+target/test-classes/framework.pageObjectModels/LoginPage\.class
 
-target/test-classes/POM/RegistrationPage\.class
+target/test-classes/framework.pageObjectModels/RegistrationPage\.class
 
 \.idea/compiler\.xml
 
@@ -37,9 +37,9 @@ MavenTestsProject\.iml
 
 \.idea/TestsDemoQA\.iml
 
-target/test-classes/Models/User\$Country\.class
+target/test-classes/framework.models/User\$Country\.class
 
-target/test-classes/Models/User\.class
+target/test-classes/framework.models/User\.class
 
 *.class
 
