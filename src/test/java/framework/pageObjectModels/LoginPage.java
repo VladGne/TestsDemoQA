@@ -61,7 +61,7 @@ public class LoginPage extends BasePage{
     }
 
     public String getEmailAlertMessage(){
-        return alertMessage.getText();
+       return alertMessage.getText();
     }
 
     public void waitForAlertMessage(WebDriver driver){
@@ -70,4 +70,3 @@ public class LoginPage extends BasePage{
         WebElement message = wait.until(ExpectedConditions.visibilityOf(alertMessage));
     }
 }
-

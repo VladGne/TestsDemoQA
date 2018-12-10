@@ -181,9 +181,6 @@ public class RegistrationPage extends BasePage {
     public void waitForRegistrationForm(WebDriver driver){
         WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("id_gender1")));
-        element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("years")));
-        element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("id_state")));
-        element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("postcode")));
     }
 
     private void selectCountry(User.Country country){
