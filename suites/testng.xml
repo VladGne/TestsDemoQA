@@ -2,18 +2,22 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name = "MainSuite" verbose="2">
+	<parameter name = "validUserFilePath" value="src/test/resources/validUser.json"/>
+	<parameter name = "invalidUserFilePath" value="src/test/resources/invalidUser.json"/>
+	<parameter name = "upperUserFilePath" value="src\\test\\resources\\upperUser.json"/>
 	<test name = "test1">
+
 		<groups>
 			<run>
 				<include name="regression"/>
 			</run>
 		</groups>
 		<classes>
-			<class name="com.org.MavenTests.RegPageTest" />
-			<class name="com.org.MavenTests.LoginPageTests"/>
-			<class name="com.org.MavenTests.AddressesTests"/>
-			<class name="com.org.MavenTests.PersonalInfoTests"/>
+			<class name="tests.RegPageTest" />
+			<class name="tests.LoginPageTests"/>
+			<class name="tests.AddressesTests"/>
+			<class name="tests.PersonalInfoTests"/>
 		</classes>
 	</test>
-
 </suite>
+

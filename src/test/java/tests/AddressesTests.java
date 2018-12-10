@@ -1,15 +1,12 @@
-package com.org.MavenTests;
+package tests;
 
-import Models.User;
-import POM.AddressesPage;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
+import framework.models.User;
+import framework.pageObjectModels.AddressesPage;
 import org.testng.annotations.*;
 
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Method;
+
+import static framework.helperClasses.FileReader.readUserDataFrom;
 
 
 public class AddressesTests extends TestBase {
@@ -30,19 +27,12 @@ public class AddressesTests extends TestBase {
     }
 
     @DataProvider(name = "validUserData")
-    public Object[] getValidUserData(){
+    @Parameters("validUserFilePath")
+    public Object[] getValidUserData(String validUserFilePath){
         User[] validUserData = new User[1];
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            // Convert JSON string from file to Object
-            validUserData[0] = mapper.readValue(new File("src\\test\\resources\\validUser.json"), User.class);
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        validUserData[0] = readUserDataFrom(validUserFilePath);
+
         final String existedEmail = "test1@test.com1";
         validUserData[0].setEmail(existedEmail);
 

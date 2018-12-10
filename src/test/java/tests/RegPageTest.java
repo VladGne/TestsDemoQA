@@ -1,14 +1,13 @@
-package com.org.MavenTests;
+package tests;
 
-import POM.RegistrationPage;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.testng.annotations.*;
-import Models.User;
+import framework.models.User;
+import framework.pageObjectModels.RegistrationPage;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
-import java.io.File;
-import java.io.IOException;
+import static framework.helperClasses.FileReader.readUserDataFrom;
 
 public class RegPageTest extends TestBase{
 
@@ -22,20 +21,11 @@ public class RegPageTest extends TestBase{
 
 		// Create invalid user
 		@DataProvider (name = "upperUserData")
-		public Object[] getUpperUserData(){
+		@Parameters("upperUserFilePath")
+		public Object[] getUpperUserData(String upperUserFilePath){
 			User[] upperUserData = new User[1];
 
-			ObjectMapper mapper = new ObjectMapper();
-			try {
-				// Convert JSON string from file to Object
-				upperUserData[0] = mapper.readValue(new File("src\\test\\resources\\upperUser.json"), User.class);
-			} catch (JsonGenerationException e) {
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			upperUserData[0] = readUserDataFrom(upperUserFilePath);
 
 			return upperUserData;
 		}
@@ -66,21 +56,13 @@ public class RegPageTest extends TestBase{
 		
 		// Create invalid user
 		@DataProvider (name = "invalidUserData")
-		public Object[] getInvalidUserData(){
+		@Parameters("invalidUserFilePath")
+		public Object[] getInvalidUserData(String invalidUserFilePath){
 
 			User[] invalidUserData = new User[1];
 
-			ObjectMapper mapper = new ObjectMapper();
-			try {
-				// Convert JSON string from file to Object
-				invalidUserData[0] = mapper.readValue(new File("src\\test\\resources\\invalidUser.json"), User.class);
-			} catch (JsonGenerationException e) {
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			invalidUserData[0] = readUserDataFrom(invalidUserFilePath);
+
 			return invalidUserData;
 		}
 				
@@ -109,20 +91,11 @@ public class RegPageTest extends TestBase{
 		
 		// Create valid user
 		@DataProvider (name = "validUserData")
-		public Object[] getValidUserData(){
+		@Parameters("validUserFilePath")
+		public Object[] getValidUserData(String validUserFilePath){
 			User[] validUserData = new User[1];
-			ObjectMapper mapper = new ObjectMapper();
-			try {
-				// Convert JSON string from file to Object
-				validUserData[0] = mapper.readValue(new File("src\\test\\resources\\validUser.json"), User.class);
-			} catch (JsonGenerationException e) {
-				e.printStackTrace();
-			} catch (JsonMappingException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 
+			validUserData[0] = readUserDataFrom(validUserFilePath);
 			return validUserData;
 		}
 		
