@@ -24,12 +24,11 @@ public class PersonalInfoTests extends TestBase{
 
     // Create valid user
     @DataProvider(name = "validUserData")
-    @Parameters("validUserFilePath")
-    public Object[] getValidUserData(String validUserFilePath){
+    public Object[] getValidUserData(){
 
         User[] validUserData = new User[1];
 
-        validUserData[0] = readUserDataFrom(validUserFilePath);
+        validUserData[0] = readUserDataFrom(parameters.get("validUserData"));
 
         final String existedEmail = "test1@test.com1";
         validUserData[0].setEmail(existedEmail);
@@ -54,7 +53,7 @@ public class PersonalInfoTests extends TestBase{
         logger.info("\n --- Check personal info page elements visibility test end ---\n");
     }
 
-    @Test(priority = 1, dataProvider="validUserData", groups = "regression")
+    @Test(priority = 0, dataProvider="validUserData", groups = "regression")
     public void checkPersonalInfo(User user){
 
         logger.info("\n --- Check personal info test start ---\n");

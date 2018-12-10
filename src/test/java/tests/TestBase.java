@@ -17,16 +17,14 @@ public class TestBase {
 
     SoftAssert softAssert = new SoftAssert();
     protected Logger logger = LogManager.getLogger(this);
-
+    HashMap<String,String> parameters;
     WebDriver driver;
 
     @BeforeSuite(groups = "regression")
-    public void initializeBrowser(ITestContext testContext) {
+    public void initializeBrowser() {
         logger.info("Browser Initialization");
         //System.setProperty("webdriver.gecko.driver", BasePage.DRIVER_PATH);
         System.setProperty("webdriver.chrome.driver",BasePage.DRIVER_PATH);
-
-        HashMap<String,String> parameters = new HashMap<String, String>(testContext.getCurrentXmlTest().getAllParameters());
     }
 
     @AfterSuite(groups = "regression")
@@ -35,9 +33,12 @@ public class TestBase {
     }
 
     @BeforeClass(groups = "regression")
-    public void openBasePage(){
+    public void openBasePage(ITestContext testContext){
         logger.info("Open main page");
         driver = new ChromeDriver();
+        parameters = new HashMap<String, String>(testContext.getCurrentXmlTest().getAllParameters());
        // BasePage basePage = new BasePage(driver);
     }
 }
+
+

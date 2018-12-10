@@ -5,7 +5,6 @@ import framework.pageObjectModels.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import static framework.helperClasses.FileReader.readUserDataFrom;
@@ -22,12 +21,11 @@ public class LoginPageTests extends TestBase{
 
     // Create invalid user
     @DataProvider(name = "repeatedUserEmail")
-    @Parameters("validUserFilePath")
-    public Object[] getRepeatedUserEmail(String validUserFilePath){
+    public Object[] getRepeatedUserEmail( ){
 
         User[] invalidUserData = new User[1];
 
-        invalidUserData[0] = readUserDataFrom(validUserFilePath);
+        invalidUserData[0] = readUserDataFrom(parameters.get("validUserData"));
 
         final String existedEmail = "test1@test.com1";
         invalidUserData[0].setEmail(existedEmail);
@@ -35,7 +33,7 @@ public class LoginPageTests extends TestBase{
         return invalidUserData;
     }
 
-    @Test(priority = 1, dataProvider="repeatedUserEmail", groups = "regression")
+    @Test(priority = 0, dataProvider="repeatedUserEmail", groups = "regression")
     public void checkEmailRepeat(User user){
         logger.info("\n --- Check Repeated Email Test Start ---\n");
 
@@ -57,18 +55,19 @@ public class LoginPageTests extends TestBase{
 
     // Create invalid user
     @DataProvider (name = "invalidUserEmail")
-    public Object[] getInvalidUserEmail(String validUserFilePath){
+    public Object[] getInvalidUserEmail(){
 
         final String invalidEmail ="invlalidEmail";
 
         User[] invalidUserData = new User[1];
 
+        invalidUserData[0] = readUserDataFrom(parameters.get("invalidUserData"));
         invalidUserData[0].setEmail(invalidEmail);
 
         return invalidUserData;
     }
 
-    @Test (priority = 2, dataProvider="invalidUserEmail", groups = "regression")
+    @Test (priority = 0, dataProvider="invalidUserEmail", groups = "regression")
     public void checkEmailValidations(User user){
 
         logger.info("\n --- Check Invalid Email Test Start ---\n");

@@ -4,7 +4,6 @@ import framework.models.User;
 import framework.pageObjectModels.RegistrationPage;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import static framework.helperClasses.FileReader.readUserDataFrom;
@@ -21,17 +20,17 @@ public class RegPageTest extends TestBase{
 
 		// Create invalid user
 		@DataProvider (name = "upperUserData")
-		@Parameters("upperUserFilePath")
-		public Object[] getUpperUserData(String upperUserFilePath){
+		//@Parameters("upperUserFilePath")
+		public Object[] getUpperUserData(){
 			User[] upperUserData = new User[1];
 
-			upperUserData[0] = readUserDataFrom(upperUserFilePath);
+			upperUserData[0] = readUserDataFrom(parameters.get("upperUserData"));
 
 			return upperUserData;
 		}
 				
 		// Test case 1 - User registration with valid data
-		@Test (priority = 3, dataProvider="upperUserData", groups = "regression")
+		@Test (priority = 0, dataProvider="upperUserData", groups = "regression")
 		public void checkUpperLimits(User user){
 			logger.info("\n --- Validation test start ---\n");
 
@@ -51,23 +50,21 @@ public class RegPageTest extends TestBase{
 			registrationPage.checkUpperLimitsAlerts(softAssert);
 
 			softAssert.assertAll();
-
 		}
 		
 		// Create invalid user
 		@DataProvider (name = "invalidUserData")
-		@Parameters("invalidUserFilePath")
-		public Object[] getInvalidUserData(String invalidUserFilePath){
+		public Object[] getInvalidUserData(){
 
 			User[] invalidUserData = new User[1];
 
-			invalidUserData[0] = readUserDataFrom(invalidUserFilePath);
+			invalidUserData[0] = readUserDataFrom(parameters.get("invalidUserData"));
 
 			return invalidUserData;
 		}
 				
 		//Check date and phone number validation
-		@Test (priority = 2, dataProvider="invalidUserData", groups = "regression")
+		@Test (priority = 0, dataProvider="invalidUserData", groups = "regression")
 		public void checkValidations(User user){
 			logger.info("\n --- Validation test start ---\n");
 
@@ -91,16 +88,15 @@ public class RegPageTest extends TestBase{
 		
 		// Create valid user
 		@DataProvider (name = "validUserData")
-		@Parameters("validUserFilePath")
-		public Object[] getValidUserData(String validUserFilePath){
+		public Object[] getValidUserData(){
 			User[] validUserData = new User[1];
 
-			validUserData[0] = readUserDataFrom(validUserFilePath);
+			validUserData[0] = readUserDataFrom(parameters.get("validUserData"));
 			return validUserData;
 		}
 		
 		// Test case 1 - User registration with valid data
-		@Test (priority = 1, dataProvider="validUserData", groups = "regression")
+		@Test (priority = 0, dataProvider="validUserData", groups = "regression")
 		public void checkRegistration(User user){
 			logger.info("\n --- Registration test start ---\n");
 

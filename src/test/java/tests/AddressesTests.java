@@ -3,11 +3,8 @@ package tests;
 import framework.models.User;
 import framework.pageObjectModels.AddressesPage;
 import org.testng.annotations.*;
-
 import java.lang.reflect.Method;
-
 import static framework.helperClasses.FileReader.readUserDataFrom;
-
 
 public class AddressesTests extends TestBase {
 
@@ -27,11 +24,10 @@ public class AddressesTests extends TestBase {
     }
 
     @DataProvider(name = "validUserData")
-    @Parameters("validUserFilePath")
-    public Object[] getValidUserData(String validUserFilePath){
+    public Object[] getValidUserData(){
         User[] validUserData = new User[1];
 
-        validUserData[0] = readUserDataFrom(validUserFilePath);
+        validUserData[0] = readUserDataFrom(parameters.get("validUserData"));
 
         final String existedEmail = "test1@test.com1";
         validUserData[0].setEmail(existedEmail);
@@ -56,7 +52,7 @@ public class AddressesTests extends TestBase {
         logger.info("\n --- Addresses test end ---\n");
     }
 
-    @Test(priority = 1, dataProvider="validUserData", groups = "regression")
+    @Test(priority = 0, dataProvider="validUserData", groups = "regression")
     public void checkAddressesUserInformation(User user) {
 
         logger.info("Login");
