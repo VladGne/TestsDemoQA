@@ -64,3 +64,11 @@ target/classes/
 target/test-classes/
 
 \.idea/
+
+test-output/Default suite/
+
+test-output/old/Default suite/
+
+test-output/old/TestSuite/
+
+test-output/
