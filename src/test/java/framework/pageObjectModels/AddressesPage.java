@@ -44,6 +44,9 @@ public class AddressesPage extends BasePage{
     @FindBy(className = "address_phone_mobile")
     private WebElement mobilePhoneField;
 
+    @FindBy(className = "icon-chevron-right right")
+    private WebElement updateButton;
+
     public void addressButtonClick(WebDriver driver){
         AccountPage accountPage = new AccountPage(driver);
         accountPage.addressButtonClick();
@@ -72,5 +75,13 @@ public class AddressesPage extends BasePage{
     public AddressesPage(WebDriver driver) {
         super(driver);
         BasePage.navigate(driver, LoginPageURL);
+    }
+
+    public void updateButtonClick(){
+        updateButton.click();
+    }
+
+    public void fillAddressesDataWith(User user){
+        //RegistrationPage.inputFirstName(newUsersData.getFistName());
     }
 }
