@@ -1,5 +1,6 @@
 package tests;
 
+import framework.helperClasses.FileReader;
 import framework.pageObjectModels.BasePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +20,7 @@ public class TestBase {
     protected Logger logger = LogManager.getLogger(this);
     HashMap<String,String> parameters;
     WebDriver driver;
+    FileReader fileReader;
 
     @BeforeSuite(groups = "regression")
     public void initializeBrowser() {
@@ -37,6 +39,7 @@ public class TestBase {
         logger.info("Open main page");
         driver = new ChromeDriver();
         parameters = new HashMap<String, String>(testContext.getCurrentXmlTest().getAllParameters());
+        fileReader = new FileReader();
        // BasePage basePage = new BasePage(driver);
     }
 }

@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static framework.helperClasses.FileReader.readUserDataFrom;
+//import static framework.helperClasses.FileReader.readUserDataFrom;
 
 public class LoginPageTests extends TestBase{
 
@@ -23,19 +23,16 @@ public class LoginPageTests extends TestBase{
     @DataProvider(name = "repeatedUserEmail")
     public Object[] getRepeatedUserEmail( ){
 
-        User[] invalidUserData = new User[1];
-
-        invalidUserData[0] = readUserDataFrom(parameters.get("validUserData"));
-
-        final String existedEmail = "test1@test.com1";
-        invalidUserData[0].setEmail(existedEmail);
-
-        return invalidUserData;
+        fileReader.processDataFile(parameters.get("validUserData"));
+        return fileReader.getData();
     }
 
     @Test(priority = 0, dataProvider="repeatedUserEmail", groups = "regression")
     public void checkEmailRepeat(User user){
         logger.info("\n --- Check Repeated Email Test Start ---\n");
+
+        final String existedEmail = "test1@test.com1";
+        user.setEmail(existedEmail);
 
         logger.info("Input email");
         authenticationPage.inputNewEmail(user.getEmail());
@@ -57,18 +54,15 @@ public class LoginPageTests extends TestBase{
     @DataProvider (name = "invalidUserEmail")
     public Object[] getInvalidUserEmail(){
 
-        final String invalidEmail ="invlalidEmail";
-
-        User[] invalidUserData = new User[1];
-
-        invalidUserData[0] = readUserDataFrom(parameters.get("invalidUserData"));
-        invalidUserData[0].setEmail(invalidEmail);
-
-        return invalidUserData;
+        fileReader.processDataFile(parameters.get("invalidUserData"));
+        return fileReader.getData();
     }
 
     @Test (priority = 0, dataProvider="invalidUserEmail", groups = "regression")
     public void checkEmailValidations(User user){
+
+        final String invalidEmail ="invlalidEmail";
+        user.setEmail(invalidEmail);
 
         logger.info("\n --- Check Invalid Email Test Start ---\n");
 

@@ -6,7 +6,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static framework.helperClasses.FileReader.readUserDataFrom;
+//import static framework.helperClasses.FileReader.readUserDataFrom;
 
 public class RegPageTest extends TestBase{
 
@@ -22,11 +22,9 @@ public class RegPageTest extends TestBase{
 		@DataProvider (name = "upperUserData")
 		//@Parameters("upperUserFilePath")
 		public Object[] getUpperUserData(){
-			User[] upperUserData = new User[1];
 
-			upperUserData[0] = readUserDataFrom(parameters.get("upperUserData"));
-
-			return upperUserData;
+			fileReader.processDataFile(parameters.get("upperUserData"));
+			return fileReader.getData();
 		}
 				
 		// Test case 1 - User registration with valid data
@@ -56,11 +54,8 @@ public class RegPageTest extends TestBase{
 		@DataProvider (name = "invalidUserData")
 		public Object[] getInvalidUserData(){
 
-			User[] invalidUserData = new User[1];
-
-			invalidUserData[0] = readUserDataFrom(parameters.get("invalidUserData"));
-
-			return invalidUserData;
+			fileReader.processDataFile(parameters.get("invalidUserData"));
+			return fileReader.getData();
 		}
 				
 		//Check date and phone number validation
@@ -89,10 +84,8 @@ public class RegPageTest extends TestBase{
 		// Create valid user
 		@DataProvider (name = "validUserData")
 		public Object[] getValidUserData(){
-			User[] validUserData = new User[1];
-
-			validUserData[0] = readUserDataFrom(parameters.get("validUserData"));
-			return validUserData;
+			fileReader.processDataFile(parameters.get("validUserData"));
+			return fileReader.getData();
 		}
 		
 		// Test case 1 - User registration with valid data

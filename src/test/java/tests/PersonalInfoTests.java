@@ -4,7 +4,7 @@ import framework.models.User;
 import framework.pageObjectModels.PersonalPage;
 import org.testng.annotations.*;
 
-import static framework.helperClasses.FileReader.readUserDataFrom;
+//import static framework.helperClasses.FileReader.readUserDataFrom;
 
 public class PersonalInfoTests extends TestBase{
 
@@ -26,18 +26,12 @@ public class PersonalInfoTests extends TestBase{
     @DataProvider(name = "validUserData")
     public Object[] getValidUserData(){
 
-        User[] validUserData = new User[1];
-
-        validUserData[0] = readUserDataFrom(parameters.get("validUserData"));
-
-        final String existedEmail = "test1@test.com1";
-        validUserData[0].setEmail(existedEmail);
-        return validUserData;
+        fileReader.processDataFile(parameters.get("validUserData"));
+        return fileReader.getData();
     }
 
     @Test(priority = 0, dataProvider="validUserData", groups = "regression")
     public void checkVisibility(User user){
-
         logger.info("Check personal info page elements visibility test start\n");
 
         logger.info("Login");
@@ -57,6 +51,9 @@ public class PersonalInfoTests extends TestBase{
     public void checkPersonalInfo(User user){
 
         logger.info("\n --- Check personal info test start ---\n");
+
+        final String existedEmail = "test1@test.com1";
+        user.setEmail(existedEmail);
 
         logger.info("Login");
         personalPage.doLogin(user.getEmail(),user.getPassword(), driver);

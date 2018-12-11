@@ -2,9 +2,15 @@ package tests;
 
 import framework.models.User;
 import framework.pageObjectModels.AddressesPage;
-import org.testng.annotations.*;
+import framework.pageObjectModels.RegistrationPage;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
 import java.lang.reflect.Method;
-import static framework.helperClasses.FileReader.readUserDataFrom;
+
+//import static framework.helperClasses.FileReader.readUserDataFrom;
 
 public class AddressesTests extends TestBase {
 
@@ -25,18 +31,17 @@ public class AddressesTests extends TestBase {
 
     @DataProvider(name = "validUserData")
     public Object[] getValidUserData(){
-        User[] validUserData = new User[1];
 
-        validUserData[0] = readUserDataFrom(parameters.get("validUserData"));
-
-        final String existedEmail = "test1@test.com1";
-        validUserData[0].setEmail(existedEmail);
-
-        return validUserData;
+        fileReader.processDataFile(parameters.get("validUserData"));
+        return fileReader.getData();
     }
 
-    @Test(priority = 0, dataProvider="validUserData", groups = "regression")
+    @Test(priority = 1, dataProvider="validUserData", groups = "regression")
     public void checkVisibilityMainElements(User user) {
+
+        final String existedEmail = "test1@test.com1";
+        user.setEmail(existedEmail);
+
 
         logger.info("Login");
         addressesPage.doLogin(user.getEmail(),user.getPassword(), driver);
@@ -52,7 +57,7 @@ public class AddressesTests extends TestBase {
         logger.info("\n --- Addresses test end ---\n");
     }
 
-    @Test(priority = 0, dataProvider="validUserData", groups = "regression")
+    @Test(priority = 1, dataProvider="validUserData", groups = "regression")
     public void checkAddressesUserInformation(User user) {
 
         logger.info("Login");
@@ -78,5 +83,46 @@ public class AddressesTests extends TestBase {
 
         softAssert.assertAll();
         logger.info("\n --- Addresses test end ---\n");
+    }
+
+    @DataProvider(name = "registeredUserData")
+    public Object[] getRegisteredUserData(){
+        //User[] registeredUserData = new User[2];
+        fileReader.processDataFile( parameters.get( "registeredUserData" ) );
+
+        //registeredUserData[0] = readUserDataFrom(parameters.get("registeredUserData"));
+        //Map<String, Object> registeredUsers = readUserDataFrom(parameters.get("registeredUserData"));
+        return fileReader.getData();
+    }
+
+    @Test(priority = 0, dataProvider="registeredUserData", groups = "regression")
+    public void checkAddressesUpdate(User users[]){
+        User currentUserData = users[0];
+        User newUsersData = users[1];
+
+        logger.info("Login");
+        addressesPage.doLogin(currentUserData.getEmail(),currentUserData.getPassword(), driver);
+
+        logger.info("Navigate to addresses page");
+        addressesPage.addressButtonClick(driver);
+
+        addressesPage.updateButtonClick();
+
+        addressesPage.fillAddressesDataWith(newUsersData);
+
+        RegistrationPage registrationPage = new RegistrationPage(driver);
+
+        registrationPage.inputFirstName(newUsersData.getFistName());
+
+        registrationPage.inputLastName(newUsersData.getLastName());
+
+        registrationPage.inputAddress1(newUsersData.getAddress());
+        registrationPage.inputAddress2(newUsersData.getAddress2());
+
+        registrationPage.inputAlias(newUsersData.getAddressAlias());
+        registrationPage.inputMobilePhone(newUsersData.getMobilePhone());
+        //registrationPage.inputHomePhone();
+
+        // TODO: разделить регистрационную страницу на две страницы (персональной информацией и адресами)
     }
 }
