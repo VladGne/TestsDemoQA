@@ -5,6 +5,7 @@
 	<parameter name = "validUserData" value="src\\test\\data\\validUser.json"/>
 	<parameter name = "invalidUserData" value="src\\test\\data\\invalidUser.json"/>
 	<parameter name = "upperUserData" value="src\\test\\data\\upperUser.json"/>
+	<parameter name="registeredUserData" value="src\\test\\data\\registeredUser.json"/>
 	<test name = "test1">
 		<groups>
 			<run>
@@ -12,9 +13,9 @@
 			</run>
 		</groups>
 		<classes>
+			<class name="tests.AddressesTests"/>
 			<class name="tests.RegPageTest" />
 			<class name="tests.LoginPageTests"/>
-			<class name="tests.AddressesTests"/>
 			<class name="tests.PersonalInfoTests"/>
 		</classes>
 	</test>
