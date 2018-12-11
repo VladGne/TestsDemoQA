@@ -40,5 +40,3 @@ public class TestBase {
        // BasePage basePage = new BasePage(driver);
     }
 }
-
-

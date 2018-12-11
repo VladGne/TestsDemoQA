@@ -216,18 +216,17 @@ public class RegistrationPage extends BasePage {
         String[] alertMessage = getAlertList();
 
         if(!alertMessage[0].equals(INVALID_LAST_NAME_MESSAGE))
-            softAssert.fail("Last name alert message error: ");
+            softAssert.fail(String.format("Last name alert message error: expected - %s, actual - %s", INVALID_LAST_NAME_MESSAGE, alertMessage[0]));
         if(!alertMessage[1].equals(INVALID_FIRST_NAME_MESSAGE))
-            softAssert.fail("First name alert message error: ");
+            softAssert.fail(String.format("First name alert message error: expected - %s, actual - %s", INVALID_FIRST_NAME_MESSAGE, alertMessage[1]));
         if(!alertMessage[2].equals(INVALID_PASSWORD_MESSAGE))
-            softAssert.fail("Password alert message error: ");
+            softAssert.fail(String.format("Password alert message error: expected - %s, actual - %s", INVALID_PASSWORD_MESSAGE, alertMessage[2]));
         if(!alertMessage[3].equals(INVALID_POSTCODE_MESSAGE))
-            softAssert.fail("Postcode alert message error: ");
+            softAssert.fail(String.format("Postcode alert message error: expected - %s, actual - %s",INVALID_POSTCODE_MESSAGE,  alertMessage[3]));
 //        if(!alertMessage[4].equals(INVALID_STATE_MESSAGE))
 //            softAssertion.fail("State alert message error: ");
         if(!alertMessage[4].equals(INVALID_DATE_MESSAGE))
-            softAssert.fail("Date alert message error: ");
-
+            softAssert.fail(String.format("Date alert message error: expected - %s, actual - %s", INVALID_DATE_MESSAGE, alertMessage[4]));
     }
 
     public void checkUpperLimitsAlerts(SoftAssert softAssert){
@@ -235,25 +234,25 @@ public class RegistrationPage extends BasePage {
         String[] alertMessage = getAlertList();
 
         if(!alertMessage[0].equals(MAX_LAST_NAME_MESSAGE))
-            softAssert.fail("Last name alert message error: ");
+            softAssert.fail(String.format("Last name alert message error:  expected - %s, actual - %s", MAX_LAST_NAME_MESSAGE, alertMessage[0]));
 		if(!alertMessage[1].equals(MAX_FIRST_NAME_MESSAGE))
-            softAssert.fail("First name alert message error: ");
+            softAssert.fail(String.format("First name alert message error: expected - %s, actual - %s", MAX_FIRST_NAME_MESSAGE, alertMessage[1]));
 		if(!alertMessage[2].equals(MAX_PASSWORD_MESSAGE))
-            softAssert.fail("Password alert message error: ");
+            softAssert.fail(String.format("Password alert message error: expected - %s, actual - %s", MAX_PASSWORD_MESSAGE, alertMessage[2]));
 		if(!alertMessage[3].equals(MAX_ALIAS_MESSAGE))
-            softAssert.fail("Alias alert message error: ");
+            softAssert.fail(String.format("Alias alert message error: expected - %s, actual - %s", MAX_ALIAS_MESSAGE, alertMessage[3]));
 		if(!alertMessage[4].equals(MAX_ADDRESS1_MESSAGE))
-            softAssert.fail("Address1 alert message error: ");
+            softAssert.fail(String.format("Address1 alert message error: expected - %s, actual - %s", MAX_ADDRESS1_MESSAGE, alertMessage[4]));
 		if(!alertMessage[5].equals(MAX_ADDRESS2_MESSAGE))
-            softAssert.fail("Address2 alert message error: ");
+            softAssert.fail(String.format("Address2 alert message error: expected - %s, actual - %s", MAX_ADDRESS2_MESSAGE, alertMessage[5]));
 		if(!alertMessage[6].equals(MAX_POSTCODE_MESSAGE))
-            softAssert.fail("Postcode alert message error: ");
+            softAssert.fail(String.format("Postcode alert message error: expected - %s, actual - %s", MAX_POSTCODE_MESSAGE, alertMessage[6]));
 		if(!alertMessage[7].equals(MAX_ADDITION_INFO_MESSAGE))
-            softAssert.fail("Addition info alert message error: ");
+            softAssert.fail(String.format("Addition info alert message error: expected - %s, actual - %s",MAX_ADDITION_INFO_MESSAGE, alertMessage[7]));
 		if(!alertMessage[8].equals(MAX_HOME_PHONE_MESSAGE))
-            softAssert.fail("Home phone info alert message error: ");
+            softAssert.fail(String.format("Home phone info alert message error: expected - %s, actual - %s", MAX_HOME_PHONE_MESSAGE, alertMessage[8]));
 		if(!alertMessage[9].equals(MAX_MOBILE_PHONE_MESSAGE))
-            softAssert.fail("Mobile phone info alert message error: ");
+            softAssert.fail(String.format("Mobile phone info alert message error: expected - %s, actual - %s", MAX_MOBILE_PHONE_MESSAGE, alertMessage[9]));
     }
 
     public void fillRegistrationForm(User user){
