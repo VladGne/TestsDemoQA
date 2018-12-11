@@ -2,11 +2,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name = "MainSuite" verbose="2">
-	<parameter name = "validUserData" value="src\\test\\resources\\validUser.json"/>
-	<parameter name = "invalidUserData" value="src\\test\\resources\\invalidUser.json"/>
-	<parameter name = "upperUserData" value="src\\test\\resources\\upperUser.json"/>
+	<parameter name = "validUserData" value="src\\test\\data\\validUser.json"/>
+	<parameter name = "invalidUserData" value="src\\test\\data\\invalidUser.json"/>
+	<parameter name = "upperUserData" value="src\\test\\data\\upperUser.json"/>
 	<test name = "test1">
-
 		<groups>
 			<run>
 				<include name="regression"/>
