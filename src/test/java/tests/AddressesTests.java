@@ -1,6 +1,7 @@
 package tests;
 
 import framework.models.User;
+import framework.pageObjectModels.AddressRegistrationPage;
 import framework.pageObjectModels.AddressesPage;
 import framework.pageObjectModels.RegistrationPage;
 import org.testng.annotations.AfterMethod;
@@ -66,6 +67,8 @@ public class AddressesTests extends TestBase {
         logger.info("Navigate to addresses page");
         addressesPage.addressButtonClick(driver);
 
+        addressesPage.waitAddressPage(driver);
+
         logger.info("Check address form");
 
         User actualUser = addressesPage.getActualUserData();
@@ -106,23 +109,35 @@ public class AddressesTests extends TestBase {
         logger.info("Navigate to addresses page");
         addressesPage.addressButtonClick(driver);
 
+        addressesPage.waitAddressPage(driver);
+
+        logger.info("Navigate to address update page");
         addressesPage.updateButtonClick();
 
-        addressesPage.fillAddressesDataWith(newUsersData);
+        AddressRegistrationPage addressRegistrationPage = new AddressRegistrationPage(driver);
 
-        RegistrationPage registrationPage = new RegistrationPage(driver);
+        logger.info("Fill address form");
+        addressRegistrationPage.fillAddressRegistrationForm(newUsersData);
 
-        registrationPage.inputFirstName(newUsersData.getFistName());
+        logger.info("Save button click");
+        addressRegistrationPage.saveButtonClick();
 
-        registrationPage.inputLastName(newUsersData.getLastName());
+        addressesPage.waitAddressPage(driver);
 
-        registrationPage.inputAddress1(newUsersData.getAddress());
-        registrationPage.inputAddress2(newUsersData.getAddress2());
+        logger.info("Check address form");
+        User actualUser = addressesPage.getActualUserData();
+        softAssert.assertEquals(actualUser.getFistName(), newUsersData.getFistName(), "Users first names doesn't match: ");
+        softAssert.assertEquals(actualUser.getLastName(), newUsersData.getLastName(), "Users last names doesn't match ");
+        softAssert.assertEquals(actualUser.getCountry(), newUsersData.getCountry(), "Users countries doesn't match ");
+        softAssert.assertEquals(actualUser.getCity(), newUsersData.getCity(), "Users cities doesn't match ");
+        softAssert.assertEquals(actualUser.getState(), newUsersData.getState(), "Users states doesn't match ");
+        softAssert.assertEquals(actualUser.getZipCode(), newUsersData.getZipCode(), "Users post codes doesn't match ");
+        softAssert.assertEquals(actualUser.getCompany(), newUsersData.getCompany(), "Users companies doesn't match ");
+        softAssert.assertEquals(actualUser.getAddress(), newUsersData.getAddress(), "Users addresses doesn't match ");
+        softAssert.assertEquals(actualUser.getAddress2(), newUsersData.getAddress2(), "Users addressess2 doesn't match ");
+        softAssert.assertEquals(actualUser.getHomePhone(), newUsersData.getHomePhone(), "Users home phones doesn't match ");
+        softAssert.assertEquals(actualUser.getMobilePhone(), newUsersData.getMobilePhone(), "Users mobile phones doesn't match ");
 
-        registrationPage.inputAlias(newUsersData.getAddressAlias());
-        registrationPage.inputMobilePhone(newUsersData.getMobilePhone());
-        //registrationPage.inputHomePhone();
-
-        // TODO: разделить регистрационную страницу на две страницы (персональной информацией и адресами)
+        softAssert.assertAll();
     }
 }
