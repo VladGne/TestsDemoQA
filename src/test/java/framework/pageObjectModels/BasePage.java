@@ -32,6 +32,9 @@ public class BasePage{
 		driver.navigate().to(BasePageURL);
 	}
 
+	public BasePage() {
+	}
+
 	public void doLogin(String email, String password, WebDriver driver){
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.inputEmail(email);
