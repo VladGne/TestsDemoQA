@@ -13,10 +13,10 @@
 			</run>
 		</groups>
 		<classes>
+			<class name="tests.PersonalInfoTests"/>
 			<class name="tests.AddressesTests"/>
 			<class name="tests.RegPageTest" />
 			<class name="tests.LoginPageTests"/>
-			<class name="tests.PersonalInfoTests"/>
 		</classes>
 	</test>
 </suite>

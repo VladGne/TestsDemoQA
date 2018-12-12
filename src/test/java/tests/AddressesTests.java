@@ -89,12 +89,9 @@ public class AddressesTests extends TestBase {
     }
 
     @DataProvider(name = "registeredUserData")
-    public Object[] getRegisteredUserData(){
-        //User[] registeredUserData = new User[2];
+    public Object[] getRegisteredUserData(){ ;
         fileReader.processDataFile( parameters.get( "registeredUserData" ) );
 
-        //registeredUserData[0] = readUserDataFrom(parameters.get("registeredUserData"));
-        //Map<String, Object> registeredUsers = readUserDataFrom(parameters.get("registeredUserData"));
         return fileReader.getData();
     }
 
