@@ -27,22 +27,22 @@ public class PersonalPage extends BasePage{
     private WebElement femaleCheckBox;
 
     @FindBy(id = "firstname")
-    private WebElement firstName;
+    private WebElement firstNameBox;
 
     @FindBy(id = "lastname")
-    private WebElement lastName;
+    private WebElement lastNameBox;
 
     @FindBy(id = "email")
-    private WebElement email;
+    private WebElement emailBox;
 
     @FindBy(id = "days")
-    private WebElement days;
+    private WebElement daysList;
 
     @FindBy(id = "months")
-    private WebElement month;
+    private WebElement monthsList;
 
     @FindBy(id = "years")
-    private WebElement year;
+    private WebElement yearsList;
 
     @FindBy(id= "newsletter")
     private WebElement newsCheckBox;
@@ -50,28 +50,39 @@ public class PersonalPage extends BasePage{
     @FindBy(id = "optin")
     private WebElement optionCheckBox;
 
+    @FindBy(id = "old_passwd")
+    private WebElement currentPasswordBox;
+
+    @FindBy(id = "passwd")
+    private WebElement newPasswordBox;
+
+    @FindBy(id = "confirmation")
+    private WebElement confirmationPasswordBox;
+
+    @FindBy(name = "submitIdentity")
+    private WebElement saveButton;
+
     public void navigateToPersonalInfo(WebDriver driver){
         AccountPage accountPage = new AccountPage(driver);
         accountPage.personalInfoButtonClick();
-
     }
 
     public User getActualUserData(){
-        List<WebElement> daysList = new Select(days).getAllSelectedOptions();
-        String[] selectedDay = daysList.get(0).getText().split(" ");
+        List<WebElement> days = new Select(daysList).getAllSelectedOptions();
+        String[] selectedDay = days.get(0).getText().split(" ");
 
-        List<WebElement> monthList = new Select(month).getAllSelectedOptions();
+        List<WebElement> monthList = new Select(monthsList).getAllSelectedOptions();
         String[] selectedMonth = monthList.get(0).getText().split(" ");
 
-        List<WebElement> yearList = new Select(year).getAllSelectedOptions();
+        List<WebElement> yearList = new Select(yearsList).getAllSelectedOptions();
         String[] selectedYear = yearList.get(0).getText().split(" ");
 
         User actualUser = new User();
 
         actualUser.setGender(maleCheckBox.isSelected() ? "Male" : "Female");
-        actualUser.setFistName(firstName.getAttribute("value"));
-        actualUser.setLastName(lastName.getAttribute("value"));
-        actualUser.setEmail(email.getAttribute("value"));
+        actualUser.setFistName(firstNameBox.getAttribute("value"));
+        actualUser.setLastName(lastNameBox.getAttribute("value"));
+        actualUser.setEmail(emailBox.getAttribute("value"));
         actualUser.setDayBirth(selectedDay[0]);
         actualUser.setMonthBirth(User.MonthBirth.valueOf(selectedMonth[0]));
         actualUser.setYearBirth(selectedYear[0]);
@@ -79,5 +90,86 @@ public class PersonalPage extends BasePage{
         actualUser.setOptions(optionCheckBox.isSelected());
 
         return actualUser;
+    }
+
+    public void fillUserFormWithDataFrom(User user){
+
+      selectGender(user.getGender());
+
+      inputFirstName(user.getFistName());
+      inputLastName(user.getLastName());
+
+      inputEmail(user.getEmail());
+      inputNewPassword(user.getPassword());
+      confirmNewPassword(user.getPassword());
+
+      selectBirthDay(user.getDayBirth());
+      selectBirthMonth(user.getMonthBirth());
+      selectBirthYear(user.getYearBirth());
+
+      selectNews(user.isNews());
+      selectOptions(user.isOptions());
+    }
+
+    private void selectGender(String userGender){
+        WebElement gender = userGender.equals("Male")? maleCheckBox : femaleCheckBox;
+        gender.click();
+    }
+
+    private void inputFirstName(String firstName){
+        firstNameBox.clear();
+        firstNameBox.sendKeys(firstName);
+    }
+
+    private void inputLastName(String lastName){
+        lastNameBox.clear();
+        lastNameBox.sendKeys(lastName);
+    }
+
+    private void inputEmail(String email){
+        emailBox.clear();
+        emailBox.sendKeys(email);
+    }
+
+    public void inputCurrentPassword(String password){
+        currentPasswordBox.sendKeys(password);
+    }
+
+    private void inputNewPassword(String password){
+        newPasswordBox.sendKeys(password);
+    }
+
+    private void confirmNewPassword(String password){
+        confirmationPasswordBox.sendKeys(password);
+    }
+
+    private void selectBirthDay(String day){
+        new Select(daysList).selectByValue(day);
+    }
+
+    private void selectBirthYear(String year){
+        new Select(yearsList).selectByValue(year);
+    }
+
+    private void selectBirthMonth(User.MonthBirth month){
+        new Select(monthsList).selectByValue(Integer.toString(month.getValue()));
+    }
+
+    private void selectNews(Boolean news){
+        if(news && !newsCheckBox.isSelected())
+            newsCheckBox.click();
+        else if(!news && newsCheckBox.isSelected())
+            newsCheckBox.click();
+    }
+
+    private void selectOptions(Boolean options){
+        if(options && !optionCheckBox.isSelected())
+            optionCheckBox.click();
+        else if(!options && optionCheckBox.isSelected())
+            optionCheckBox.click();
+    }
+
+    public void saveButtonClick(){
+        saveButton.click();
     }
 }
