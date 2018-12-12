@@ -1,9 +1,12 @@
 package framework.pageObjectModels;
 
 import framework.models.User;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -44,7 +47,7 @@ public class AddressesPage extends BasePage{
     @FindBy(className = "address_phone_mobile")
     private WebElement mobilePhoneField;
 
-    @FindBy(className = "icon-chevron-right right")
+    @FindBy(xpath = "/html[1]/body[1]/div[1]/div[2]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/ul[1]/li[9]/a[1]/span[1]")
     private WebElement updateButton;
 
     public void addressButtonClick(WebDriver driver){
@@ -81,7 +84,8 @@ public class AddressesPage extends BasePage{
         updateButton.click();
     }
 
-    public void fillAddressesDataWith(User user){
-        //RegistrationPage.inputFirstName(newUsersData.getFistName());
+    public void waitAddressPage(WebDriver driver){
+        WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='address_name']")));
     }
 }
