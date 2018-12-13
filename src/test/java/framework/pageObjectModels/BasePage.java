@@ -2,10 +2,13 @@ package framework.pageObjectModels;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
 import java.lang.reflect.Field;
@@ -26,10 +29,32 @@ public class BasePage{
 	@FindBy(xpath = "//div[@class='alert alert-danger']//ol")
 	private WebElement alertList;
 
+	@FindBy(className = "//ul[@class='footer_links clearfix']//li[1]")
+	private WebElement backToAccountButton;
+
+	@FindBy(className = "header_user_info")
+	private WebElement userProfileButton;
+
 	BasePage(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 		final String BasePageURL = prop.getProperty("durl");
 		driver.navigate().to(BasePageURL);
+	}
+
+	public BasePage() {
+	}
+
+	public void backToAccountButtonClick(){
+		backToAccountButton.click();
+	}
+
+	public void userProfileButtonClick(){
+		userProfileButton.click();
+	}
+
+	public void waitSuccessfulMessage(WebDriver driver){
+		WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
+		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("identity")));
 	}
 
 	public void doLogin(String email, String password, WebDriver driver){
