@@ -3,7 +3,6 @@ package tests;
 import framework.models.User;
 import framework.pageObjectModels.AddressRegistrationPage;
 import framework.pageObjectModels.AddressesPage;
-import framework.pageObjectModels.RegistrationPage;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -17,14 +16,14 @@ public class AddressesTests extends TestBase {
 
     private AddressesPage addressesPage;
 
-    @BeforeMethod(groups = "regression")
+    @BeforeMethod(groups = {"regression", "verifier","updater"})
     public void openLoginPage(Method method){
         logger.info("Navigate to login page");
         addressesPage = new AddressesPage(driver);
         logger.info(method.getName() + " start");
     }
 
-    @AfterMethod(groups = "regression")
+    @AfterMethod(groups = {"regression", "verifier","updater"})
     public void doLogout(){
         logger.info("Logout");
         addressesPage.doLogout();
@@ -37,11 +36,12 @@ public class AddressesTests extends TestBase {
         return fileReader.getData();
     }
 
-    @Test(priority = 1, dataProvider="validUserData", groups = "regression")
-    public void checkVisibilityMainElements(User user) {
+    @Test(dataProvider="validUserData", groups = "regression")
+    public void checkVisibilityMainElements(User users[]) {
+        User user = users[0];
 
-        final String existedEmail = "test1@test.com1";
-        user.setEmail(existedEmail);
+        //final String existedEmail = "test1@test.com1";
+       // user.setEmail(existedEmail);
 
 
         logger.info("Login");
@@ -58,8 +58,12 @@ public class AddressesTests extends TestBase {
         logger.info("\n --- Addresses test end ---\n");
     }
 
-    @Test(priority = 1, dataProvider="validUserData", groups = "regression")
-    public void checkAddressesUserInformation(User user) {
+    @Test(dataProvider="validUserData", groups = {"regression", "verifier"})
+    public void checkAddressesUserInformation(User users[]) {
+        User user = users[0];
+
+        final String existedEmail = "test1@test.com1";
+        user.setEmail(existedEmail);
 
         logger.info("Login");
         addressesPage.doLogin(user.getEmail(),user.getPassword(), driver);
@@ -95,7 +99,7 @@ public class AddressesTests extends TestBase {
         return fileReader.getData();
     }
 
-    @Test(priority = 0, dataProvider="registeredUserData", groups = "regression")
+    @Test(dataProvider="registeredUserData", groups = {"regression", "updater"})
     public void checkAddressesUpdate(User users[]){
         User currentUserData = users[0];
         User newUsersData = users[1];
@@ -120,21 +124,5 @@ public class AddressesTests extends TestBase {
         addressRegistrationPage.saveButtonClick();
 
         addressesPage.waitAddressPage(driver);
-
-        logger.info("Check address form");
-        User actualUser = addressesPage.getActualUserData();
-        softAssert.assertEquals(actualUser.getFistName(), newUsersData.getFistName(), "Users first names doesn't match: ");
-        softAssert.assertEquals(actualUser.getLastName(), newUsersData.getLastName(), "Users last names doesn't match ");
-        softAssert.assertEquals(actualUser.getCountry(), newUsersData.getCountry(), "Users countries doesn't match ");
-        softAssert.assertEquals(actualUser.getCity(), newUsersData.getCity(), "Users cities doesn't match ");
-        softAssert.assertEquals(actualUser.getState(), newUsersData.getState(), "Users states doesn't match ");
-        softAssert.assertEquals(actualUser.getZipCode(), newUsersData.getZipCode(), "Users post codes doesn't match ");
-        softAssert.assertEquals(actualUser.getCompany(), newUsersData.getCompany(), "Users companies doesn't match ");
-        softAssert.assertEquals(actualUser.getAddress(), newUsersData.getAddress(), "Users addresses doesn't match ");
-        softAssert.assertEquals(actualUser.getAddress2(), newUsersData.getAddress2(), "Users addressess2 doesn't match ");
-        softAssert.assertEquals(actualUser.getHomePhone(), newUsersData.getHomePhone(), "Users home phones doesn't match ");
-        softAssert.assertEquals(actualUser.getMobilePhone(), newUsersData.getMobilePhone(), "Users mobile phones doesn't match ");
-
-        softAssert.assertAll();
     }
 }

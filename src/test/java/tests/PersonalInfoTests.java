@@ -10,13 +10,13 @@ public class PersonalInfoTests extends TestBase{
 
     private PersonalPage personalPage;
 
-    @BeforeMethod(groups = "regression")
+    @BeforeMethod(groups = {"regression", "verifier","updater"})
     public void openLoginPage(){
         logger.info("Navigate to login page");
         personalPage = new PersonalPage(driver);
     }
 
-    @AfterMethod(groups = "regression")
+    @AfterMethod(groups = {"regression", "verifier","updater"})
     public void doLogout(){
         logger.info("Logout");
         personalPage.doLogout();
@@ -30,8 +30,9 @@ public class PersonalInfoTests extends TestBase{
         return fileReader.getData();
     }
 
-    @Test(priority = 1, dataProvider="validUserData", groups = "regression")
-    public void checkVisibility(User user){
+    @Test(dataProvider="validUserData", groups = "regression")
+    public void checkVisibility(User users[]){
+        User user = users[0];
         logger.info("Check personal info page elements visibility test start\n");
 
         logger.info("Login");
@@ -47,8 +48,9 @@ public class PersonalInfoTests extends TestBase{
         logger.info("\n --- Check personal info page elements visibility test end ---\n");
     }
 
-    @Test(priority = 1, dataProvider="validUserData", groups = "regression")
-    public void checkPersonalInfo(User user){
+    @Test(dataProvider="validUserData", groups = {"regression", "verifier"})
+    public void checkPersonalInfo(User users[]){
+        User user = users[0];
 
         logger.info("\n --- Check personal info test start ---\n");
 
@@ -87,7 +89,7 @@ public class PersonalInfoTests extends TestBase{
         return fileReader.getData();
     }
 
-    @Test(priority = 0, dataProvider="registeredUserData", groups = "regression")
+    @Test(dataProvider="registeredUserData", groups = {"regression","updater"})
     public void updatePersonalInfo(User users[]){
         User currentUserData = users[0];
         User newUsersData = users[1];
@@ -104,28 +106,6 @@ public class PersonalInfoTests extends TestBase{
 
         personalPage.saveButtonClick();
         personalPage.waitSuccessfulMessage(driver);
-
-        personalPage.userProfileButtonClick();
-
-        logger.info("Navigate to personal page");
-        personalPage.navigateToPersonalInfo(driver);
-
-        logger.info("Get actual user data");
-        User actualUser = personalPage.getActualUserData();
-
-        logger.info("Check personal information");
-        //personalPage.checkPersonalInfoForm(user);
-
-        softAssert.assertEquals(actualUser.getFistName(), newUsersData.getFistName(), "Users first names doesn't match ");
-        softAssert.assertEquals(actualUser.getLastName(), newUsersData.getLastName(), "Users last names doesn't match ");
-        softAssert.assertEquals(actualUser.getEmail(), newUsersData.getEmail(), "Users emails doesn't match ");
-        softAssert.assertEquals(actualUser.getGender(), newUsersData.getGender(), "Users genders doesn't match ");
-        softAssert.assertEquals(actualUser.getDayBirth(), newUsersData.getDayBirth(), "Users birth days doesn't match ");
-        softAssert.assertEquals(actualUser.getMonthBirth(), newUsersData.getMonthBirth(), "Users birth months doesn't match ");
-        softAssert.assertEquals(actualUser.getYearBirth(), newUsersData.getYearBirth(), "Users birth years doesn't match ");
-        softAssert.assertEquals(actualUser.isNews(), newUsersData.isNews(), "Users news doesn't match ");
-        softAssert.assertEquals(actualUser.isOptions(), newUsersData.isOptions(), "Users options doesn't match ");
-
-        softAssert.assertAll();
+        
     }
 }
