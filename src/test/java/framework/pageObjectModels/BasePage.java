@@ -38,7 +38,7 @@ public class BasePage{
 	BasePage(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 		final String BasePageURL = prop.getProperty("durl");
-		driver.navigate().to(BasePageURL);
+		//driver.navigate().to(BasePageURL);
 	}
 
 	public BasePage() {
@@ -82,8 +82,9 @@ public class BasePage{
 				try {
 					field.setAccessible(true);
 					WebElement element = (WebElement) field.get(this);
+					logger.debug("Check visibility of " + field.getName());
 					if (!element.isEnabled())
-						softAssert.fail("Element isn't enabled - " + element.getAttribute("name"));
+						softAssert.fail("Element isn't enabled - " + field.getName());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

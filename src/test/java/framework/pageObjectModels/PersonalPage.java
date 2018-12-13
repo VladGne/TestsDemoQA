@@ -79,7 +79,7 @@ public class PersonalPage extends BasePage{
 
         User actualUser = new User();
 
-        actualUser.setGender(maleCheckBox.isSelected() ? "Male" : "Female");
+        actualUser.setGender(maleCheckBox.isSelected() ? User.Gender.Male : User.Gender.Female);
         actualUser.setFistName(firstNameBox.getAttribute("value"));
         actualUser.setLastName(lastNameBox.getAttribute("value"));
         actualUser.setEmail(emailBox.getAttribute("value"));
@@ -111,8 +111,8 @@ public class PersonalPage extends BasePage{
       selectOptions(user.isOptions());
     }
 
-    private void selectGender(String userGender){
-        WebElement gender = userGender.equals("Male")? maleCheckBox : femaleCheckBox;
+    private void selectGender(User.Gender userGender){
+        WebElement gender = userGender.equals(User.Gender.Male)? maleCheckBox : femaleCheckBox;
         gender.click();
     }
 

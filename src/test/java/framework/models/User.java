@@ -2,6 +2,7 @@ package framework.models;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.ToString;
 
 @Data
 public class User {
@@ -9,7 +10,7 @@ public class User {
 	private String email;
 	private String fistName;
 	private String lastName;
-	private String gender;
+	private Gender gender;
 	private String password;
 	private String dayBirth;
 	private String yearBirth;
@@ -19,8 +20,33 @@ public class User {
 
 	//List<Address> addresses;
 
-	//private String fistName;
-	//private String lastName;
+	@Getter
+	public enum MonthBirth{
+		January (1),
+		February (2),
+		March (3),
+		April (4),
+		May (5),
+		June (6),
+		July (7),
+		August (8),
+		September (9),
+		October (10),
+		November (11),
+		December (12);
+
+		int value;
+		MonthBirth(int value){
+			this.value = value;
+		}
+	}
+
+	@Getter @ToString
+	public enum Gender{
+		Male,
+		Female
+	}
+
 	private String address;
 	private String address2; // Additional address information
 	private String company;
@@ -46,27 +72,6 @@ public class User {
 		int value;
 		State(int value){
 				this.value = value;
-		}
-	}
-
-	@Getter
-	public enum MonthBirth{
-		January (1),
-		February (2),
-		March (3),
-		April (4),
-		May (5),
-		June (6),
-		July (7),
-		August (8),
-		September (9),
-		October (10),
-		November (11),
-		December (12);
-
-		int value;
-		MonthBirth(int value){
-			this.value = value;
 		}
 	}
 
