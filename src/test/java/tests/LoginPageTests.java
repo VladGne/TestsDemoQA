@@ -27,8 +27,9 @@ public class LoginPageTests extends TestBase{
         return fileReader.getData();
     }
 
-    @Test(priority = 0, dataProvider="repeatedUserEmail", groups = "regression")
-    public void checkEmailRepeat(User user){
+    @Test(dataProvider="repeatedUserEmail", groups = "regression")
+    public void checkEmailRepeat(User users[]){
+        User user = users[0];
         logger.info("\n --- Check Repeated Email Test Start ---\n");
 
         final String existedEmail = "test1@test.com1";
@@ -58,8 +59,9 @@ public class LoginPageTests extends TestBase{
         return fileReader.getData();
     }
 
-    @Test (priority = 0, dataProvider="invalidUserEmail", groups = "regression")
-    public void checkEmailValidations(User user){
+    @Test (dataProvider="invalidUserEmail", groups = "regression")
+    public void checkEmailValidations(User users[]){
+        User user = users[0];
 
         final String invalidEmail ="invlalidEmail";
         user.setEmail(invalidEmail);
@@ -80,5 +82,12 @@ public class LoginPageTests extends TestBase{
         Assert.assertEquals(authenticationPage.getEmailAlertMessage(), LoginPage.INVALID_EMAIL_MESSAGE);
 
         logger.info("\n --- Check Invalid Email Test End ---\n");
+    }
+
+    @Test ()
+    public void checkVisibility(){
+        logger.info("\n --- Visibility test start ---\n");
+        authenticationPage.checkPageElementsVisibility(authenticationPage.getClass(),softAssert);
+        softAssert.assertAll();
     }
 }

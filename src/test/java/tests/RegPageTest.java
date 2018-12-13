@@ -12,7 +12,7 @@ public class RegPageTest extends TestBase{
 
 	private RegistrationPage registrationPage;
 
-		@BeforeMethod(groups = "regression")
+		@BeforeMethod( groups = {"regression", "contentGenerator"})
 		public void openLoginPage(){
 			logger.info("Navigate to login page");
 			registrationPage = new RegistrationPage(driver);
@@ -28,8 +28,9 @@ public class RegPageTest extends TestBase{
 		}
 				
 		// Test case 1 - User registration with valid data
-		@Test (priority = 0, dataProvider="upperUserData", groups = "regression")
-		public void checkUpperLimits(User user){
+		@Test (dataProvider="upperUserData", groups = "regression")
+		public void checkUpperLimits(User users[]){
+			User user = users[0];
 			logger.info("\n --- Validation test start ---\n");
 
 			logger.info("Input email");
@@ -59,8 +60,9 @@ public class RegPageTest extends TestBase{
 		}
 				
 		//Check date and phone number validation
-		@Test (priority = 0, dataProvider="invalidUserData", groups = "regression")
-		public void checkValidations(User user){
+		@Test (dataProvider="invalidUserData", groups = "regression")
+		public void checkValidations(User users[]){
+			User user = users[0];
 			logger.info("\n --- Validation test start ---\n");
 
 			logger.info("Input email");
@@ -89,8 +91,9 @@ public class RegPageTest extends TestBase{
 		}
 		
 		// Test case 1 - User registration with valid data
-		@Test (priority = 0, dataProvider="validUserData", groups = "regression")
-		public void checkRegistration(User user){
+		@Test (dataProvider="validUserData", groups = "regression")
+		public void checkRegistration(User users[]){
+			User user = users[0];
 			logger.info("\n --- Registration test start ---\n");
 
 			logger.info("Input email");
@@ -109,8 +112,11 @@ public class RegPageTest extends TestBase{
 			registrationPage.checkUserButton();
 		}
 
-		@Test (priority = 0, dataProvider="validUserData", groups = "regression")
-		public void checkVisibility(User user){
+		@Test (dataProvider="validUserData", groups = {"regression", "contentGenerator"})
+		public void checkVisibility(User users[]){
+			User user = users[0];
+			final String existedEmail = "test3@test.com3";
+			user.setEmail(existedEmail);
 			logger.info("\n --- Visibility test start ---\n");
 
 			logger.info("Input email");
