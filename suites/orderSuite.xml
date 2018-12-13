@@ -1,0 +1,15 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name = "Orders tests">
+    <test name = "Check buy product">
+        <parameter name = "orderedUserData" value="src\\test\\data\\orderedUser.json"/>
+        <classes>
+            <class name="tests.OrdersTests">
+                <methods>
+                    <include name="buyProductTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
