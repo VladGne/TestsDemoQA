@@ -1,0 +1,87 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name = "User Profile">
+    <test name = "Add new user test">
+        <parameter name = "validUserData" value="src\\test\\data\\validUser.json"/>
+        <groups>
+            <run>
+                <include name="contentGenerator"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.RegPageTest">
+                <methods>
+                    <include name="checkRegistration"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name = "Verify user info test">
+        <parameter name = "validUserData" value="src\\test\\data\\validUser.json"/>
+        <groups>
+            <run>
+                <include name="verifier"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="tests.PersonalInfoTests">
+                <methods>
+                    <include name="checkPersonalInfo"/>
+                </methods>
+            </class>
+            <class name="tests.AddressesTests">
+                <methods>
+                    <include name="checkAddressesUserInformation"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name = "Update user info test">
+        <parameter name="registeredUserData" value="src\\test\\data\\registeredUser.json"/>
+        <groups>
+            <run>
+                <include name="updater"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="tests.PersonalInfoTests">
+                <methods>
+                    <include name="updatePersonalInfo"/>
+                </methods>
+            </class>
+            <class name="tests.AddressesTests">
+                <methods>
+                    <include name="checkAddressesUpdate"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name = "Verify updated user info test">
+        <parameter name = "validUserData" value="src\\test\\data\\validUser.json"/>
+        <groups>
+            <run>
+                <include name="verifier"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="tests.PersonalInfoTests">
+                <methods>
+                    <include name="checkPersonalInfo"/>
+                </methods>
+            </class>
+            <class name="tests.AddressesTests">
+                <methods>
+                    <include name="checkAddressesUserInformation"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
+
