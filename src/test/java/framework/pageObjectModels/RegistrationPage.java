@@ -122,47 +122,47 @@ public class RegistrationPage extends BasePage {
         femaleCheckBox.click();
     }
 
-    private void inputFirstName(String firstName){
+    public void inputFirstName(String firstName){
         firstNameBox.sendKeys(firstName);
     }
 
-    private void inputLastName(String lastName){
+    public void inputLastName(String lastName){
         lastNameBox.sendKeys(lastName);
     }
 
-    private void inputCompany(String company){
+    public void inputCompany(String company){
         companyBox.sendKeys(company);
     }
 
-    private void inputAddress1(String address1){
+    public  void inputAddress1(String address1){
         address1Box.sendKeys(address1);
     }
 
-    private void inputAddress2(String address2){
+    public void inputAddress2(String address2){
         address2Box.sendKeys(address2);
     }
 
-    private void inputCity(String city){
+    public void inputCity(String city){
         cityBox.sendKeys(city);
     }
 
-    private void inputPostcode(String postcode){
+    public  void inputPostcode(String postcode){
         postcodeBox.sendKeys(postcode);
     }
 
-    private void inputOther(String additionInfo){
+    public void inputOther(String additionInfo){
         additionInfoBox.sendKeys(additionInfo);
     }
 
-    private void inputHomePhone(String phone){
+    public void inputHomePhone(String phone){
         phoneHomeBox.sendKeys(phone);
     }
 
-    private void inputMobilePhone(String phone){
+    public  void inputMobilePhone(String phone){
         phoneMobileBox.sendKeys(phone);
     }
 
-    private void inputAlias(String alias){
+    public void inputAlias(String alias){
         aliasBox.sendKeys(alias);
     }
 
@@ -183,11 +183,11 @@ public class RegistrationPage extends BasePage {
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("id_gender1")));
     }
 
-    private void selectCountry(User.Country country){
+    public void selectCountry(User.Country country){
         new Select(countryBox).selectByValue(String.valueOf(country.getValue()));
     }
 
-    private void selectState(User.State state){
+    public void selectState(User.State state){
         new Select(stateBox).selectByValue(String.valueOf(state.getValue()));
     }
 

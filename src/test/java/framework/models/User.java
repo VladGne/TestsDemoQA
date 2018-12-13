@@ -1,32 +1,37 @@
 package framework.models;
 
+import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
+@Data
 public class User {
 
 	private String email;
 	private String fistName;
 	private String lastName;
-	private String company;
-	private String address;
-	private String address2; // Additional address information
-	private String city;
-	private String zipCode;
-	private String additionInformation;
-	private String homePhone;
-	private String mobilePhone;
-	private String addressAlias;
 	private String gender;
 	private String password;
 	private String dayBirth;
 	private String yearBirth;
-	private State state;
-	private Country country;
 	private MonthBirth monthBirth;
 	private boolean news;
 	private boolean options;
+
+	//List<Address> addresses;
+
+	//private String fistName;
+	//private String lastName;
+	private String address;
+	private String address2; // Additional address information
+	private String company;
+	private String city;
+	private String zipCode;
+	private State state;
+	private Country country;
+	private String homePhone;
+	private String mobilePhone;
+	private String addressAlias;
+	private String additionInformation;
 
 	@Getter
 	public enum State{
