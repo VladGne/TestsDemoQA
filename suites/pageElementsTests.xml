@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name = "Page elements tests">
+    <test name = "Check page elements visibility test">
+        <parameter name = "validUserData" value="src\\test\\data\\registeredUser.json"/>
+        <classes>
+            <class name="tests.AddressesTests">
+                <methods>
+                    <include name="checkVisibilityMainElements"/>
+                </methods>
+            </class>
+            <class name="tests.LoginPageTests">
+                <methods>
+                    <include name="checkVisibility"/>
+                </methods>
+            </class>
+            <class name="tests.PersonalInfoTests">
+                <methods>
+                    <include name="checkVisibility"/>
+                </methods>
+            </class>
+            <class name="tests.RegPageTest">
+                <methods>
+                    <include name="checkVisibility"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
+
