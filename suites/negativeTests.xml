@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name = "Negative tests">
+    <test name = "Check login page email validation">
+        <parameter name = "invalidUserData" value="src\\test\\data\\invalidUser.json"/>
+        <classes>
+            <class name="tests.LoginPageTests">
+                <methods>
+                    <include name="checkEmailValidations"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "Check login page existed email validation">
+        <parameter name = "validUserData" value="src\\test\\data\\validUser.json"/>
+        <classes>
+            <class name="tests.LoginPageTests">
+                <methods>
+                    <include name="checkEmailRepeat"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "Check registration page validation">
+        <parameter name = "invalidUserData" value="src\\test\\data\\invalidUser.json"/>
+        <classes>
+            <class name="tests.RegPageTest">
+                <methods>
+                    <include name="checkValidations"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name = "Check registration page field upper limits">
+        <parameter name = "upperUserData" value="src\\test\\data\\upperUser.json"/>
+        <classes>
+            <class name="tests.RegPageTest">
+                <methods>
+                    <include name="checkUpperLimits"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
