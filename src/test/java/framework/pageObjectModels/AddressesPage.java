@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
@@ -87,5 +88,20 @@ public class AddressesPage extends BasePage{
     public void waitAddressPage(WebDriver driver){
         WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='address_name']")));
+    }
+
+    public void compareActualUserWith(User user, SoftAssert softAssert){
+        User actualUser = getActualUserData();
+        softAssert.assertEquals(actualUser.getFistName(), user.getFistName(), "Users first names doesn't match: ");
+        softAssert.assertEquals(actualUser.getLastName(), user.getLastName(), "Users last names doesn't match ");
+        softAssert.assertEquals(actualUser.getCountry(), user.getCountry(), "Users countries doesn't match ");
+        softAssert.assertEquals(actualUser.getCity(), user.getCity(), "Users cities doesn't match ");
+        softAssert.assertEquals(actualUser.getState(), user.getState(), "Users states doesn't match ");
+        softAssert.assertEquals(actualUser.getZipCode(), user.getZipCode(), "Users post codes doesn't match ");
+        softAssert.assertEquals(actualUser.getCompany(), user.getCompany(), "Users companies doesn't match ");
+        softAssert.assertEquals(actualUser.getAddress(), user.getAddress(), "Users addresses doesn't match ");
+        softAssert.assertEquals(actualUser.getAddress2(), user.getAddress2(), "Users addressess2 doesn't match ");
+        softAssert.assertEquals(actualUser.getHomePhone(), user.getHomePhone(), "Users home phones doesn't match ");
+        softAssert.assertEquals(actualUser.getMobilePhone(), user.getMobilePhone(), "Users mobile phones doesn't match ");
     }
 }

@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
@@ -171,5 +172,22 @@ public class PersonalPage extends BasePage{
 
     public void saveButtonClick(){
         saveButton.click();
+    }
+
+    public void compareActualUserWith(User user, SoftAssert softAssert){
+        logger.info("Get actual user data");
+        User actualUser = getActualUserData();
+
+        logger.info("Check personal information");
+
+        softAssert.assertEquals(actualUser.getFistName(), user.getFistName(), "Users first names doesn't match ");
+        softAssert.assertEquals(actualUser.getLastName(), user.getLastName(), "Users last names doesn't match ");
+        softAssert.assertEquals(actualUser.getEmail(), user.getEmail(), "Users emails doesn't match ");
+        softAssert.assertEquals(actualUser.getGender(), user.getGender(), "Users genders doesn't match ");
+        softAssert.assertEquals(actualUser.getDayBirth(), user.getDayBirth(), "Users birth days doesn't match ");
+        softAssert.assertEquals(actualUser.getMonthBirth(), user.getMonthBirth(), "Users birth months doesn't match ");
+        softAssert.assertEquals(actualUser.getYearBirth(), user.getYearBirth(), "Users birth years doesn't match ");
+        softAssert.assertEquals(actualUser.isNews(), user.isNews(), "Users news doesn't match ");
+        softAssert.assertEquals(actualUser.isOptions(), user.isOptions(), "Users options doesn't match ");
     }
 }
