@@ -1,69 +1,44 @@
 package framework.helperClasses;
 
-import framework.models.User;
+import lombok.SneakyThrows;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Properties;
+import java.util.*;
 
 public class FileReader {
 
-//    Map<String, Object> data;
-//
-//    public void readUserDataFrom(String filePath){
-//        //User user = new User();
-//        data = new HashMap<String, Object>();
-//        ObjectMapper mapper = new ObjectMapper();
-//
-//        try {
-//            // Convert JSON string from file to Object
-//            //user = mapper.readValue(new File(filePath), User.class);
-//
-//            byte[] mapData = Files.readAllBytes(Paths.get(filePath));
-//
-//            data =  mapper.readValue(allData, User.class);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+   Map data;
 
-    Collection<Object> users;
-
-    public void processDataFile( String filePath ){
-        users = new ArrayList<>();
+    public void processDataFile( String filePath){
         ObjectMapper objectMapper = new ObjectMapper();
-        User user[];
+        File file = new File(filePath);
         try {
-            byte[] validUsers = Files.readAllBytes(Paths.get(filePath));
-            //data =  objectMapper.readValue(allData, User.class);
-            //Object obj = objectMapper.readValue( new File( filePath ), User.class );
-            users.add( objectMapper.readValue(validUsers, User[].class));
+            data = objectMapper.readValue(file, HashMap.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public Object[][] getData() {
+    @SneakyThrows
+    public Object[][] getData(Class necessaryClass) {
+        Object[][] objects = new Object[ data.size() ][ 1 ];
 
-        Object[][] data = new Object[ users.size() ][ 1 ];
+        ObjectMapper objectMapper = new ObjectMapper();
+        Set keys = data.keySet();
 
-        Iterator<Object> iterator = users.iterator();
-
-        int i = 0;
-        while( iterator.hasNext() ) {
-            data[ i ][ 0 ] = iterator.next();
-            i++;
+        for (Object key : keys){
+            int i = 0;
+            if(key.toString().contains(necessaryClass.getSimpleName())){
+                objects[i][0] = objectMapper.convertValue(data.get(key), necessaryClass);
+                i++;
+            }
         }
 
-        return data;
+        return objects;
     }
 
     public static Properties readProperties(){
@@ -71,7 +46,7 @@ public class FileReader {
 
         InputStream input = null;
         try {
-            input =new FileInputStream("src/test/resources/config.properties");
+            input = new FileInputStream("src/test/resources/config.properties");
             // load a properties file
             prop.load(input);
         } catch (IOException ex) {
