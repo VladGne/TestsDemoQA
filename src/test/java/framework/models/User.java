@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 public class User {
 
@@ -17,6 +19,7 @@ public class User {
 	private MonthBirth monthBirth;
 	private boolean news;
 	private boolean options;
+	List<Order> orders;
 
 	//List<Address> addresses;
 
