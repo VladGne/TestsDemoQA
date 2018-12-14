@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 public class TestBase {
 
+    ITestContext context;
     SoftAssert softAssert = new SoftAssert();
     protected Logger logger = LogManager.getLogger(this);
     HashMap<String,String> parameters;
@@ -41,6 +42,7 @@ public class TestBase {
         driver = new ChromeDriver();
         parameters = new HashMap<String, String>(testContext.getCurrentXmlTest().getAllParameters());
         fileReader = new FileReader();
+        fileReader.processDataFile( parameters.get( "Data" ) );
        // BasePage basePage = new BasePage(driver);
     }
 
