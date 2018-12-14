@@ -1,11 +1,8 @@
 package tests;
 
-import framework.models.User;
+import framework.models.Order;
 import framework.pageObjectModels.MarketPage;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 
@@ -14,10 +11,13 @@ public class OrdersTests extends TestBase{
     private MarketPage marketPage;
 
     @BeforeMethod(groups = {"regression", "verifier","updater"})
-    public void openLoginPage(Method method){
+    @Parameters({"email","password"})
+    public void openLoginPage(Method method, String email, String password){
         logger.info("Navigate to login page");
         marketPage = new MarketPage(driver);
         logger.info(method.getName() + " start");
+        logger.info("Login");
+        marketPage.doLogin(email,password, driver);
     }
 
     @AfterMethod(groups = {"regression", "verifier","updater"})
@@ -27,22 +27,19 @@ public class OrdersTests extends TestBase{
     }
 
     @DataProvider(name = "orderedUserData")
-    public Object[] getValidUserData(){
-
-        fileReader.processDataFile(parameters.get("orderedUserData"));
-        return fileReader.getData();
+    public Object[] getOrders(){
+        return fileReader.getData(Order.class);
     }
 
     @Test(dataProvider = "orderedUserData")
-    public void buyProductTest(User users[]){
-        User user = users[0];
-
-        logger.info("Login");
-        marketPage.doLogin(user.getEmail(),user.getPassword(), driver);
+    public void buyProductTest(Order order){
 
         marketPage.womenButtonClick();
 
-        marketPage.findProduct(user.getOrders());
-
+        marketPage.findProduct(order);
+        marketPage.waitProductDetails(driver);
+        marketPage.addToCartButtonClick();
+        marketPage.waitCheckoutButton(driver);
+        marketPage.verifyOrder(order, softAssert);
     }
 }
