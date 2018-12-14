@@ -1,7 +1,9 @@
 package tests;
 
+import com.mifmif.common.regex.Generex;
 import framework.models.User;
 import framework.pageObjectModels.RegistrationPage;
+import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -23,14 +25,12 @@ public class RegPageTest extends TestBase{
 		//@Parameters("upperUserFilePath")
 		public Object[] getUpperUserData(){
 
-			fileReader.processDataFile(parameters.get("upperUserData"));
-			return fileReader.getData();
+			return fileReader.getData(User.class);
 		}
 				
 		// Test case 1 - User registration with valid data
 		@Test (dataProvider="upperUserData", groups = "regression")
-		public void checkUpperLimits(User users[]){
-			User user = users[0];
+		public void checkUpperLimits(User user){
 			logger.info("\n --- Validation test start ---\n");
 
 			logger.info("Input email");
@@ -54,15 +54,12 @@ public class RegPageTest extends TestBase{
 		// Create invalid user
 		@DataProvider (name = "invalidUserData")
 		public Object[] getInvalidUserData(){
-
-			fileReader.processDataFile(parameters.get("invalidUserData"));
-			return fileReader.getData();
+			return fileReader.getData(User.class);
 		}
 				
 		//Check date and phone number validation
 		@Test (dataProvider="invalidUserData", groups = "regression")
-		public void checkValidations(User users[]){
-			User user = users[0];
+		public void checkValidations(User user){
 			logger.info("\n --- Validation test start ---\n");
 
 			logger.info("Input email");
@@ -86,15 +83,19 @@ public class RegPageTest extends TestBase{
 		// Create valid user
 		@DataProvider (name = "validUserData")
 		public Object[] getValidUserData(){
-			fileReader.processDataFile(parameters.get("validUserData"));
-			return fileReader.getData();
+			return fileReader.getData(User.class);
 		}
 		
 		// Test case 1 - User registration with valid data
 		@Test (dataProvider="validUserData", groups = "regression")
-		public void checkRegistration(User users[]){
-			User user = users[0];
+		public void checkRegistration(User user, ITestContext context){
 			logger.info("\n --- Registration test start ---\n");
+
+			String regex = "\\w{10}@testmail\\.test";
+			String generatedEmail = new Generex(regex).random();
+			user.setEmail(generatedEmail);
+
+			context.setAttribute("Email", generatedEmail);
 
 			logger.info("Input email");
 			registrationPage.submitEmail(user.getEmail(), driver);
@@ -113,8 +114,7 @@ public class RegPageTest extends TestBase{
 		}
 
 		@Test (dataProvider="validUserData", groups = {"regression", "contentGenerator"})
-		public void checkVisibility(User users[]){
-			User user = users[0];
+		public void checkVisibility(User user){
 			final String existedEmail = "test3@test.com3";
 			user.setEmail(existedEmail);
 			logger.info("\n --- Visibility test start ---\n");
