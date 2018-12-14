@@ -26,13 +26,11 @@ public class PersonalInfoTests extends TestBase{
     @DataProvider(name = "validUserData")
     public Object[] getValidUserData(){
 
-        fileReader.processDataFile(parameters.get("validUserData"));
-        return fileReader.getData();
+        return fileReader.getData(User.class);
     }
 
     @Test(dataProvider="validUserData", groups = "regression")
-    public void checkVisibility(User users[]){
-        User user = users[0];
+    public void checkVisibility(User user){
         logger.info("Check personal info page elements visibility test start\n");
 
         logger.info("Login");
@@ -49,8 +47,7 @@ public class PersonalInfoTests extends TestBase{
     }
 
     @Test(dataProvider="validUserData", groups = {"regression", "verifier"})
-    public void checkPersonalInfo(User users[]){
-        User user = users[0];
+    public void checkPersonalInfo(User user){
 
         logger.info("\n --- Check personal info test start ---\n");
 
@@ -63,49 +60,35 @@ public class PersonalInfoTests extends TestBase{
         logger.info("Navigate to personal page");
         personalPage.navigateToPersonalInfo(driver);
 
-        logger.info("Get actual user data");
-        User actualUser = personalPage.getActualUserData();
-
-        logger.info("Check personal information");
-        //personalPage.checkPersonalInfoForm(user);
-
-        softAssert.assertEquals(actualUser.getFistName(), user.getFistName(), "Users first names doesn't match ");
-        softAssert.assertEquals(actualUser.getLastName(), user.getLastName(), "Users last names doesn't match ");
-        softAssert.assertEquals(actualUser.getEmail(), user.getEmail(), "Users emails doesn't match ");
-        softAssert.assertEquals(actualUser.getGender(), user.getGender(), "Users genders doesn't match ");
-        softAssert.assertEquals(actualUser.getDayBirth(), user.getDayBirth(), "Users birth days doesn't match ");
-        softAssert.assertEquals(actualUser.getMonthBirth(), user.getMonthBirth(), "Users birth months doesn't match ");
-        softAssert.assertEquals(actualUser.getYearBirth(), user.getYearBirth(), "Users birth years doesn't match ");
-        softAssert.assertEquals(actualUser.isNews(), user.isNews(), "Users news doesn't match ");
-        softAssert.assertEquals(actualUser.isOptions(), user.isOptions(), "Users options doesn't match ");
+        logger.info("Validate personal page");
+        personalPage.compareActualUserWith(user, softAssert);
 
         softAssert.assertAll();
     }
 
     @DataProvider(name = "registeredUserData")
-    public Object[] getRegisteredUserData(){ ;
-        fileReader.processDataFile( parameters.get( "registeredUserData" ) );
+    public Object[] getRegisteredUserData(){
 
-        return fileReader.getData();
+        return fileReader.getData(User.class);
     }
 
     @Test(dataProvider="registeredUserData", groups = {"regression","updater"})
-    public void updatePersonalInfo(User users[]){
-        User currentUserData = users[0];
-        User newUsersData = users[1];
+    public void updatePersonalInfo(User user){
+
+        String email = context.getAttribute("Email").toString();
 
         logger.info("Login");
-        personalPage.doLogin(currentUserData.getEmail(),currentUserData.getPassword(), driver);
+        personalPage.doLogin(email, user.getPassword(), driver);
 
         logger.info("Navigate to personal page");
         personalPage.navigateToPersonalInfo(driver);
 
-        personalPage.inputCurrentPassword(currentUserData.getPassword());
+        personalPage.inputCurrentPassword(user.getPassword());
 
-        personalPage.fillUserFormWithDataFrom(newUsersData);
+        personalPage.fillUserFormWithDataFrom(user);
 
         personalPage.saveButtonClick();
         personalPage.waitSuccessfulMessage(driver);
-        
+
     }
 }
