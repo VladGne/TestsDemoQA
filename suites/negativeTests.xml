@@ -3,7 +3,7 @@
 
 <suite name = "Negative tests">
     <test name = "Check login page email validation">
-        <parameter name = "invalidUserData" value="src\\test\\data\\invalidUser.json"/>
+        <parameter name = "Data" value="src\\test\\data\\invalidUser.json"/>
         <classes>
             <class name="tests.LoginPageTests">
                 <methods>
@@ -13,7 +13,7 @@
         </classes>
     </test>
     <test name = "Check login page existed email validation">
-        <parameter name = "validUserData" value="src\\test\\data\\validUser.json"/>
+        <parameter name = "Data" value="src\\test\\data\\validUser.json"/>
         <classes>
             <class name="tests.LoginPageTests">
                 <methods>
@@ -23,7 +23,7 @@
         </classes>
     </test>
     <test name = "Check registration page validation">
-        <parameter name = "invalidUserData" value="src\\test\\data\\invalidUser.json"/>
+        <parameter name = "Data" value="src\\test\\data\\invalidUser.json"/>
         <classes>
             <class name="tests.RegPageTest">
                 <methods>
@@ -33,7 +33,7 @@
         </classes>
     </test>
     <test name = "Check registration page field upper limits">
-        <parameter name = "upperUserData" value="src\\test\\data\\upperUser.json"/>
+        <parameter name = "Data" value="src\\test\\data\\upperUser.json"/>
         <classes>
             <class name="tests.RegPageTest">
                 <methods>

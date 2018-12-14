@@ -3,7 +3,9 @@
 
 <suite name = "Orders tests">
     <test name = "Check buy product">
-        <parameter name = "orderedUserData" value="src\\test\\data\\orderedUser.json"/>
+        <parameter name = "Data" value="src\\test\\data\\orders.json"/>
+        <parameter name="email" value="test1@test.com1"/>
+        <parameter name="password" value="TestPassword1"/>
         <classes>
             <class name="tests.OrdersTests">
                 <methods>
