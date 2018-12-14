@@ -23,13 +23,11 @@ public class LoginPageTests extends TestBase{
     @DataProvider(name = "repeatedUserEmail")
     public Object[] getRepeatedUserEmail( ){
 
-        fileReader.processDataFile(parameters.get("validUserData"));
-        return fileReader.getData();
+        return fileReader.getData(User.class);
     }
 
     @Test(dataProvider="repeatedUserEmail", groups = "regression")
-    public void checkEmailRepeat(User users[]){
-        User user = users[0];
+    public void checkEmailRepeat(User user){
         logger.info("\n --- Check Repeated Email Test Start ---\n");
 
         final String existedEmail = "test1@test.com1";
@@ -55,15 +53,13 @@ public class LoginPageTests extends TestBase{
     @DataProvider (name = "invalidUserEmail")
     public Object[] getInvalidUserEmail(){
 
-        fileReader.processDataFile(parameters.get("invalidUserData"));
-        return fileReader.getData();
+        return fileReader.getData(User.class);
     }
 
     @Test (dataProvider="invalidUserEmail", groups = "regression")
-    public void checkEmailValidations(User users[]){
-        User user = users[0];
+    public void checkEmailValidations(User user){
 
-        final String invalidEmail ="invlalidEmail";
+        final String invalidEmail = "invlalidEmail";
         user.setEmail(invalidEmail);
 
         logger.info("\n --- Check Invalid Email Test Start ---\n");
