@@ -1,5 +1,5 @@
-[
-  {
+{
+  "User": {
     "email": "test1@test.com1",
     "gender": "Male",
     "fistName": "TestFistName",
@@ -30,4 +30,4 @@
       }
     ]
   }
-]
+}
