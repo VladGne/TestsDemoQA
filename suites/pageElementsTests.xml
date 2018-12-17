@@ -3,7 +3,7 @@
 
 <suite name = "Page elements tests">
     <test name = "Check page elements visibility test">
-        <parameter name = "Data" value="src\\test\\data\\registeredUser.json"/>
+        <parameter name = "Data" value="src\\test\\data\\validUser.json"/>
         <classes>
             <class name="tests.AddressesTests">
                 <methods>
