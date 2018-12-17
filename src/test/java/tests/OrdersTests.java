@@ -2,6 +2,7 @@ package tests;
 
 import framework.models.Order;
 import framework.pageObjectModels.MarketPage;
+import framework.pageObjectModels.OrdersHistoryPage;
 import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
@@ -32,7 +33,7 @@ public class OrdersTests extends TestBase{
     }
 
     @Test(dataProvider = "orderedUserData")
-    public void buyProductTest(Order order){
+    public void addProductToCartWith(Order order){
 
         marketPage.womenButtonClick();
 
@@ -40,7 +41,10 @@ public class OrdersTests extends TestBase{
         marketPage.waitProductDetails(driver);
         marketPage.addToCartButtonClick();
         marketPage.waitCheckoutButton(driver);
-        marketPage.verifyOrder(order, softAssert);
+        marketPage.checkButtonClick();
+        marketPage.verifyProductName(order.getName(), softAssert);
+
+        softAssert.assertAll();
     }
 
     @Test(dataProvider = "orderedUserData")
@@ -48,10 +52,11 @@ public class OrdersTests extends TestBase{
 
         marketPage.openCartPage(driver);
         marketPage.verifyOrder(order, softAssert);
+        softAssert.assertAll();
     }
 
     @Test(dataProvider = "orderedUserData")
-    public void completeOrderTest(Order order){
+    public void completeOrderTest(){
 
         logger.info("Navigate to addresses");
         marketPage.openCartPage(driver);
@@ -65,5 +70,18 @@ public class OrdersTests extends TestBase{
         marketPage.checkButtonClick();
         marketPage.submitOrderButtonClick();
 
+        marketPage.successAlertMessageVerify(softAssert);
+
+        softAssert.assertAll();
+    }
+
+    @Test(dataProvider = "orderedUserData")
+    public void downloadOrderInfoTest(){
+
+        OrdersHistoryPage historyPage = new OrdersHistoryPage(driver);
+
+        historyPage.verifyFileDownloading(softAssert);
+
+        softAssert.assertAll();
     }
 }
