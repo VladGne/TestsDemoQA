@@ -215,10 +215,12 @@ public class RegistrationPage extends BasePage {
     public void checkInvalidAlerts(SoftAssert softAssert){
 
         String[] actualAlertMessages = getAlertList();
-        String[] expectedAlertMessages = {INVALID_LAST_NAME_MESSAGE,INVALID_FIRST_NAME_MESSAGE, INVALID_PASSWORD_MESSAGE, INVALID_POSTCODE_MESSAGE,INVALID_DATE_MESSAGE};
+        String[] expectedAlertMessages = {INVALID_LAST_NAME_MESSAGE,INVALID_FIRST_NAME_MESSAGE,
+                INVALID_PASSWORD_MESSAGE, INVALID_POSTCODE_MESSAGE,INVALID_DATE_MESSAGE};
         for (int i = 0; i < actualAlertMessages.length; i++){
             softAssert.assertEquals(actualAlertMessages[i], expectedAlertMessages[i],
-                    String.format("Invalid alert message:  expected - %s, actual - %s",expectedAlertMessages[i], actualAlertMessages[i]));
+                    String.format("Invalid alert message:  expected - %s, actual - %s",
+                            expectedAlertMessages[i], actualAlertMessages[i]));
         }
     }
 
@@ -227,7 +229,7 @@ public class RegistrationPage extends BasePage {
         String[] actualAlertMessages = getAlertList();
         String[] expectedAlertMessages = {MAX_LAST_NAME_MESSAGE, MAX_FIRST_NAME_MESSAGE, MAX_PASSWORD_MESSAGE,
                 MAX_ALIAS_MESSAGE, MAX_ADDRESS1_MESSAGE, MAX_ADDRESS2_MESSAGE,MAX_POSTCODE_MESSAGE, MAX_ADDITION_INFO_MESSAGE,
-                MAX_HOME_PHONE_MESSAGE, MAX_MOBILE_PHONE_MESSAGE};
+                MAX_HOME_PHONE_MESSAGE, MAX_MOBILE_PHONE_MESSAGE, INVALID_POSTCODE_MESSAGE, INVALID_DATE_MESSAGE};
         for (int i = 0; i < actualAlertMessages.length; i++){
             softAssert.assertEquals(actualAlertMessages[i], expectedAlertMessages[i],
                     String.format("Invalid alert message:  expected - %s, actual - %s",expectedAlertMessages[i], actualAlertMessages[i]));
