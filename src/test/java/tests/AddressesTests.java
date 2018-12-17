@@ -7,8 +7,6 @@ import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 
-//import static framework.helperClasses.FileReader.readUserDataFrom;
-
 public class AddressesTests extends TestBase {
 
     private AddressesPage addressesPage;

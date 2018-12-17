@@ -7,7 +7,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-//import static framework.helperClasses.FileReader.readUserDataFrom;
 
 public class LoginPageTests extends TestBase{
 

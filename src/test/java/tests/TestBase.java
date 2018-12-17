@@ -7,14 +7,12 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import java.util.HashMap;
 
+@Listeners({Listener.class})
 public class TestBase {
 
     ITestContext context;
@@ -23,6 +21,7 @@ public class TestBase {
     HashMap<String,String> parameters;
     WebDriver driver;
     FileReader fileReader;
+
 
     @BeforeSuite(groups = {"regression", "contentGenerator", "verifier","updater" })
     public void initializeBrowser() {
@@ -50,4 +49,13 @@ public class TestBase {
     public void closeBrowser(){
         driver.close();
     }
+
+//    @BeforeMethod
+//    @Parameters({"email","password","login"})
+//    public void doLogin(Boolean login, String email, String password){
+//
+//        if (login){
+//
+//        }
+//    }
 }
