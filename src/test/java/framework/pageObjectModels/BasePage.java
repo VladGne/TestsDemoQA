@@ -62,7 +62,8 @@ public class BasePage {
     public void womenButtonClick() {
         womenButton.click();
     }
-public void waitSuccessfulMessage(WebDriver driver) {
+
+    public void waitSuccessfulMessage(WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("identity")));
     }

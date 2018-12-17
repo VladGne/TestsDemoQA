@@ -2,7 +2,11 @@ package tests;
 
 import framework.models.User;
 import framework.pageObjectModels.PersonalPage;
-import org.testng.annotations.*;
+import org.testng.ITestContext;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 //import static framework.helperClasses.FileReader.readUserDataFrom;
 
@@ -51,11 +55,13 @@ public class PersonalInfoTests extends TestBase{
 
         logger.info("\n --- Check personal info test start ---\n");
 
-        final String existedEmail = "test1@test.com1";
-        user.setEmail(existedEmail);
+        //final String existedEmail = "test1@test.com1";
+        //user.setEmail(existedEmail);
+
+        String email = context.getAttribute("Email").toString();
 
         logger.info("Login");
-        personalPage.doLogin(user.getEmail(),user.getPassword(), driver);
+        personalPage.doLogin(email,user.getPassword(), driver);
 
         logger.info("Navigate to personal page");
         personalPage.navigateToPersonalInfo(driver);
@@ -73,7 +79,7 @@ public class PersonalInfoTests extends TestBase{
     }
 
     @Test(dataProvider="registeredUserData", groups = {"regression","updater"})
-    public void updatePersonalInfo(User user){
+    public void updatePersonalInfo(User user, ITestContext context){
 
         String email = context.getAttribute("Email").toString();
 

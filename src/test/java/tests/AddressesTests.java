@@ -33,8 +33,8 @@ public class AddressesTests extends TestBase {
     }
 
     @Test(dataProvider="validUserData", groups = "regression")
-    public void checkVisibilityMainElements(User users[]) {
-        User user = users[0];
+    public void checkVisibilityMainElements(User user) {
+        //User user = users[0];
 
         //final String existedEmail = "test1@test.com1";
        // user.setEmail(existedEmail);
