@@ -6,6 +6,7 @@ import lombok.ToString;
 
 @Data
 public class Order extends User {
+    private String name;
     private Category category;
     private int quantity = 1;
     private Size size = Size.S;
