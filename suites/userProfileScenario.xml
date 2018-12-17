@@ -4,11 +4,7 @@
 <suite name = "User Profile">
     <test name = "Add new user test">
         <parameter name = "Data" value="src\\test\\data\\validUser.json"/>
-        <groups>
-            <run>
-                <include name="contentGenerator"/>
-            </run>
-        </groups>
+
         <classes>
             <class name="tests.RegPageTest">
                 <methods>
@@ -20,11 +16,6 @@
 
     <test name = "Verify user info test">
         <parameter name = "Data" value="src\\test\\data\\validUser.json"/>
-        <groups>
-            <run>
-                <include name="verifier"/>
-            </run>
-        </groups>
 
         <classes>
             <class name="tests.PersonalInfoTests">
@@ -42,11 +33,6 @@
 
     <test name = "Update user info test">
         <parameter name="Data" value="src\\test\\data\\registeredUser.json"/>
-        <groups>
-            <run>
-                <include name="updater"/>
-            </run>
-        </groups>
 
         <classes>
             <class name="tests.PersonalInfoTests">
@@ -64,11 +50,6 @@
 
     <test name = "Verify updated user info test">
         <parameter name = "Data" value="src\\test\\data\\validUser.json"/>
-        <groups>
-            <run>
-                <include name="verifier"/>
-            </run>
-        </groups>
 
         <classes>
             <class name="tests.PersonalInfoTests">
