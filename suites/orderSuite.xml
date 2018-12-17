@@ -9,7 +9,7 @@
         <classes>
             <class name="tests.OrdersTests">
                 <methods>
-                    <include name="buyProductTest"/>
+                    <include name="addProductToCartWith"/>
                 </methods>
             </class>
         </classes>
