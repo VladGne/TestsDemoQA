@@ -1,9 +1,8 @@
 package tests;
 
-import com.mifmif.common.regex.Generex;
+import com.github.javafaker.Faker;
 import framework.models.User;
 import framework.pageObjectModels.RegistrationPage;
-import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -85,17 +84,15 @@ public class RegPageTest extends TestBase{
 		public Object[] getValidUserData(){
 			return fileReader.getData(User.class);
 		}
-		
+
 		// Test case 1 - User registration with valid data
 		@Test (dataProvider="validUserData", groups = "regression")
-		public void checkRegistration(User user, ITestContext context){
+		public void checkRegistration(User user){
 			logger.info("\n --- Registration test start ---\n");
 
-			String regex = "\\w{10}@testmail\\.test";
-			String generatedEmail = new Generex(regex).random();
-			user.setEmail(generatedEmail);
-
+			String generatedEmail = new Faker().internet().safeEmailAddress();
 			context.setAttribute("Email", generatedEmail);
+			user.setEmail(generatedEmail);
 
 			logger.info("Input email");
 			registrationPage.submitEmail(user.getEmail(), driver);
@@ -106,8 +103,8 @@ public class RegPageTest extends TestBase{
 			logger.info("Fill registration form");
 			registrationPage.fillRegistrationForm(user);
 
-			//logger.info("Click register button");
-			//registrationPage.registerButtonClick();
+			logger.info("Click register button");
+			registrationPage.registerButtonClick();
 
 			logger.info("Check user profile button");
 			registrationPage.checkUserButton();
