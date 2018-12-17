@@ -63,6 +63,12 @@ public class MarketPage extends BasePage {
     @FindBy ( className="icon-chevron-right")
     WebElement submitOrderButton;
 
+    @FindBy(xpath = "//td[@class='cart_description']//p[1]")
+    WebElement productName;
+
+    @FindBy(xpath = "//p[@class='alert alert-success']")
+    WebElement successAlertMessage;
+
     public void findProduct(Order order) {
 
         logger.debug("Click to category checkbox");
@@ -110,9 +116,6 @@ public class MarketPage extends BasePage {
     }
 
     public void verifyOrder(Order order, SoftAssert softAssert){
-        logger.debug("Click to cart button");
-
-        checkoutButton.click();
 
         logger.debug("Get product quantity");
         int quantity = Integer.valueOf(quantityTextBox.getAttribute("value"));
@@ -143,6 +146,15 @@ public class MarketPage extends BasePage {
 
     public void submitOrderButtonClick(){
         submitOrderButton.click();
+    }
+
+    public void verifyProductName(String expectedProductName, SoftAssert softAssert){
+
+        softAssert.assertEquals(productName.getText(), expectedProductName);
+    }
+
+    public void successAlertMessageVerify(SoftAssert softAssert){
+        softAssert.assertTrue(successAlertMessage.isDisplayed());
     }
 
 }
