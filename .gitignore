@@ -72,3 +72,5 @@ test-output/old/Default suite/
 test-output/old/TestSuite/
 
 test-output/
+
+allure-results/
