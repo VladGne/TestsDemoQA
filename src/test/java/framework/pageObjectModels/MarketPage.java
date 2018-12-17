@@ -54,6 +54,15 @@ public class MarketPage extends BasePage {
     @FindBy(className = "cart_quantity_input")
     WebElement quantityTextBox;
 
+    @FindBy(id = "cgv")
+    WebElement termsCheckBox;
+
+    @FindBy(className ="cheque")
+    WebElement checkButton;
+
+    @FindBy ( className="icon-chevron-right")
+    WebElement submitOrderButton;
+
     public void findProduct(Order order) {
 
         logger.debug("Click to category checkbox");
@@ -81,6 +90,11 @@ public class MarketPage extends BasePage {
     public void addToCartButtonClick(){
         logger.debug("Click to cart button");
         addToCartButton.click();
+    }
+
+    public void selcetTermsCheckBox(){
+        if (!termsCheckBox.isSelected())
+            termsCheckBox.click();
     }
 
     public void waitProductDetails(WebDriver driver){
@@ -114,4 +128,21 @@ public class MarketPage extends BasePage {
         softAssert.assertEquals(params[0], order.getColor());
         softAssert.assertEquals(params[1], order.getSize());
     }
+
+    public void openCartPage(WebDriver driver){
+        driver.navigate().to("http://automationpractice.com/index.php?controller=order");
+    }
+
+    public void compliteOrder(){
+        checkoutButton.click();
+    }
+
+    public void checkButtonClick(){
+        checkoutButton.click();
+    }
+
+    public void submitOrderButtonClick(){
+        submitOrderButton.click();
+    }
+
 }

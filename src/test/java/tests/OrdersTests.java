@@ -42,4 +42,28 @@ public class OrdersTests extends TestBase{
         marketPage.waitCheckoutButton(driver);
         marketPage.verifyOrder(order, softAssert);
     }
+
+    @Test(dataProvider = "orderedUserData")
+    public void verifyOrderTest(Order order){
+
+        marketPage.openCartPage(driver);
+        marketPage.verifyOrder(order, softAssert);
+    }
+
+    @Test(dataProvider = "orderedUserData")
+    public void completeOrderTest(Order order){
+
+        logger.info("Navigate to addresses");
+        marketPage.openCartPage(driver);
+        marketPage.waitCheckoutButton(driver);
+
+        logger.info("Navigate to shipping");
+        marketPage.openCartPage(driver);
+        marketPage.waitCheckoutButton(driver);
+
+        marketPage.selcetTermsCheckBox();
+        marketPage.checkButtonClick();
+        marketPage.submitOrderButtonClick();
+
+    }
 }
