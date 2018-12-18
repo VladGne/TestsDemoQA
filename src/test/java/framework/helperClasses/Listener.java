@@ -1,15 +1,19 @@
-package tests;
+package framework.helperClasses;
 
-
+import lombok.SneakyThrows;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
 import java.io.File;
 
-public class Listener extends TestBase implements ITestListener {
+public class Listener implements ITestListener {
+
+    WebDriver driver = null;
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
@@ -22,28 +26,27 @@ public class Listener extends TestBase implements ITestListener {
     }
 
     @Override
+    @SneakyThrows
     public void onTestFailure(ITestResult iTestResult) {
+
         //System.out.println("I am in onTestFailure method " +  getTestMethodName(iTestResult) + " failed");
-
-        // TODO: make screen shot
+        ITestContext context = iTestResult.getTestContext();
+        driver = (WebDriver) context.getAttribute("WebDriver");
         //Convert web driver object to TakeScreenshot
-
         TakesScreenshot scrShot =((TakesScreenshot)driver);
 
         //Call getScreenshotAs method to create image file
+        File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
 
-        File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+        String flieName = String.format("testFail on %s - %s", iTestResult.getTestClass().getName(), iTestResult.getMethod().getMethodName());
 
         //Move image file to new destination
-
-        File DestFile=new File("F:\\");
+        File DestFile = new File(String.format("F://%s.png", flieName));
 
         //Copy file at destination
-
-        //FileUtils.copyFile(SrcFile, DestFile);
-
-
+        FileUtils.copyFile(SrcFile, DestFile);
     }
+
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
