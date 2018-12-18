@@ -7,8 +7,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-//import static framework.helperClasses.FileReader.readUserDataFrom;
-
 public class RegPageTest extends TestBase{
 
 	private RegistrationPage registrationPage;
@@ -30,6 +28,15 @@ public class RegPageTest extends TestBase{
 		// Test case 1 - User registration with valid data
 		@Test (dataProvider="upperUserData", groups = "regression")
 		public void checkUpperLimits(User user){
+			StringBuilder invalidValue = new StringBuilder("1");
+			for (int i =0; i < 10000; i++)
+				invalidValue.append("1");
+
+			user.setAdditionInformation(invalidValue.toString());
+			user.setAddress(invalidValue.toString());
+			user.setAddress2(invalidValue.toString());
+			user.setAddressAlias(invalidValue.toString());
+
 			logger.info("\n --- Validation test start ---\n");
 
 			logger.info("Input email");
@@ -91,7 +98,7 @@ public class RegPageTest extends TestBase{
 			logger.info("\n --- Registration test start ---\n");
 
 			String generatedEmail = new Faker().internet().safeEmailAddress();
-			context.setAttribute("Email", generatedEmail);
+
 			user.setEmail(generatedEmail);
 
 			logger.info("Input email");
@@ -103,6 +110,8 @@ public class RegPageTest extends TestBase{
 			logger.info("Fill registration form");
 			registrationPage.fillRegistrationForm(user);
 
+			context.setAttribute("Email", generatedEmail);
+
 			logger.info("Click register button");
 			registrationPage.registerButtonClick();
 
@@ -112,8 +121,9 @@ public class RegPageTest extends TestBase{
 
 		@Test (dataProvider="validUserData", groups = {"regression", "contentGenerator"})
 		public void checkVisibility(User user){
-			final String existedEmail = "test3@test.com3";
-			user.setEmail(existedEmail);
+			String generatedEmail = new Faker().internet().safeEmailAddress();
+			user.setEmail(generatedEmail);
+
 			logger.info("\n --- Visibility test start ---\n");
 
 			logger.info("Input email");
