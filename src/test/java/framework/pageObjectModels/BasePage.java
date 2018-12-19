@@ -79,8 +79,8 @@ public class BasePage {
         logoutButton.click();
     }
 
-    static void navigate(WebDriver driver, String Url) {
-        driver.navigate().to(Url);
+    static void navigate(WebDriver driver, String url) {
+        driver.navigate().to(url);
         //return new BasePage(driver);
     }
 
@@ -90,13 +90,11 @@ public class BasePage {
 
     @SneakyThrows
     public void checkPageElementsVisibility(Class className, SoftAssert softAssert) {
-        //ToDo : why isDisplayed work not correct?
-
         for (Field field : className.getDeclaredFields()) {
             if (field.getType() == WebElement.class) {
                 field.setAccessible(true);
                 WebElement element = (WebElement) field.get(this);
-                logger.debug("Check visibility of " + field.getName());
+                logger.debug("Check interactivity of " + field.getName());
                 if (!element.isEnabled())
                     softAssert.fail("Element isn't enabled - " + field.getName());
             }
