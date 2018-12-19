@@ -37,18 +37,23 @@ public class OrdersTests extends TestBase{
 
         marketPage.womenButtonClick();
 
-        marketPage.findProduct(order);
-        marketPage.waitProductDetails(driver);
-        marketPage.addToCartButtonClick();
+        marketPage.addProductToCart(order);
+
+//        marketPage.findProduct(order);
+//        marketPage.waitProductDetails(driver);
+//        marketPage.addToCartButtonClick();
+
         marketPage.waitCheckoutButton(driver);
-        marketPage.checkButtonClick();
-        marketPage.verifyProductName(order.getName(), softAssert);
+        marketPage.compareProdutsName(order,softAssert);
+
+        //marketPage.checkButtonClick();
+       // marketPage.verifyProductName(order.getName(), softAssert);
 
         softAssert.assertAll();
     }
 
     @Test(dataProvider = "orderedUserData")
-    public void verifyOrderTest(Order order){
+    public void verifyOrderInCartTest(Order order){
 
         marketPage.openCartPage(driver);
         marketPage.verifyOrder(order, softAssert);
