@@ -1,6 +1,7 @@
 package framework.pageObjectModels;
 
 import framework.models.Order;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -36,7 +37,7 @@ public class MarketPage extends BasePage {
     @FindBy(id = "list")
     WebElement listButton;
 
-    @FindBy(id = "product_list")
+    @FindBy(className = "product_list")
     WebElement productList;
 
     @FindBy(xpath = "//a[contains(text(),'Faded Short Sleeve T-shirts')]")
@@ -45,29 +46,28 @@ public class MarketPage extends BasePage {
     @FindBy(name = "Submit")
     WebElement addToCartButton;
 
-    @FindBy(xpath = "//a[@title='Proceed to checkout']//span")
-    WebElement checkoutButton;
-
-    @FindBy(xpath = "//td[@class='cart_description']//small[2]")
-    WebElement productDescription;
-
-    @FindBy(className = "cart_quantity_input")
-    WebElement quantityTextBox;
-
-    @FindBy(id = "cgv")
-    WebElement termsCheckBox;
 
     @FindBy(className ="cheque")
     WebElement checkButton;
 
-    @FindBy ( className="icon-chevron-right")
-    WebElement submitOrderButton;
+
+
+    @FindBy(className = "layer_cart_product")
+    WebElement addedProductInfo;
 
     @FindBy(xpath = "//td[@class='cart_description']//p[1]")
     WebElement productName;
 
-    @FindBy(xpath = "//p[@class='alert alert-success']")
-    WebElement successAlertMessage;
+
+    @FindBy(className = "products")
+    WebElement productsInCart;
+
+    @FindBy(id="layer_cart_product_title")
+    WebElement addedProductTitle;
+
+    public void openCartPage(WebDriver driver){
+        driver.navigate().to("http://automationpractice.com/index.php?controller=order");
+    }
 
     public void findProduct(Order order) {
 
@@ -98,9 +98,10 @@ public class MarketPage extends BasePage {
         addToCartButton.click();
     }
 
-    public void selcetTermsCheckBox(){
-        if (!termsCheckBox.isSelected())
-            termsCheckBox.click();
+    public void waitAddedProductInfo(WebDriver driver){
+
+        WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
+        WebElement element = wait.until(ExpectedConditions.visibilityOf(addedProductInfo));
     }
 
     public void waitProductDetails(WebDriver driver){
@@ -109,52 +110,29 @@ public class MarketPage extends BasePage {
         WebElement element = wait.until(ExpectedConditions.visibilityOf(addToCartButton));
     }
 
-    public void waitCheckoutButton(WebDriver driver){
-
-        WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
-        WebElement element = wait.until(ExpectedConditions.visibilityOf(checkoutButton));
-    }
-
-    public void verifyOrder(Order order, SoftAssert softAssert){
-
-        logger.debug("Get product quantity");
-        int quantity = Integer.valueOf(quantityTextBox.getAttribute("value"));
-
-        softAssert.assertEquals(quantity, order.getQuantity());
-
-        logger.debug("Get product parameters");
-        String productParams = productDescription.getText();
-        productParams = productParams.replaceAll(", Size :", "");
-        productParams = productParams.replaceAll("Color : ", "");
-        String params[] = productParams.split(" ");
-
-        softAssert.assertEquals(params[0], order.getColor());
-        softAssert.assertEquals(params[1], order.getSize());
-    }
-
-    public void openCartPage(WebDriver driver){
-        driver.navigate().to("http://automationpractice.com/index.php?controller=order");
-    }
-
-    public void compliteOrder(){
-        checkoutButton.click();
-    }
-
-    public void checkButtonClick(){
-        checkoutButton.click();
-    }
-
-    public void submitOrderButtonClick(){
-        submitOrderButton.click();
-    }
-
     public void verifyProductName(String expectedProductName, SoftAssert softAssert){
-
         softAssert.assertEquals(productName.getText(), expectedProductName);
     }
 
-    public void successAlertMessageVerify(SoftAssert softAssert){
-        softAssert.assertTrue(successAlertMessage.isDisplayed());
+    public void addProductToCart(Order order){
+        //List products = Lists.newArrayList(productList);
+//        List<WebElement> products = productList.findElements(By.tagName("li"));
+//        products.get(productIndex).findElement(By.className("button")).click();
+//
+//        WebElement productName;
+//        for(WebElement product : products){
+//            productName = product.findElement(By.tagName("a"));
+//            if (productName.getAttribute("title").equals(order.getName()))
+//                product.findElement(By.className("button")).click();
+//        }
+
+        productList.findElements(By.tagName("li")).stream()
+                .filter(element -> element.findElement(By.tagName("a"))
+                        .getAttribute("title").equals(order.getName()))
+                .forEach(element -> element.findElement((By.className("button"))).click());
     }
 
+    public void compareProdutsName(Order order, SoftAssert softAssert){
+        softAssert.assertEquals(addedProductTitle.getText(), order.getName(), "Product name doesn't equals: ");
+    }
 }
