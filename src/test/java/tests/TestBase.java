@@ -1,6 +1,7 @@
 package tests;
 
 import framework.helperClasses.FileReader;
+import framework.helperClasses.Listener;
 import framework.pageObjectModels.BasePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,13 +16,13 @@ import java.util.HashMap;
 @Listeners({Listener.class})
 public class TestBase {
 
-    ITestContext context;
+    //ITestContext context;
     SoftAssert softAssert = new SoftAssert();
     protected Logger logger = LogManager.getLogger(this);
     HashMap<String,String> parameters;
     WebDriver driver;
     FileReader fileReader;
-
+    int maxFieldLength = 1000;
 
     @BeforeSuite(groups = {"regression", "contentGenerator", "verifier","updater" })
     public void initializeBrowser() {
@@ -43,6 +44,7 @@ public class TestBase {
         fileReader = new FileReader();
         fileReader.processDataFile( parameters.get( "Data" ) );
        // BasePage basePage = new BasePage(driver);
+        testContext.setAttribute("WebDriver", driver);
     }
 
     @AfterClass
