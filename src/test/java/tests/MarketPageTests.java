@@ -7,7 +7,7 @@ import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 
-public class OrdersTests extends TestBase{
+public class MarketPageTests extends TestBase{
 
     private MarketPage marketPage;
 
@@ -43,39 +43,11 @@ public class OrdersTests extends TestBase{
 //        marketPage.waitProductDetails(driver);
 //        marketPage.addToCartButtonClick();
 
-        marketPage.waitCheckoutButton(driver);
+        marketPage.waitAddedProductInfo(driver);
         marketPage.compareProdutsName(order,softAssert);
 
         //marketPage.checkButtonClick();
        // marketPage.verifyProductName(order.getName(), softAssert);
-
-        softAssert.assertAll();
-    }
-
-    @Test(dataProvider = "orderedUserData")
-    public void verifyOrderInCartTest(Order order){
-
-        marketPage.openCartPage(driver);
-        marketPage.verifyOrder(order, softAssert);
-        softAssert.assertAll();
-    }
-
-    @Test(dataProvider = "orderedUserData")
-    public void completeOrderTest(){
-
-        logger.info("Navigate to addresses");
-        marketPage.openCartPage(driver);
-        marketPage.waitCheckoutButton(driver);
-
-        logger.info("Navigate to shipping");
-        marketPage.openCartPage(driver);
-        marketPage.waitCheckoutButton(driver);
-
-        marketPage.selcetTermsCheckBox();
-        marketPage.checkButtonClick();
-        marketPage.submitOrderButtonClick();
-
-        marketPage.successAlertMessageVerify(softAssert);
 
         softAssert.assertAll();
     }
