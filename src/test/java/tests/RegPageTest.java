@@ -3,6 +3,8 @@ package tests;
 import com.github.javafaker.Faker;
 import framework.models.User;
 import framework.pageObjectModels.RegistrationPage;
+import net.bytebuddy.utility.RandomString;
+import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -28,14 +30,13 @@ public class RegPageTest extends TestBase{
 		// Test case 1 - User registration with valid data
 		@Test (dataProvider="upperUserData", groups = "regression")
 		public void checkUpperLimits(User user){
-			StringBuilder invalidValue = new StringBuilder("1");
-			for (int i =0; i < 10000; i++)
-				invalidValue.append("1");
 
-			user.setAdditionInformation(invalidValue.toString());
-			user.setAddress(invalidValue.toString());
-			user.setAddress2(invalidValue.toString());
-			user.setAddressAlias(invalidValue.toString());
+			String invalidValue = new RandomString(maxFieldLength).nextString();
+
+			user.setAdditionInformation(invalidValue);
+			user.setAddress(invalidValue);
+			user.setAddress2(invalidValue);
+			user.setAddressAlias(invalidValue);
 
 			logger.info("\n --- Validation test start ---\n");
 
@@ -94,12 +95,14 @@ public class RegPageTest extends TestBase{
 
 		// Test case 1 - User registration with valid data
 		@Test (dataProvider="validUserData", groups = "regression")
-		public void checkRegistration(User user){
+		public void checkRegistration(User user, ITestContext context){
 			logger.info("\n --- Registration test start ---\n");
 
-			String generatedEmail = new Faker().internet().safeEmailAddress();
+			//String generatedEmail = new Faker().internet().safeEmailAddress();
+			String generatedEmail = new RandomString().nextString()+"@testmail.test";
 
 			user.setEmail(generatedEmail);
+			context.setAttribute("Email", generatedEmail);
 
 			logger.info("Input email");
 			registrationPage.submitEmail(user.getEmail(), driver);
@@ -109,8 +112,6 @@ public class RegPageTest extends TestBase{
 
 			logger.info("Fill registration form");
 			registrationPage.fillRegistrationForm(user);
-
-			context.setAttribute("Email", generatedEmail);
 
 			logger.info("Click register button");
 			registrationPage.registerButtonClick();
