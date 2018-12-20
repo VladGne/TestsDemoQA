@@ -1,5 +1,6 @@
 package framework.pageObjectModels;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,24 +36,30 @@ public class LoginPage extends BasePage{
     @FindBy(id = "SubmitCreate")
     private WebElement submitButton;
 
+    @Step("Try to login by click on submit button")
     public void submitButtonClick(){
         submitButton.click();
     }
 
+    @Step("Go to login page by click to login button")
     public void loginButtonClick(){
         loginButton.click();
     }
 
+    @Step("Input email to login email field")
     public void inputEmail(String email){
         emailTextbox.sendKeys(email);
     }
 
+    @Step("Input password to login password field")
     public void inputPassword(String password){
         passwordTextbox.sendKeys(password);
     }
 
+    @Step("Input new email to registration email field")
     public void inputNewEmail(final String email){emailCreateTextbox.sendKeys(email);}
 
+    @Step("Try to create account by click to create account button")
     public void createAccountButtonClick(){createAccountButton.click();}
 
     public LoginPage(WebDriver driver) {
@@ -60,10 +67,12 @@ public class LoginPage extends BasePage{
         BasePage.navigate(driver, AuthenticationPageURL);
     }
 
+    @Step("Get alerts text")
     public String getEmailAlertMessage(){
        return alertMessage.getText();
     }
 
+    @Step("Wait alert with method: {method} step...")
     public void waitForAlertMessage(WebDriver driver){
         Pattern pattern = Pattern.compile("1.*");
         WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);

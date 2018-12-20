@@ -1,7 +1,6 @@
 package tests;
 
 import framework.helperClasses.FileReader;
-import framework.helperClasses.Listener;
 import framework.pageObjectModels.BasePage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +12,8 @@ import org.testng.asserts.SoftAssert;
 
 import java.util.HashMap;
 
-@Listeners({Listener.class})
+@Listeners(framework.helperClasses.Listener.class)
+
 public class TestBase {
 
     //ITestContext context;
