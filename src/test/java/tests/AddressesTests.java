@@ -3,14 +3,17 @@ package tests;
 import framework.models.User;
 import framework.pageObjectModels.AddressRegistrationPage;
 import framework.pageObjectModels.AddressesPage;
+import io.qameta.allure.*;
 import org.testng.annotations.*;
-
 import java.lang.reflect.Method;
 
+@Epic("Positive tests")
+@Feature("Login Tests")
 public class AddressesTests extends TestBase {
 
     private AddressesPage addressesPage;
 
+    @Step("Open login page")
     @BeforeMethod(groups = {"regression", "verifier","updater"})
     public void openLoginPage(Method method){
         logger.info("Navigate to login page");
@@ -18,6 +21,7 @@ public class AddressesTests extends TestBase {
         logger.info(method.getName() + " start");
     }
 
+    @Step("Try to logout")
     @AfterMethod(groups = {"regression", "verifier","updater"})
     public void doLogout(){
         logger.info("Logout");
@@ -25,18 +29,14 @@ public class AddressesTests extends TestBase {
     }
 
     @DataProvider(name = "validUserData")
-    public Object[] getValidUserData(){
-
+    public Object[][] getValidUserData(){
         return fileReader.getData(User.class);
     }
 
+    @Description("Verify interactivity main elements of login page")
+    @Story("All main element are enabled")
     @Test(dataProvider="validUserData", groups = "regression")
     public void checkVisibilityMainElements(User user) {
-        //User user = users[0];
-
-        //final String existedEmail = "test1@test.com1";
-       // user.setEmail(existedEmail);
-
 
         logger.info("Login");
         addressesPage.doLogin(user.getEmail(),user.getPassword(), driver);
@@ -52,12 +52,13 @@ public class AddressesTests extends TestBase {
         logger.info("\n --- Addresses test end ---\n");
     }
 
+    @Description("Verify that users addresses info shows correctly")
+    @Story("User data on the page equals to user model")
     @Test(dataProvider="validUserData", groups = {"regression", "verifier"})
-    public void checkAddressesUserInformation(User users[]) {
-        User user = users[0];
+    public void checkAddressesUserInformation(User user) {
 
-        final String existedEmail = "test1@test.com1";
-        user.setEmail(existedEmail);
+        String email = context.get("Email").toString();
+        user.setEmail(email);
 
         logger.info("Login");
         addressesPage.doLogin(user.getEmail(),user.getPassword(), driver);
@@ -77,17 +78,18 @@ public class AddressesTests extends TestBase {
 
     @DataProvider(name = "registeredUserData")
 
-    public Object[] getRegisteredUserData(){
+    public Object[][] getRegisteredUserData(){
         return fileReader.getData(User.class);
     }
 
+    @Description("Verify that users addresses info could be change and save successful")
+    @Story("User data on the page equals to user model")
     @Test(dataProvider="registeredUserData", groups = {"regression", "updater"})
-    public void checkAddressesUpdate(User users[]){
-        User currentUserData = users[0];
-        User newUsersData = users[1];
+    public void checkAddressesUpdate(User user){
+        String email = context.get("Email").toString();
 
         logger.info("Login");
-        addressesPage.doLogin(currentUserData.getEmail(),currentUserData.getPassword(), driver);
+        addressesPage.doLogin(email,user.getPassword(), driver);
 
         logger.info("Navigate to addresses page");
         addressesPage.addressButtonClick(driver);
@@ -100,7 +102,7 @@ public class AddressesTests extends TestBase {
         AddressRegistrationPage addressRegistrationPage = new AddressRegistrationPage(driver);
 
         logger.info("Fill address form");
-        addressRegistrationPage.fillAddressRegistrationForm(newUsersData);
+        addressRegistrationPage.fillAddressRegistrationForm(user);
 
         logger.info("Save button click");
         addressRegistrationPage.saveButtonClick();

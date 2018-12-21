@@ -2,41 +2,44 @@ package tests;
 
 import framework.models.User;
 import framework.pageObjectModels.PersonalPage;
-import org.testng.ITestContext;
+import io.qameta.allure.Description;
+import io.qameta.allure.Story;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class PersonalInfoTests extends TestBase{
+public class PersonalInfoTests extends TestBase {
 
     private PersonalPage personalPage;
 
-    @BeforeMethod(groups = {"regression", "verifier","updater"})
-    public void openLoginPage(){
+    @BeforeMethod(groups = {"regression", "verifier", "updater"})
+    public void openLoginPage() {
         logger.info("Navigate to login page");
         personalPage = new PersonalPage(driver);
     }
 
-    @AfterMethod(groups = {"regression", "verifier","updater"})
-    public void doLogout(){
+    @AfterMethod(groups = {"regression", "verifier", "updater"})
+    public void doLogout() {
         logger.info("Logout");
         personalPage.doLogout();
     }
 
     // Create valid user
     @DataProvider(name = "validUserData")
-    public Object[] getValidUserData(){
+    public Object[][] getValidUserData() {
 
         return fileReader.getData(User.class);
     }
 
-    @Test(dataProvider="validUserData", groups = "regression")
-    public void checkVisibility(User user){
+    @Description("Verify interactivity main elements of login page")
+    @Story("All main element are enabled")
+    @Test(dataProvider = "validUserData", groups = "regression")
+    public void checkVisibility(User user) {
         logger.info("Check personal info page elements visibility test start\n");
 
         logger.info("Login");
-        personalPage.doLogin(user.getEmail(),user.getPassword(), driver);
+        personalPage.doLogin(user.getEmail(), user.getPassword(), driver);
 
         logger.info("Navigate to personal page");
         personalPage.navigateToPersonalInfo(driver);
@@ -48,18 +51,17 @@ public class PersonalInfoTests extends TestBase{
         logger.info("\n --- Check personal info page elements visibility test end ---\n");
     }
 
-    @Test(dataProvider="validUserData", groups = {"regression", "verifier"})
-    public void checkPersonalInfo(User user){
-
+    @Test(dataProvider = "validUserData", groups = {"regression", "verifier"})
+    @Description("User personal info on page should be equals to user model")
+    @Story("Compare user personal info with {0}")
+    public void checkPersonalInfo(User user) {
         logger.info("\n --- Check personal info test start ---\n");
 
-        //final String existedEmail = "test1@test.com1";
-        //user.setEmail(existedEmail);
-
-        String email = context.getAttribute("Email").toString();
+        String email = context.get("Email").toString();
+        user.setEmail(email);
 
         logger.info("Login");
-        personalPage.doLogin(email,user.getPassword(), driver);
+        personalPage.doLogin(user.getEmail(), user.getPassword(), driver);
 
         logger.info("Navigate to personal page");
         personalPage.navigateToPersonalInfo(driver);
@@ -71,18 +73,21 @@ public class PersonalInfoTests extends TestBase{
     }
 
     @DataProvider(name = "registeredUserData")
-    public Object[] getRegisteredUserData(){
+    public Object[][] getRegisteredUserData() {
 
         return fileReader.getData(User.class);
     }
 
-    @Test(dataProvider="registeredUserData", groups = {"regression","updater"})
-    public void updatePersonalInfo(User user, ITestContext context){
+    @Test(dataProvider = "registeredUserData", groups = {"regression", "updater"})
+    @Description("User personal info on page should be updated and saved successfully")
+    @Story("Edit user personal info with {0}")
+    public void updatePersonalInfo(User user) {
 
-        String email = context.getAttribute("Email").toString();
+        String email = context.get("Email").toString();
+        user.setEmail(email);
 
         logger.info("Login");
-        personalPage.doLogin(email, user.getPassword(), driver);
+        personalPage.doLogin(user.getEmail(), user.getPassword(), driver);
 
         logger.info("Navigate to personal page");
         personalPage.navigateToPersonalInfo(driver);

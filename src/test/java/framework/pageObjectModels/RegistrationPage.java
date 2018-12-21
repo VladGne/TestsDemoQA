@@ -1,6 +1,7 @@
 package framework.pageObjectModels;
 
 import framework.models.User;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -224,6 +225,7 @@ public class RegistrationPage extends BasePage {
         }
     }
 
+
     public void checkUpperLimitsAlerts(SoftAssert softAssert){
 
         String[] actualAlertMessages = getAlertList();
@@ -236,6 +238,7 @@ public class RegistrationPage extends BasePage {
         }
     }
 
+    @Step("Fill registration page form with {0}")
     public void fillRegistrationForm(User user){
         logger.debug("Select gender");
         selectMaleGender();
