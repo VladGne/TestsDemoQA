@@ -47,9 +47,8 @@ public class MarketPage extends BasePage {
     WebElement addToCartButton;
 
 
-    @FindBy(className ="cheque")
+    @FindBy(className = "cheque")
     WebElement checkButton;
-
 
 
     @FindBy(className = "layer_cart_product")
@@ -62,10 +61,13 @@ public class MarketPage extends BasePage {
     @FindBy(className = "products")
     WebElement productsInCart;
 
-    @FindBy(id="layer_cart_product_title")
+    @FindBy(id = "layer_cart_product_title")
     WebElement addedProductTitle;
 
-    public void openCartPage(WebDriver driver){
+    @FindBy(className = "cross")
+    WebElement closeProductInfoButton;
+
+    public void openCartPage(WebDriver driver) {
         driver.navigate().to("http://automationpractice.com/index.php?controller=order");
     }
 
@@ -86,53 +88,46 @@ public class MarketPage extends BasePage {
             largeSizeCheckBox.click();
 
         logger.debug("Click to color checkbox");
-        if(order.getColor().equals("Orange"))
+        if (order.getColor().equals("Orange"))
             orangeColorCheckBox.click();
 
         logger.debug("Click to product button");
         product.click();
     }
 
-    public void addToCartButtonClick(){
+    public void addToCartButtonClick() {
         logger.debug("Click to cart button");
         addToCartButton.click();
     }
 
-    public void waitAddedProductInfo(WebDriver driver){
+    public void waitAddedProductInfo(WebDriver driver) {
 
         WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
         WebElement element = wait.until(ExpectedConditions.visibilityOf(addedProductInfo));
     }
 
-    public void waitProductDetails(WebDriver driver){
+    public void waitProductDetails(WebDriver driver) {
 
         WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
         WebElement element = wait.until(ExpectedConditions.visibilityOf(addToCartButton));
     }
 
-    public void verifyProductName(String expectedProductName, SoftAssert softAssert){
+    public void verifyProductName(String expectedProductName, SoftAssert softAssert) {
         softAssert.assertEquals(productName.getText(), expectedProductName);
     }
 
-    public void addProductToCart(Order order){
-        //List products = Lists.newArrayList(productList);
-//        List<WebElement> products = productList.findElements(By.tagName("li"));
-//        products.get(productIndex).findElement(By.className("button")).click();
-//
-//        WebElement productName;
-//        for(WebElement product : products){
-//            productName = product.findElement(By.tagName("a"));
-//            if (productName.getAttribute("title").equals(order.getName()))
-//                product.findElement(By.className("button")).click();
-//        }
-
+    public void addProductToCart(Order order) {
         productList.findElements(By.tagName("li")).stream()
-                .filter(element -> element.findElement(By.tagName("a"))
-                        .getAttribute("title").equals(order.getName()))
-                .forEach(element -> element.findElement((By.className("button"))).click());
+                .filter(element -> element
+                        .findElement(By.tagName("a"))
+                        .getAttribute("title")
+                        .equals(order.getName()))
+                .forEach(element -> element
+                        .findElement((By.className("button"))).click());
     }
 
-    public void compareProdutsName(Order order, SoftAssert softAssert){
+    public void compareProdutsName(Order order, SoftAssert softAssert) {
         softAssert.assertEquals(addedProductTitle.getText(), order.getName(), "Product name doesn't equals: ");
+        closeProductInfoButton.click();
     }
 }
