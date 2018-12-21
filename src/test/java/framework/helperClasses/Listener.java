@@ -1,5 +1,6 @@
 package framework.helperClasses;
 
+import io.qameta.allure.Attachment;
 import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -32,6 +33,14 @@ public class Listener implements ITestListener {
         //System.out.println("I am in onTestFailure method " +  getTestMethodName(iTestResult) + " failed");
         ITestContext context = iTestResult.getTestContext();
         driver = (WebDriver) context.getAttribute("WebDriver");
+
+        Object testClass = iTestResult.getInstance();
+        if (driver instanceof WebDriver){
+            saveScreenshotPNG(driver);
+        }
+
+        saveTestLog(getTestMethodName(iTestResult));
+
         //Convert web driver object to TakeScreenshot
         TakesScreenshot scrShot =((TakesScreenshot)driver);
 
@@ -70,5 +79,15 @@ public class Listener implements ITestListener {
 
     private static String getTestMethodName(ITestResult iTestResult) {
         return iTestResult.getMethod().getConstructorOrMethod().getName();
+    }
+
+    @Attachment(value = "Page screenshot", type = "image/png")
+    public byte[] saveScreenshotPNG (WebDriver driver){
+        return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+    }
+
+    @Attachment(value = "{0}", type = "text/plain")
+    public static String saveTestLog(String message){
+        return message;
     }
 }
