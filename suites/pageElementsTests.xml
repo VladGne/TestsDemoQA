@@ -6,20 +6,20 @@
         <parameter name = "Data" value="src\\test\\data\\validUser.json"/>
         <classes>
             <class name="tests.AddressesTests">
-                <methods>
-                    <include name="checkVisibilityMainElements"/>
-                </methods>
-            </class>
-            <class name="tests.LoginPageTests">
-                <methods>
-                    <include name="checkVisibility"/>
-                </methods>
-            </class>
-            <class name="tests.PersonalInfoTests">
-                <methods>
-                    <include name="checkVisibility"/>
-                </methods>
-            </class>
+                     <methods>
+                         <include name="checkVisibilityMainElements"/>
+                     </methods>
+                 </class>
+                 <class name="tests.LoginPageTests">
+                     <methods>
+                         <include name="checkVisibility"/>
+                     </methods>
+                 </class>
+                 <class name="tests.PersonalInfoTests">
+                     <methods>
+                         <include name="checkVisibility"/>
+                     </methods>
+                 </class>
             <class name="tests.RegPageTest">
                 <methods>
                     <include name="checkVisibility"/>
@@ -28,4 +28,3 @@
         </classes>
     </test>
 </suite>
-

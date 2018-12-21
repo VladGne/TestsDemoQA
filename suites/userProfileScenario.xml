@@ -4,7 +4,6 @@
 <suite name = "User Profile">
     <test name = "Add new user test">
         <parameter name = "Data" value="src\\test\\data\\validUser.json"/>
-
         <classes>
             <class name="tests.RegPageTest">
                 <methods>
@@ -49,7 +48,7 @@
     </test>
 
     <test name = "Verify updated user info test">
-        <parameter name = "Data" value="src\\test\\data\\validUser.json"/>
+        <parameter name = "Data" value="src\\test\\data\\registeredUser.json"/>
 
         <classes>
             <class name="tests.PersonalInfoTests">
