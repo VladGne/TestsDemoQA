@@ -17,8 +17,14 @@ public class CartPage extends BasePage{
     @FindBy(xpath = "//td[@class='cart_description']//small[2]")
     WebElement productDescription;
 
-    @FindBy(xpath = "//a[@title='Proceed to checkout']//span")
+    @FindBy(xpath = "//p[@class='cart_navigation clearfix']//a[@title='Proceed to checkout']")
     WebElement checkoutButton;
+
+    @FindBy(name = "processAddress")
+    WebElement checkoutAddressButton;
+
+    @FindBy(name = "processCarrier")
+    WebElement checkoutCarrierButton;
 
     @FindBy(id = "cgv")
     WebElement termsCheckBox;
@@ -26,9 +32,11 @@ public class CartPage extends BasePage{
     @FindBy(xpath = "//p[@class='alert alert-success']")
     WebElement successAlertMessage;
 
-    @FindBy ( className="icon-chevron-right")
+    @FindBy ( xpath="//p[@id='cart_navigation']//button[@type='submit']")
     WebElement submitOrderButton;
 
+    @FindBy(className = "cheque")
+    WebElement chequeButton;
 
     public CartPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -51,8 +59,9 @@ public class CartPage extends BasePage{
         productParams = productParams.replaceAll("Color : ", "");
         String params[] = productParams.split(" ");
 
+        String size =  order.getSize().name();
         softAssert.assertEquals(params[0], order.getColor());
-        softAssert.assertEquals(params[1], order.getSize());
+        softAssert.assertEquals(params[1], order.getSize().name());
     }
 
     public void waitCheckoutButton(WebDriver driver){
@@ -76,5 +85,22 @@ public class CartPage extends BasePage{
 
     public void successAlertMessageVerify(SoftAssert softAssert){
         softAssert.assertTrue(successAlertMessage.isDisplayed());
+    }
+
+    public void checkoutButtonClick(){
+        checkoutButton.click();
+    }
+
+    public void checkoutAddressButtonClick(){
+        checkoutAddressButton.click();
+    }
+
+    public void checkoutCarrierButtonClick(){
+        checkoutCarrierButton.click();
+    }
+
+    public void chequeButtonClick(){
+        chequeButton.click();
+
     }
 }
