@@ -23,7 +23,7 @@ public class LoginPageTests extends TestBase{
 
     // Create invalid user
     @DataProvider(name = "repeatedUserEmail")
-    public Object[] getRepeatedUserEmail( ){
+    public Object[][] getRepeatedUserEmail( ){
         return fileReader.getData(User.class);
     }
 
@@ -54,8 +54,7 @@ public class LoginPageTests extends TestBase{
 
     // Create invalid user
     @DataProvider (name = "invalidUserEmail")
-    public Object[] getInvalidUserEmail(){
-
+    public Object[][] getInvalidUserEmail(){
         return fileReader.getData(User.class);
     }
 
