@@ -11,7 +11,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
-
 import java.lang.reflect.Field;
 import java.util.Properties;
 
@@ -27,7 +26,7 @@ public class BasePage {
     @FindBy(className = "logout")
     private WebElement logoutButton;
 
-    @FindBy(xpath = "//div[@class='alert alert-danger']//ol")
+    @FindBy(className = "alert-danger")
     private WebElement alertList;
 
     @FindBy(className = "//ul[@class='footer_links clearfix']//li[1]")
@@ -42,7 +41,7 @@ public class BasePage {
     @FindBy(className = "sf-with-ul")
     WebElement womenButton;
 
-    BasePage(WebDriver driver) {
+    public BasePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         final String BasePageURL = prop.getProperty("durl");
         //driver.navigate().to(BasePageURL);
@@ -68,7 +67,13 @@ public class BasePage {
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("identity")));
     }
 
+    public void waitEmailBox(WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("email")));
+    }
+
     public void doLogin(String email, String password, WebDriver driver) {
+        waitEmailBox(driver);
         LoginPage loginPage = new LoginPage(driver);
         loginPage.inputEmail(email);
         loginPage.inputPassword(password);
@@ -102,7 +107,7 @@ public class BasePage {
     }
 
     public String[] getAlertList() {
-        return alertList.getText().split("\n");
+        return alertList.findElement(By.tagName("ol")).getText().split("\n");
     }
 
     static class AccountPage {
