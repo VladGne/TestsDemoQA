@@ -74,3 +74,13 @@ test-output/old/TestSuite/
 test-output/
 
 allure-results/
+
+target/surefire-reports/
+
+target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/
+
+target/maven-status/maven-compiler-plugin/compile/default-compile/
+
+target/maven-archiver/
+
+target/
