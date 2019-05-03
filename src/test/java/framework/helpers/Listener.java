@@ -1,8 +1,10 @@
-package framework.helperClasses;
+package framework.helpers;
 
-import io.qameta.allure.Attachment;
-import lombok.SneakyThrows;
+import java.io.File;
+
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -10,27 +12,28 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import java.io.File;
+import io.qameta.allure.Attachment;
+import lombok.SneakyThrows;
 
 public class Listener implements ITestListener {
 
     WebDriver driver = null;
+    private Logger logger = LogManager.getLogger(this);
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        //System.out.println("I am in onTestStart method " +  getTestMethodName(iTestResult) + " start");
+        logger.info( getTestMethodName(iTestResult) + " Test start" );
     }
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-        //System.out.println("I am in onTestSuccess method " +  getTestMethodName(iTestResult) + " succeed");
+        logger.info( getTestMethodName(iTestResult) + " Test succeed" );
     }
 
     @Override
     @SneakyThrows
     public void onTestFailure(ITestResult iTestResult) {
-
-        //System.out.println("I am in onTestFailure method " +  getTestMethodName(iTestResult) + " failed");
+        logger.info( getTestMethodName(iTestResult) + " Test failed" );
         ITestContext context = iTestResult.getTestContext();
         driver = (WebDriver) context.getAttribute("WebDriver");
 
@@ -50,7 +53,7 @@ public class Listener implements ITestListener {
         String flieName = String.format("testFail on %s - %s", iTestResult.getTestClass().getName(), iTestResult.getMethod().getMethodName());
 
         //Move image file to new destination
-        File DestFile = new File(String.format("F://%s.png", flieName));
+        File DestFile = new File(String.format("D://%s.png", flieName));
 
         //Copy file at destination
         FileUtils.copyFile(SrcFile, DestFile);
@@ -59,22 +62,22 @@ public class Listener implements ITestListener {
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
-       // System.out.println("I am in onTestSkipped method "+  getTestMethodName(iTestResult) + " skipped");
+        logger.info( getTestMethodName(iTestResult) + " Test skipped" );
     }
 
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
-        //System.out.println("Test failed but it is in defined success ratio " + getTestMethodName(iTestResult));
+        logger.info( getTestMethodName(iTestResult) + " Test failed but it is in defined success ratio" );
     }
 
     @Override
     public void onStart(ITestContext iTestContext) {
-        //System.out.println("I am in onStart method " + iTestContext.getName());
+        logger.info( iTestContext.getName() + " method start" );
     }
 
     @Override
     public void onFinish(ITestContext iTestContext) {
-        //System.out.println("I am in onFinish method " + iTestContext.getName());
+        logger.info( iTestContext.getName() + " method end" );
     }
 
     private static String getTestMethodName(ITestResult iTestResult) {

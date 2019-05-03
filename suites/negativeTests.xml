@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name = "Negative tests">
-    <test name = "Check login page email validation">
+    <test name = "Check login page email validation test">
         <parameter name = "Data" value="src\\test\\data\\invalidUser.json"/>
         <classes>
             <class name="tests.LoginPageTests">
@@ -12,7 +12,7 @@
             </class>
         </classes>
     </test>
-    <test name = "Check login page existed email validation">
+    <test name = "Check login page existed email validation test">
         <parameter name = "Data" value="src\\test\\data\\validUser.json"/>
         <classes>
             <class name="tests.LoginPageTests">
@@ -22,20 +22,20 @@
             </class>
         </classes>
     </test>
-    <test name = "Check registration page validation">
+    <test name = "Check registration page validation test">
         <parameter name = "Data" value="src\\test\\data\\invalidUser.json"/>
         <classes>
-            <class name="tests.RegPageTest">
+            <class name="tests.RegistrationPageTest">
                 <methods>
                     <include name="checkValidations"/>
                 </methods>
             </class>
         </classes>
     </test>
-    <test name = "Check registration page field upper limits">
+    <test name = "Check registration page field upper limits test">
         <parameter name = "Data" value="src\\test\\data\\upperUser.json"/>
         <classes>
-            <class name="tests.RegPageTest">
+            <class name="tests.RegistrationPageTest">
                 <methods>
                     <include name="checkUpperLimits"/>
                 </methods>

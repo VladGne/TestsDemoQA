@@ -1,13 +1,17 @@
-package framework.helperClasses;
-
-import lombok.SneakyThrows;
-import org.codehaus.jackson.map.ObjectMapper;
+package framework.helpers;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+
+import org.codehaus.jackson.map.ObjectMapper;
+
+import lombok.SneakyThrows;
 
 public class FileReader {
 

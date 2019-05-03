@@ -1,8 +1,8 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Orders tests">
-    <test name="Check buy product">
+<suite name="Order functional test">
+    <test name="Buy product functional test">
         <parameter name="Data" value="src\\test\\data\\orders.json"/>
         <parameter name="email" value="test1@test.com1"/>
         <parameter name="password" value="TestPassword1"/>

@@ -1,11 +1,20 @@
 package tests;
 
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
 import framework.models.Order;
-import framework.pageObjectModels.CartPage;
-import framework.pageObjectModels.MarketPage;
-import framework.pageObjectModels.OrdersHistoryPage;
-import io.qameta.allure.*;
-import org.testng.annotations.*;
+import framework.pages.CartPage;
+import framework.pages.MarketPage;
+import framework.pages.OrdersHistoryPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
+import io.qameta.allure.Story;
 
 @Epic("Positive tests")
 @Feature("Login Tests")
@@ -19,14 +28,12 @@ public class MarketPageTests extends TestBase{
     public void openLoginPage(String email, String password){
         logger.info("Navigate to login page");
         marketPage = new MarketPage(driver);
-        logger.info("Login");
         marketPage.doLogin(email,password, driver);
     }
 
     @AfterClass(groups = {"regression", "verifier","updater"})
     @Step("Try to logout")
     public void doLogout(){
-        logger.info("Logout");
         marketPage.doLogout();
     }
 

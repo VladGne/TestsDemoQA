@@ -1,17 +1,17 @@
 package tests;
 
-import framework.models.User;
-import framework.pageObjectModels.RegistrationPage;
-import io.qameta.allure.Description;
-import io.qameta.allure.Step;
-import io.qameta.allure.Story;
-import net.bytebuddy.utility.RandomString;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class RegPageTest extends TestBase {
+import framework.models.User;
+import framework.pages.RegistrationPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
+import io.qameta.allure.Story;
+import net.bytebuddy.utility.RandomString;
+
+public class RegistrationPageTest extends TestBase {
 
     private RegistrationPage registrationPage;
 
@@ -22,22 +22,15 @@ public class RegPageTest extends TestBase {
         registrationPage = new RegistrationPage(driver);
     }
 
-    @AfterMethod(groups = {"regression", "verifier", "updater"})
-    public void doLogout() {
-        logger.info("Logout");
-        registrationPage.doLogout();
-    }
-
     // Create invalid user
     @DataProvider(name = "upperUserData")
-    //@Parameters("upperUserFilePath")
     public Object[][] getUpperUserData() {
 
         return fileReader.getData(User.class);
     }
 
     // Test case 1 - User registration with valid data
-    @Test(dataProvider = "upperUserData", groups = "regression")
+    @Test(dataProvider = "upperUserData", groups = "verifier")
     @Description("Input upper-limits values to all fields in register page, collect and compare all alerts")
     @Story("Check all register fields validation for upper-limits values")
     public void checkUpperLimits(User user) {
@@ -49,12 +42,11 @@ public class RegPageTest extends TestBase {
         user.setAddress2(invalidValue);
         user.setAddressAlias(invalidValue);
 
-        logger.info("\n --- Validation test start ---\n");
+        logger.info(" --- Validation test start ---\n");
 
-        logger.info("Input email");
+        logger.info("Input email - " + user.getEmail());
         registrationPage.submitEmail(user.getEmail(), driver);
 
-        logger.info("Wait for registration form");
         registrationPage.waitForRegistrationForm(driver);
 
         logger.info("Fill registration form");
@@ -76,16 +68,15 @@ public class RegPageTest extends TestBase {
     }
 
     //Check date and phone number validation
-    @Test(dataProvider = "invalidUserData", groups = "regression")
+    @Test(dataProvider = "invalidUserData", groups = "verifier")
     @Description("Input invalid values to all fields in register page, collect and compare all alerts")
     @Story("Check all register fields validation for invalid values")
     public void checkValidations(User user) {
-        logger.info("\n --- Validation test start ---\n");
+        logger.info(" --- Validation test start ---\n");
 
-        logger.info("Input email");
+        logger.info("Input email - " + user.getEmail());
         registrationPage.submitEmail(user.getEmail(), driver);
 
-        logger.info("Wait for registration form");
         registrationPage.waitForRegistrationForm(driver);
 
         logger.info("Fill registration form");
@@ -111,7 +102,7 @@ public class RegPageTest extends TestBase {
     @Story("Register new user")
     @Test(dataProvider = "validUserData", groups = "regression")
     public void checkRegistration(User user) {
-        logger.info("\n --- Registration test start ---\n");
+        logger.info(" --- Registration test start ---\n");
 
         String generatedEmail = new RandomString().nextString() + "@testmail.test";
 
@@ -119,10 +110,9 @@ public class RegPageTest extends TestBase {
         //context.setAttribute("Email", generatedEmail);
         context.put("Email", generatedEmail);
 
-        logger.info("Input email");
+        logger.info("Input email - " + user.getEmail());
         registrationPage.submitEmail(user.getEmail(), driver);
 
-        logger.info("Wait for registration form");
         registrationPage.waitForRegistrationForm(driver);
 
         logger.info("Fill registration form");
@@ -133,6 +123,8 @@ public class RegPageTest extends TestBase {
 
         logger.info("Check user profile button");
         registrationPage.checkUserButton();
+
+        registrationPage.doLogout();
     }
 
     @Description("Verify interactivity main elements of login page")
@@ -142,12 +134,11 @@ public class RegPageTest extends TestBase {
         String generatedEmail = new RandomString().nextString() + "@testmail.test";
         user.setEmail(generatedEmail);
 
-        logger.info("\n --- Visibility test start ---\n");
+        logger.info(" --- Visibility test start ---\n");
 
-        logger.info("Input email");
+        logger.info("Input email - " + user.getEmail() );
         registrationPage.submitEmail(user.getEmail(), driver);
 
-        logger.info("Wait for registration form");
         registrationPage.waitForRegistrationForm(driver);
 
         registrationPage.checkPageElementsVisibility(registrationPage.getClass(), softAssert);

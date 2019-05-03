@@ -1,11 +1,20 @@
 package tests;
 
-import framework.models.User;
-import framework.pageObjectModels.AddressRegistrationPage;
-import framework.pageObjectModels.AddressesPage;
-import io.qameta.allure.*;
-import org.testng.annotations.*;
 import java.lang.reflect.Method;
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import framework.models.User;
+import framework.pages.AddressRegistrationPage;
+import framework.pages.AddressesPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
+import io.qameta.allure.Story;
 
 @Epic("Positive tests")
 @Feature("Login Tests")
@@ -24,7 +33,6 @@ public class AddressesTests extends TestBase {
     @Step("Try to logout")
     @AfterMethod(groups = {"regression", "verifier","updater"})
     public void doLogout(){
-        logger.info("Logout");
         addressesPage.doLogout();
     }
 
@@ -49,7 +57,7 @@ public class AddressesTests extends TestBase {
         addressesPage.checkPageElementsVisibility(addressesPage.getClass(), softAssert);
 
         softAssert.assertAll();
-        logger.info("\n --- Addresses test end ---\n");
+        logger.info(" --- Addresses test end ---\n");
     }
 
     @Description("Verify that users addresses info shows correctly")
@@ -73,7 +81,7 @@ public class AddressesTests extends TestBase {
         addressesPage.compareActualUserWith(user, softAssert);
 
         softAssert.assertAll();
-        logger.info("\n --- Addresses test end ---\n");
+        logger.info(" --- Addresses test end ---\n");
     }
 
     @DataProvider(name = "registeredUserData")

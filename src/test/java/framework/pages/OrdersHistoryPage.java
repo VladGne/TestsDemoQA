@@ -1,14 +1,16 @@
-package framework.pageObjectModels;
+package framework.pages;
 
-import lombok.SneakyThrows;
+import java.io.File;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.testng.asserts.SoftAssert;
-import java.io.File;
-import java.util.concurrent.TimeUnit;
+
+import lombok.SneakyThrows;
 
 public class OrdersHistoryPage extends BasePage{
 

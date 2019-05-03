@@ -1,19 +1,20 @@
-package framework.pageObjectModels;
+package framework.pages;
 
-import framework.models.Order;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
+import framework.models.Order;
+
 public class MarketPage extends BasePage {
 
     public MarketPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
+        super(driver);
+        BasePage.navigate(driver, BasePage.LOGIN_PAGE_URL);
     }
 
     @FindBy(id = "layered_category_4")
@@ -46,17 +47,14 @@ public class MarketPage extends BasePage {
     @FindBy(name = "Submit")
     WebElement addToCartButton;
 
-
     @FindBy(className = "cheque")
     WebElement checkButton;
-
 
     @FindBy(className = "layer_cart_product")
     WebElement addedProductInfo;
 
     @FindBy(xpath = "//td[@class='cart_description']//p[1]")
     WebElement productName;
-
 
     @FindBy(className = "products")
     WebElement productsInCart;

@@ -1,17 +1,16 @@
-package framework.pageObjectModels;
+package framework.pages;
 
-import framework.models.User;
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.asserts.SoftAssert;
 
-import java.util.List;
+import framework.models.User;
 
 public class PersonalPage extends BasePage{
-
-    private final String LOGIN_PAGE_URL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
 
     public PersonalPage(WebDriver driver) {
         super(driver);
@@ -81,7 +80,7 @@ public class PersonalPage extends BasePage{
         User actualUser = new User();
 
         actualUser.setGender(maleCheckBox.isSelected() ? User.Gender.Male : User.Gender.Female);
-        actualUser.setFistName(firstNameBox.getAttribute("value"));
+        actualUser.setFirstName(firstNameBox.getAttribute("value"));
         actualUser.setLastName(lastNameBox.getAttribute("value"));
         actualUser.setEmail(emailBox.getAttribute("value"));
         actualUser.setDayBirth(selectedDay[0]);
@@ -97,7 +96,7 @@ public class PersonalPage extends BasePage{
 
       selectGender(user.getGender());
 
-      inputFirstName(user.getFistName());
+      inputFirstName(user.getFirstName());
       inputLastName(user.getLastName());
 
       inputEmail(user.getEmail());
@@ -180,7 +179,7 @@ public class PersonalPage extends BasePage{
 
         logger.info("Check personal information");
 
-        softAssert.assertEquals(actualUser.getFistName(), user.getFistName(), "Users first names doesn't match ");
+        softAssert.assertEquals(actualUser.getFirstName(), user.getFirstName(), "Users first names doesn't match ");
         softAssert.assertEquals(actualUser.getLastName(), user.getLastName(), "Users last names doesn't match ");
         softAssert.assertEquals(actualUser.getEmail(), user.getEmail(), "Users emails doesn't match ");
         softAssert.assertEquals(actualUser.getGender(), user.getGender(), "Users genders doesn't match ");

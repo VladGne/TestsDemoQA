@@ -1,6 +1,8 @@
-package framework.pageObjectModels;
+package framework.pages;
 
-import lombok.SneakyThrows;
+import java.lang.reflect.Field;
+import java.util.Properties;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -11,12 +13,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
-import java.lang.reflect.Field;
-import java.util.Properties;
 
-import static framework.helperClasses.FileReader.readProperties;
+import lombok.SneakyThrows;
+
+import static framework.helpers.FileReader.readProperties;
 
 public class BasePage {
+
+    static final String LOGIN_PAGE_URL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
 
     private static Properties prop = readProperties();
     static int waiterTime = 10;
@@ -73,20 +77,24 @@ public class BasePage {
     }
 
     public void doLogin(String email, String password, WebDriver driver) {
+        logger.info("Login");
         waitEmailBox(driver);
         LoginPage loginPage = new LoginPage(driver);
+        logger.info("Enter to Email Field - " + email );
         loginPage.inputEmail(email);
+        logger.info("Enter to Password Field" + password );
         loginPage.inputPassword(password);
+        logger.info("Click Login button");
         loginPage.loginButtonClick();
     }
 
     public void doLogout() {
+        logger.info("Logout");
         logoutButton.click();
     }
 
     static void navigate(WebDriver driver, String url) {
         driver.navigate().to(url);
-        //return new BasePage(driver);
     }
 
     public void tShirtButtonClick() {

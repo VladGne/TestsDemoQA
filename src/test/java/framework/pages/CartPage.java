@@ -1,6 +1,5 @@
-package framework.pageObjectModels;
+package framework.pages;
 
-import framework.models.Order;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,7 +8,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
+import framework.models.Order;
+
 public class CartPage extends BasePage{
+
+    private static final String CART_PAGE_URL = "http://automationpractice.com/index.php?controller=order";
 
     @FindBy(className = "cart_quantity_input")
     WebElement quantityTextBox;
@@ -43,7 +46,7 @@ public class CartPage extends BasePage{
     }
 
     public void openCartPage(WebDriver driver){
-        driver.navigate().to("http://automationpractice.com/index.php?controller=order");
+        driver.navigate().to(CART_PAGE_URL);
     }
 
     public void verifyOrder(Order order, SoftAssert softAssert){
@@ -54,14 +57,18 @@ public class CartPage extends BasePage{
         softAssert.assertEquals(quantity, order.getQuantity());
 
         logger.debug("Get product parameters");
-        String productParams = productDescription.getText();
-        productParams = productParams.replaceAll(", Size :", "");
-        productParams = productParams.replaceAll("Color : ", "");
-        String params[] = productParams.split(" ");
+        String [] params = getProductParameters( productDescription.getText() );
 
-        String size =  order.getSize().name();
         softAssert.assertEquals(params[0], order.getColor());
         softAssert.assertEquals(params[1], order.getSize().name());
+    }
+
+    private static String [] getProductParameters(String productParameters){
+
+        productParameters = productParameters.replaceAll(", Size :", "");
+        productParameters = productParameters.replaceAll("Color : ", "");
+
+        return productParameters.split(" ");
     }
 
     public void waitCheckoutButton(WebDriver driver){

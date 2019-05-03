@@ -1,13 +1,14 @@
 package tests;
 
-import framework.models.User;
-import framework.pageObjectModels.PersonalPage;
-import io.qameta.allure.Description;
-import io.qameta.allure.Story;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import framework.models.User;
+import framework.pages.PersonalPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Story;
 
 public class PersonalInfoTests extends TestBase {
 
@@ -21,7 +22,6 @@ public class PersonalInfoTests extends TestBase {
 
     @AfterMethod(groups = {"regression", "verifier", "updater"})
     public void doLogout() {
-        logger.info("Logout");
         personalPage.doLogout();
     }
 
@@ -48,12 +48,12 @@ public class PersonalInfoTests extends TestBase {
         personalPage.checkPageElementsVisibility(personalPage.getClass(), softAssert);
         softAssert.assertAll();
 
-        logger.info("\n --- Check personal info page elements visibility test end ---\n");
+        logger.info(" --- Check personal info page elements visibility test end ---\n");
     }
 
     @Test(dataProvider = "validUserData", groups = {"regression", "verifier"})
     @Description("User personal info on page should be equals to user model")
-    @Story("Compare user personal info with {0}")
+    @Story("Verify user personal info")
     public void checkPersonalInfo(User user) {
         logger.info("\n --- Check personal info test start ---\n");
 
@@ -80,7 +80,7 @@ public class PersonalInfoTests extends TestBase {
 
     @Test(dataProvider = "registeredUserData", groups = {"regression", "updater"})
     @Description("User personal info on page should be updated and saved successfully")
-    @Story("Edit user personal info with {0}")
+    @Story("Edit user personal info")
     public void updatePersonalInfo(User user) {
 
         String email = context.get("Email").toString();

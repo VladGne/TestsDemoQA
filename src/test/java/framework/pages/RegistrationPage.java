@@ -1,7 +1,5 @@
-package framework.pageObjectModels;
+package framework.pages;
 
-import framework.models.User;
-import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,11 +10,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
+import framework.models.User;
+import io.qameta.allure.Step;
+
 public class RegistrationPage extends BasePage {
 
-    final String AuthenticationPageURL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
-
-    //Alert texts
+    //Alerts text
     private static final String MAX_LAST_NAME_MESSAGE = "lastname is too long. Maximum length: 32";
     private static final String MAX_FIRST_NAME_MESSAGE = "firstname is too long. Maximum length: 32";
     private static final String MAX_PASSWORD_MESSAGE = "passwd is too long. Maximum length: 32";
@@ -180,6 +179,7 @@ public class RegistrationPage extends BasePage {
     }
 
     public void waitForRegistrationForm(WebDriver driver){
+        logger.info("Wait for registration form for " +  BasePage.waiterTime + " seconds");
         WebDriverWait wait = new WebDriverWait(driver, BasePage.waiterTime);
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("id_gender1")));
         element = wait.until(ExpectedConditions.visibilityOf(postcodeBox));
@@ -205,7 +205,7 @@ public class RegistrationPage extends BasePage {
 
     public RegistrationPage(WebDriver driver) {
        super(driver);
-       BasePage.navigate(driver, AuthenticationPageURL);
+       BasePage.navigate(driver, BasePage.LOGIN_PAGE_URL);
     }
 
     public void checkUserButton(){
@@ -240,46 +240,47 @@ public class RegistrationPage extends BasePage {
 
     @Step("Fill registration page form with {0}")
     public void fillRegistrationForm(User user){
-        logger.debug("Select gender");
+
+        logger.debug("Select gender - Male");
         selectMaleGender();
 
-        logger.debug("Input first name");
-        inputFirstName(user.getFistName());
+        logger.debug("Input first name - " + user.getFirstName());
+        inputFirstName(user.getFirstName());
 
-        logger.debug("Input last name");
+        logger.debug("Input last name - " + user.getLastName());
         inputLastName(user.getLastName());
 
-        logger.debug("Input password");
+        logger.debug("Input password - " + user.getPassword());
         inputPassword(user.getPassword());
 
-        logger.debug("Input company");
+        logger.debug("Input company - " + user.getCompany());
         inputCompany(user.getCompany());
 
-        logger.debug("Input address1");
+        logger.debug("Input address1 - " + user.getAddress());
         inputAddress1(user.getAddress());
 
-        logger.debug("Input address2");
+        logger.debug("Input address2 - " + user.getAddress2());
         inputAddress2(user.getAddress2());
 
-        logger.debug("Input city");
+        logger.debug("Input city - " + user.getCity());
         inputCity(user.getCity());
 
-        logger.debug("Input post code");
+        logger.debug("Input post code - " + user.getZipCode());
         inputPostcode(user.getZipCode());
 
-        logger.debug("Input country");
+        logger.debug("Input country - " + user.getCountry());
         selectCountry(user.getCountry());
 
-        logger.debug("Input addition information");
+        logger.debug("Input addition information - " + user.getAdditionInformation());
         inputOther(user.getAdditionInformation());
 
-        logger.debug("Input home phone");
+        logger.debug("Input home phone - " + user.getHomePhone());
         inputHomePhone(user.getHomePhone());
 
-        logger.debug("Input mobile phone");
+        logger.debug("Input mobile phone - " + user.getMobilePhone());
         inputMobilePhone(user.getMobilePhone());
 
-        logger.debug("Input alias");
+        logger.debug("Input alias - " + user.getAddressAlias());
         inputAlias(user.getAddressAlias());
 
         logger.debug("Select news");
@@ -288,16 +289,16 @@ public class RegistrationPage extends BasePage {
         logger.debug("Select options");
         selectOptions();
 
-        logger.debug("Select day of birth");
+        logger.debug("Select day of birth - " + user.getDayBirth());
         selectBirthDay(user.getDayBirth());
 
-        logger.debug("Select month of birth");
+        logger.debug("Select month of birth - " + user.getMonthBirth());
         selectBirthMonth(user.getMonthBirth());
 
-        logger.debug("Select year of birth");
+        logger.debug("Select year of birth - " + user.getYearBirth());
         selectBirthYear(user.getYearBirth());
 
-        logger.debug("Input state");
+        logger.debug("Input state - " + user.getState());
         selectState(user.getState());
     }
 }

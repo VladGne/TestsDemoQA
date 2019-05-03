@@ -1,31 +1,36 @@
 package tests;
 
-import framework.helperClasses.FileReader;
-import framework.pageObjectModels.BasePage;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.ITestContext;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Listeners;
 import org.testng.asserts.SoftAssert;
 
-import java.util.HashMap;
-import java.util.Map;
+import framework.helpers.FileReader;
+import framework.pages.BasePage;
 
-@Listeners(framework.helperClasses.Listener.class)
+@Listeners(framework.helpers.Listener.class)
 
 public class TestBase {
 
-    static Map<String, Object> context = new HashMap<>();
+    static         Map<String, Object>    context = new HashMap<>();
     private static ThreadLocal<WebDriver> storage = new ThreadLocal<>();
 
-    SoftAssert softAssert = new SoftAssert();
-    protected Logger logger = LogManager.getLogger(this);
-    HashMap<String,String> parameters;
-    WebDriver driver;
-    FileReader fileReader;
-    int maxFieldLength = 1000;
+    SoftAssert              softAssert = new SoftAssert();
+    HashMap<String, String> parameters;
+    WebDriver               driver;
+    FileReader              fileReader;
+    final     int           maxFieldLength = 1000;
+    protected Logger        logger         = LogManager.getLogger( this );
 
     public WebDriver getDriver() {
         WebDriver current = storage.get();

@@ -1,8 +1,8 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name = "Page elements tests">
-    <test name = "Check page elements visibility test">
+<suite name = "Page elements verification tests">
+    <test name = "Verify page elements visibility test">
         <parameter name = "Data" value="src\\test\\data\\validUser.json"/>
         <classes>
             <class name="tests.AddressesTests">
@@ -20,7 +20,7 @@
                          <include name="checkVisibility"/>
                      </methods>
                  </class>
-            <class name="tests.RegPageTest">
+            <class name="tests.RegistrationPageTest">
                 <methods>
                     <include name="checkVisibility"/>
                 </methods>

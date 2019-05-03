@@ -1,11 +1,11 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name = "User Profile">
-    <test name = "Add new user test">
+<suite name = "User Profile Suite">
+    <test name = "Add new user functional test">
         <parameter name = "Data" value="src\\test\\data\\validUser.json"/>
         <classes>
-            <class name="tests.RegPageTest">
+            <class name="tests.RegistrationPageTest">
                 <methods>
                     <include name="checkRegistration"/>
                 </methods>
@@ -30,7 +30,7 @@
         </classes>
     </test>
 
-    <test name = "Update user info test">
+    <test name = "Update user info functional test">
         <parameter name="Data" value="src\\test\\data\\registeredUser.json"/>
 
         <classes>

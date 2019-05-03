@@ -1,7 +1,5 @@
-package framework.pageObjectModels;
+package framework.pages;
 
-import framework.models.User;
-import lombok.Data;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,8 +9,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import framework.models.User;
 
-@Data
+
 public class AddressRegistrationPage extends BasePage{
 
     public AddressRegistrationPage(WebDriver driver) {
@@ -136,7 +135,7 @@ public class AddressRegistrationPage extends BasePage{
     public void fillAddressRegistrationForm(User user){
 
         logger.debug("Input first name");
-        inputFirstName(user.getFistName());
+        inputFirstName(user.getFirstName());
 
         logger.debug("Input last name");
         inputLastName(user.getLastName());
@@ -152,9 +151,6 @@ public class AddressRegistrationPage extends BasePage{
 
         logger.debug("Input city");
         inputCity(user.getCity());
-
-        //logger.debug("Input country");
-        //selectCountry(user.getCountry());
 
         logger.debug("Input post code");
         inputPostcode(user.getZipCode());
